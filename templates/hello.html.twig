@@ -50,7 +50,7 @@
 
 				<div class="form-group name">
 					<label for="name"><span style="color:red">*</span>姓名或機構名稱</label>
-					<input id="name" type="text" name="name">
+					<input id="name" type="text" name="name" required>
 				</div>
 
 				<div class="anonymity">
@@ -111,37 +111,40 @@
 				</div>
 
 				<div class="form-group address">
+					<script src="{{ asset('area.js') }}" type="text/javascript"></script>
 					<label for="address"><span style="color:red">*</span>收據寄送地址</label>
-					<input type="text" name="zipcode_1" placeholder="郵遞區號" maxlength="3">
-					"-"
-					<input type="text" name="zipcode_2" placeholder="郵遞區號" maxlength="2">
+					<input type="text" name="zipcode_1" placeholder="郵遞區號" maxlength="3">-<input type="text" name="zipcode_2" placeholder="郵遞區號" maxlength="2">
 					<select id="country">
 						<option>臺灣</option>
 						<option>其他海外地區</option>
 					</select>
-					<select id="city">
-						<option>基隆市</option>
-						<option>臺北市</option>
-						<option>新北市</option>
-						<option>桃園市</option>
-						<option>新竹市</option>
-						<option>新竹縣</option>
-						<option>苗栗縣</option>
-						<option>臺中市</option>
-						<option>彰化縣</option>
-						<option>南投縣</option>
-						<option>雲林縣</option>
-						<option>嘉義是</option>
-						<option>嘉義縣</option>
-						<option>臺南市</option>
-						<option>高雄市</option>
-						<option>屏東縣</option>
-						<option>宜蘭縣</option>
-						<option>花蓮縣</option>
-						<option>臺東縣</option>
-						<option>澎湖縣</option>
-						<option>金門縣</option>
-						<option>連江縣</option>
+					<select id="county" name="county" onchange="select_area(this.value);">
+						<option value="none" selected disabled hidden>請選擇縣市</option>
+						<option value="1">基隆市</option>
+						<option value="2">臺北市</option>
+						<option value="3">新北市</option>
+						<option value="4">桃園市</option>
+						<option value="5">新竹市</option>
+						<option value="6">新竹縣</option>
+						<option value="7">苗栗縣</option>
+						<option value="8">臺中市</option>
+						<option value="9">彰化縣</option>
+						<option value="10">南投縣</option>
+						<option value="11">雲林縣</option>
+						<option value="12">嘉義市</option>
+						<option value="13">嘉義縣</option>
+						<option value="14">臺南市</option>
+						<option value="15">高雄市</option>
+						<option value="16">屏東縣</option>
+						<option value="17">臺東縣</option>
+						<option value="18">花蓮縣</option>
+						<option value="19">宜蘭縣</option>
+						<option value="20">澎湖縣</option>
+						<option value="21">金門縣</option>
+						<option value="22">連江縣</option>
+					</select>
+					<select id="area" name="area">
+						<option value="none" selected disabled hidden>請選擇鄉鎮市區</option>
 					</select>
 					<input id="address" name="address" type="text">
 				</div>
