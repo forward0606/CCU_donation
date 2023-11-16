@@ -2,12 +2,14 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}中正大學捐款網站{% endblock %}</title>
         <link rel="icon" href>
         {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('style.css') }}" type="text/css" />
         {% endblock %}
 
         {% block javascripts %}
+        <script src="{{ asset('event.js') }}"></script> 
         {% endblock %}
     </head>
     <body>

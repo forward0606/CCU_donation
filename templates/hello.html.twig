@@ -1,410 +1,176 @@
-
-<!DOCTYPE html>
-<html lang="zh-tw">
-<head>
-
-
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport" content="initial-scale=1.0, user-scalable=1, minimum-scale=1.0, maximum-scale=3.0">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
-<meta name="keywords" content="捐款芳名錄,嘉有機會,勵學心得,海外捐款" />
-<meta name="description" content="國立中正大學竭誠邀請您,透過捐款中正,為雲嘉地區帶來改變，為台灣未來孕育人才。" />
-<title>捐款中正</title>
-
-<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
-<link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
-<link rel="bookmark" href="/images/favicon.ico" type="image/x-icon" />
-
-
-<link rel="stylesheet" href="https://donate.ccu.edu.tw/var/file/29/1029/mobilestyle/combine-zh-tw.css?t=1699584797" type="text/css" />
-<script language="javascript"><!--
- var isHome = false 
- --></script>
-<script language="javascript"><!--
- var isExpanMenu = false 
- --></script>
-<script type="text/javascript" src="/var/file/js/m_20231110.js" ></script>
-</head>
+{% extends 'base.html.twig' %}
  
-<body class="page_mobileselfpg  ">
+{% block body %}
 
-<div class="wrap">
+<!-- head of the donation web -->
+<div class="top">
+	<div class="logo">
+		<a href="https://localhost/" title="中正大學捐款網站">
+			<span style="font-size:32px; color:#634a87;">中正大學線上捐款系統</span>
+			<br>
+			<span>DONATE, CCU</span> 
+		</a>
+	</div>
 
-
-<a href="#start-C" class="focusable" title="跳到主要內容區">跳到主要內容區</a>
-
-
-<div class="fpbgvideo"></div>
-<div class="minner">
-
-<div id="Dyn_head">
-<div class="header">
-	<div class="minner container">
-
-
-
-
-
-
-
-	
-<div class="selfhead">
-		<div class="meditor">
-	
-      
-         
-			<div class="head container">
-<div class="mlogo">
-<a href="https://donate.ccu.edu.tw/" title="國立中正大學捐款中正"><span style="font-size:32px; color:#634a87;">國立中正大學捐款中正</span><br />
-<span>DONATE, CCU</span> </a>
-</div>
-
-<div class="topnav">
-				
-				
-
-
-
-   
-<div class="headnavcust">
-	<div class="mnavbar mn-collapse">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".hd-topnav">
-			<span class="glyphicons show_lines">Menu</span>
-		</button>
-		<div class="nav-toggle collapse navbar-collapse iosScrollToggle hd-topnav">
-			<div class="hdmenu">
-				<ul class="nav navbar-nav" id="a283b2b9c09f36ef1898f9ab69fb8b963_MenuTop_topnav">
-				
-					<li   id="Hln_2817" ><a  href="https://www.ccu.edu.tw/" title="國立中正大學">國立中正大學</a></li>
-				
-					<li   id="Hln_2818" ><a  href="/" title="回首頁">回首頁</a></li>
-				
-				</ul>
-			</div>
-		</div>
+	<div class="nav">
+		<ul class="menu">
+			<li><a href="https://www.ccu.edu.tw/" title="國立中正大學">國立中正大學</a></li>
+			<li><a href="https://donate.ccu.edu.tw/">捐款中正</a></li>
+			<li><a href="https://localhost/" title="回首頁">回首頁</a></li>
+			<li><a href="mailto:admwrl@ccu.edu.tw">聯絡我們</a></li>
+		</ul>
 	</div>
 </div>
 
-<script>
-$(document).ready(function(){
-	$(".mnavbar .navbar-toggle").click(function(){
-		$(this).toggleClass("open");
-	});
-   $('.iosScrollToggle').on('shown.bs.collapse', function () {
-		var togglePos = $(this).css('position');
-      if(togglePos !== 'static'){
-          ModalHelper.afterOpen();
-      }
-    });
+<!-- body of the donation web -->
+<div class="center">
+	<!-- 1.填寫基本資料 2.填寫捐贈項目、金額、付款方式 3.付款資訊以及是否需要收據 -->
+	<div class="progressbar">
+		<ul>
+			<li>基本資料</li>
+			<li>捐款資訊</li>
+			<li>付款資訊</li>
+			<li>捐款完成</li>
+		</ul>	
+	</div>
 
-    $('.iosScrollToggle').on('hide.bs.collapse', function () {
-		var togglePos = $(this).css('position');
-      if(togglePos !== 'static'){
-			ModalHelper.beforeClose();
-      }
-    });
-	
-});
-</script>
+	<div class="form">
+		<!-- output would be send to formprocess.php -->
+		<form id="personal"action="formprocess.php" method="post">
+			<!-- 1.填寫基本資料 -->
+			<fieldset>
+				<div class="form-group identify">
+					<label for="identify"><span style="color:red">*</span>請選擇您的身分</label><br>
+					<select id="identity_type" name="identity_type">
+						<option value="public">一般民眾</option>
+						<option value="enterprise">公司企業</option>
+						<option value="alumnus" selected="">中正校友</option>
+					</select>
+				</div>
 
+				<div class="form-group name">
+					<label for="name"><span style="color:red">*</span>姓名或機構名稱</label>
+					<input id="name" type="text" name="name">
+				</div>
 
+				<div class="anonymity">
+					<label for="anonymity">是否需要匿名</label>
+					<input type="radio" name="receipt" value="1">
+					<label>是</label>
+					<input type="radio" name="receipt" value="0">
+					<label>否</label>
+					<p>選擇匿名您的名字將會以"中正人"顯示</p>
+				</div>
 
-	
+				<div class="id">
+					<label for="id"><span style="color:red">*</span>身份證字號或統一編號</label>
+					<input id="id" type="text" name="id">
+				</div>
 
+				<div class="form-group email">
+					<label for="email"><span style="color:red">*</span>Email</label>
+					<input id="email" name="email" type="email">
+				</div>
 
-<script language="javascript">
-tabSwitch("a283b2b9c09f36ef1898f9ab69fb8b963_MenuTop_topnav");
-</script>
+				<div class="form-group phone">
+					<label for="phone"><span style="color:red">*</span>聯絡電話</label>
+					<input id="phone" maxlength="10" name="phone" type="tel">
+				</div>
 
-         
-			</div>
+				<div class="form-group comments">
+					<label for="comments">備註</label>
+					<textarea id="comments" name="comments" rows="5" cols="20"></textarea>
+				</div>
 
-<div class="mycollapse"><button class="navbar-toggle" data-target=".nav-toggle" data-toggle="collapse" type="button"><span class="glyphicons show_lines">MENU</span></button>
+				<div>
+					<input type="button" name="next" class="next action-button" value="下一步">
+				</div>
+			</fieldset>
 
-<div class="navbar-collapse nav-toggle collapse" id="collapseExample2">
-<div class="hdsearch"><a aria-expanded="false" class="btn btn-primary navbar-toggle1 sch-toggle" data-toggle="collapse" href="#headsearch" role="button"><span>Search</span></a>
+			<!-- 2.填寫捐贈項目、金額、付款方式 -->
+			<fieldset>
+			</fieldset>
 
-<div class="collapse" id="headsearch">&nbsp;</div>
-</div>
-<div class="mainmenu">
-				
-				
+			<!-- 3.付款資訊以及是否需要收據 -->
+			<fieldset>
+				<!-- maybe add * after coosing "yes" -->
+				<div class="receipt">
+					<label for="receipt">收據類型</label>
+					<input type="radio" name="receipt">
+					<label>紙本</label>
+					<input type="radio" name="receipt">
+					<label>電子</label>
+					<input type="radio" name="receipt">
+					<label>不需要</label>
+					<p>不需要收據請略過下面項目直接點選下一步</p>
+				</div>
 
+				<div class="title">
+					<label for="title"><span style="color:red">*</span>收據抬頭</label>
+					<input id="title" type="text" name="title">
+				</div>
 
+				<div class="form-group address">
+					<label for="address"><span style="color:red">*</span>收據寄送地址</label>
+					<input type="text" name="zipcode_1" placeholder="郵遞區號" maxlength="3">
+					"-"
+					<input type="text" name="zipcode_2" placeholder="郵遞區號" maxlength="2">
+					<select id="country">
+						<option>臺灣</option>
+						<option>其他海外地區</option>
+					</select>
+					<select id="city">
+						<option>基隆市</option>
+						<option>臺北市</option>
+						<option>新北市</option>
+						<option>桃園市</option>
+						<option>新竹市</option>
+						<option>新竹縣</option>
+						<option>苗栗縣</option>
+						<option>臺中市</option>
+						<option>彰化縣</option>
+						<option>南投縣</option>
+						<option>雲林縣</option>
+						<option>嘉義是</option>
+						<option>嘉義縣</option>
+						<option>臺南市</option>
+						<option>高雄市</option>
+						<option>屏東縣</option>
+						<option>宜蘭縣</option>
+						<option>花蓮縣</option>
+						<option>臺東縣</option>
+						<option>澎湖縣</option>
+						<option>金門縣</option>
+						<option>連江縣</option>
+					</select>
+					<input id="address" name="address" type="text">
+				</div>
 
-   
-<div class="headnavcust">
-	<div class="mnavbar mn-collapse">
-		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".hd-mainmenu">
-			<span class="glyphicons show_lines">Menu</span>
-		</button>
-		<div class="nav-toggle collapse navbar-collapse iosScrollToggle hd-mainmenu">
-			<div class="hdmenu">
-				<ul class="nav navbar-nav" id="a283b2b9c09f36ef1898f9ab69fb8b963_MenuTop_mainmenu">
-				
-					<li   id="Hln_2822" ><a  href="/app/index.php" title="最新消息">最新消息</a></li>
-				
-					<li   id="Hln_9666" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" title="我要捐款">我要捐款</a><ul class="dropdown-menu"><li  id="Hln_9671"><a href="https://edonate.ccu.edu.tw/" title="線上捐款系統">線上捐款系統</a></li><li  id="Hln_9667"><a href="/p/404-1029-5600.php?Lang=zh-tw" title="一般捐款">一般捐款</a></li><li  id="Hln_9668"><a href="/p/404-1029-6008.php?Lang=zh-tw" title="實物捐贈">實物捐贈</a></li><li  id="Hln_6022"><a href="/p/404-1029-5614.php?Lang=zh-tw" title="小額捐款">小額捐款</a></li><li  id="Hln_9669"><a href="/p/404-1029-6009.php?Lang=zh-tw" title="海外捐款(非美國地區適用)">海外捐款(非美國地區適用)</a></li><li  id="Hln_9681"><a href="/p/404-1029-31614.php?Lang=zh-tw" title="海外捐款(美國地區適用)">海外捐款(美國地區適用)</a></li><li  id="Hln_9670"><a href="/p/404-1029-6010.php?Lang=zh-tw" title="捐款流程圖">捐款流程圖</a></li></ul></li>
-				
-					<li   id="Hln_2828" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" title="捐款芳名錄">捐款芳名錄</a><ul class="dropdown-menu"><li  id="Hln_10570"><a href="/p/403-1029-3803.php?Lang=zh-tw" title="112芳名錄">112芳名錄</a></li><li  id="Hln_2841"><a href="/p/426-1029-5.php?Lang=zh-tw" title="111芳名錄">111芳名錄</a></li><li  id="Hln_2840"><a href="/p/426-1029-9.php?Lang=zh-tw" title="110芳名錄">110芳名錄</a></li><li  id="Hln_2839"><a href="/p/426-1029-8.php?Lang=zh-tw" title="109芳名錄">109芳名錄</a></li><li  id="Hln_2838"><a href="/p/426-1029-7.php?Lang=zh-tw" title="108芳名錄">108芳名錄</a></li><li  id="Hln_2837"><a href="/p/426-1029-6.php?Lang=zh-tw" title="107芳名錄">107芳名錄</a></li></ul></li>
-				
-					<li   id="Hln_5997" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" title="「嘉有機會」希望專戶">「嘉有機會」希望專戶</a><ul class="dropdown-menu"><li  id="Hln_6000"><a href="/p/404-1029-5590.php?Lang=zh-tw" title="回饋方案">回饋方案</a></li><li  id="Hln_6009"><a href="/p/426-1029-1.php?Lang=zh-tw" title="勵學獎助學金獲獎助者心得分享">勵學獎助學金獲獎助者心得分享</a></li><li  id="Hln_6237"><a href="/p/426-1029-2.php?Lang=zh-tw" title="博士獎助學金獲獎助者生命歷程">博士獎助學金獲獎助者生命歷程</a></li></ul></li>
-				
-					<li   id="Hln_2823" ><a  href="https://secretar.ccu.edu.tw/p/426-1003-30.php?Lang=zh-tw" title="中心成員">中心成員</a></li>
-				
-					<li   id="Hln_2827" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" title="表單下載">表單下載</a><ul class="dropdown-menu"><li  id="Hln_10575"><a href="/p/404-1029-5601.php?Lang=zh-tw	" title="捐款申請表單">捐款申請表單</a></li><li  id="Hln_10573"><a href="/p/404-1029-36626.php?Lang=zh-tw" title="台灣摩菲爾廣告捐贈">台灣摩菲爾廣告捐贈</a></li></ul></li>
-				
-					<li   id="Hln_6238" ><a  href="/p/131-1029-19.php?Lang=zh-tw" title="活動花絮">活動花絮</a></li>
-				
-					<li   id="Hln_2826" ><a  href="/p/426-1029-3.php?Lang=zh-tw" title="相關法規">相關法規</a></li>
-				
-        		
-				</ul>
-			</div>
-		</div>
+				<div>
+					<p id="code"></p>
+					<p></p>
+					<a href="#" id="recode">更新驗證碼</a>
+					<p></p>
+					<input type = "text" id = "input" placeholder="請輸入驗證碼,不分大、小寫">
+					<p></p>
+					<input type = "button" value="驗證" id="validate"> 
+				</div>
+
+				<input type="button" name="previous" class="previous action-button" value="上一步">
+				<input type="submit" value="送出">
+
+			</fieldset>
+
+			<!-- example -->
+			<p>以下佔存一些格式的用法</p>
+			<p>付款方式</p>
+				<p><input type="radio" name="pay" value="credit card">信用卡付款</p>
+				<p><input type="radio" name="pay" value="transfer monry">轉帳</p>
+			
+			<p>example</p>
+			<p><input type="text" name="trash" placeholder="Have a nice day."></p>
+
+		</form>
 	</div>
 </div>
-
-
-
-	
-
-
-<script language="javascript">
-tabSwitch("a283b2b9c09f36ef1898f9ab69fb8b963_MenuTop_mainmenu");
-</script>
-
-         
-         </div>
-<br>
-</div>
-</div>
-</div>
-
-<div id="banner"></div>
-<script>
-    $(document).ready(function () {
-        $.hajaxOpenUrl("/app/index.php?Action=mobileloadmod&Type=mobile_sz_mstr&Nbr=99", '#banner');
-       $.hajaxOpenUrl("/app/index.php?Action=mobileloadmod&Type=mobileheadsch&Nbr=0", '#headsearch');
-    });
-</script>
-      
-      
-   
-
-
-
-
-
-
-	
-	</div>
-</div>
-
-
-
-
-	</div>
-</div>
-<script language="javascript">
-
-	tabSwitch("a283b2b9c09f36ef1898f9ab69fb8b963_MenuTop");
-
-
-
-if(typeof(_LoginHln)=='undefined') var _LoginHln = new hashUtil();
-
-if(typeof(_LogoutHln)=='undefined') var _LogoutHln = new hashUtil();
-
-if(typeof(_HomeHln)=='undefined') var _HomeHln = new hashUtil();
-
-if(typeof(_InternalHln)=='undefined') var _InternalHln = new hashUtil();
-
-
-$(document).ready(function(){
-   if(typeof(loginStat)=='undefined') {
-   	if(popChkLogin()) loginStat="login";
-   	else loginStat="logout";
-	}
-	dealHln(isHome,loginStat,$('div.hdmenu'));
-
-	
-	
-});
-</script>
-<noscript>本功能需使用支援JavaScript之瀏覽器才能正常操作</noscript>
-<!-- generated at Fri Nov 10 2023 11:35:59 --></div>
-
-
-<div class="main">
-<div class="minner">
-
-	
-	
-<div class="row col1 row_0">
-	<div class="mrow container">
-		<div class="col col_02">
-			<div class="mcol">
-				<div id="Dyn_2_1" class="M13400  ">
-                    <div class="module module-special md_style1">
-                        <h1> hello world</h1>
-                    </div>
-                </div>	
-			</div>
-		</div> 			 
-	</div>
-</div>
-	
-
-</div>
-</div>
-
-
-	<style>
-	@media (min-width: 481px) {.row_0 .col_01 { width: 0%;}.row_0 .col_02 { width: 100%;}.row_0 .col_03 { width: 0%;}}
-	</style>
-
-
-<div id="Dyn_footer">
-<div class="footer">
-<div class="minner ">
-
-
-
-
-
-<ul class="langbar">
-
-	 <li><a class="active" title="繁體"><span>繁體</span></a></li>
-
-	 <li><a href="#" onclick="openLangUrl('en');return false;" title="English"><span>English</span></a></li>
-
-</ul>
-<script>
-function openLangUrl(p_lang) {
-   var curlang = getUrlParam("Lang");
-   if(curlang!="") {
-      var str = window.location+"";
-      window.location = str.replace("Lang="+curlang,"Lang="+p_lang);
-   }
-   else {
-      if(window.location.href.indexOf("?")>0)
-         window.location=window.location+'&Lang='+p_lang;
-      else
-         window.location=window.location+'?Lang='+p_lang;
-   }
-}
-function getUrlParam(paramName,url){
-	if(typeof url=="undefined") url=window.location;
-   var oRegex = new RegExp( '[\?&]' + paramName + '=([^&]+)', 'i' ) ;
-   var oMatch = oRegex.exec(url) ;
-   if ( oMatch && oMatch.length > 1 )
-      return oMatch[1] ;
-   else
-      return '' ;
-}
-</script>
-
-
-
-<div class="copyright">
-<div class="meditor">
-	2022 Copyright © 國立中正大學 | 秘書室 | 媒體暨公關中心 <br />
-聯絡人: 林婉茹小姐<br />
-E-mail: mprc@ccu.edu.tw<br />
-TEL: (05)272-0411 # 10252   專線: (05)272-4295<br />
-地址: 621301 嘉義縣民雄鄉三興村7鄰大學路一段168號行政大樓6樓
-	
-</div>
-</div>
-
-
-	<button class="toTop" title="回到頂部">
-    	<span>回到頂部</span>
-	</button>
-<script>
-	// 返回頂部
-	$(document).ready(function(){
-	    gotop();
-	}); 
-	$(window).scroll(function(){
-	    gotop();
-	});
-	$('.toTop').click(function(){
-	    $('html, body, .wrap').animate({scrollTop: '0px'}, 200);
-		 $(".focusable").focus();
-	});
-	function gotop(){
-	    var  winH = $(window).height();
-	    var  scroll = $(window).scrollTop();
-	    if(scroll > 100 ){
-	        $('.toTop').show();
-	    }
-	    else {
-	        $('.toTop').hide();
-	    }
-	}
-	</script>
-
-
-
-
-</div>
-</div>
-<!-- generated at Fri Nov 10 2023 11:35:59 --></div>
-
-
-</div>
-</div>
-<div class="fpbgvideo"></div>
-
-
-
-
-<div id="_pop_login" class="mpopdiv">
-<script>$(document).ready(function() {$.hajaxOpenUrl('/app/index.php?Action=mobileloadmod&Type=mobilepoplogin&Nbr=0','#_pop_login','',function(){menuDropAct();});})</script>
-</div>
-
-
-<div id="_pop_tips" class="mtips">
-	<div class="mbox">
-	</div>
-</div>
-<div id="_pop_dialog" class="mdialog">
-	<div class="minner">
-		<div class="mcont">
-		</div>
-		<footer class="mdialog-foot">
-        	<button type="submit" class="mbtn mbtn-s">OK</button>
-        	<button type="submit" class="mbtn mbtn-c">Cancel</button>
-		</footer>
-	</div>
-</div>
-
-
-<!--<script>NProgress.done();</script>-->
-<script>
-function popChkLogin(){
-	if(typeof(loginStat)=='undefined') {
-   	var chkstat=0;
-   	var chkUrl='/app/index.php?Action=mobilelogin&Op=chklogin';
-   	var chkData = [];
-   	var chkObj=$.hajaxReturn(chkUrl,chkData);
-   	chkstat=chkObj.stat;
-		if(chkstat) {
-			loginStat="login"; 
-			return true;
-		}else {
-			loginStat="logout"; 
-			return false;
-		}	
-	}else {
-		if(loginStat=="login") return true;
-		else return false;
-	}
-}
-
-</script>
-<!-- generated at Mon Nov 13 2023 00:57:48 --></body></html>
+{% endblock %}
