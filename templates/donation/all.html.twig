@@ -1,0 +1,27 @@
+{% extends '/base.html.twig' %}
+
+{% block body%}
+    Donation List:
+    <ul>
+    {% for donation in donations %}
+        <li>
+            id: {{ donation.id }}
+            name: {{ donation.name }}
+            money: {{ donation.money }}
+            <a class="btn btn-outline-secondary" role="button"
+                href="{{ path('donation_show', {'did': donation.id}) }}">
+                link
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+
+    <a class="btn btn-outline-secondary" role="button"
+        href="{{ path('donation_add') }}">
+        add
+    </a>
+
+
+{% endblock %}
+
+
