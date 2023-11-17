@@ -60,8 +60,7 @@ areaArr[20] = ["馬公市", "湖西鄉", "白沙鄉", "西嶼鄉", "望安鄉", 
 areaArr[21] = ["金城鎮", "金湖鎮", "金沙鎮", "金寧鄉", "烈嶼鄉", "烏坵鄉"];
 areaArr[22] = ["南竿鄉", "北竿鄉", "莒光鄉", "東引鄉"];
 
-function select_area(index)
-{
+function select_area(index){
     var areaSelect = document.getElementById('area');
 	areaSelect.style.display = 'inline';
 	areaSelect.options.length = 0;

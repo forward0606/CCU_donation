@@ -25,142 +25,211 @@
 <!-- body of the donation web -->
 <div class="center">
 	<!-- 1.填寫基本資料 2.填寫捐贈項目、金額、付款方式 3.付款資訊以及是否需要收據 -->
-	<div class="progressbar">
-		<ul>
-			<li>基本資料</li>
-			<li>捐款資訊</li>
-			<li>付款資訊</li>
-			<li>捐款完成</li>
-		</ul>	
+	<div style="text-align: center;">
+	<script src="{{ asset('progress.js') }}" type="text/javascript"></script>
+		<div>
+			<ul class="progress_list">
+				<li>基本資料</li>
+				<li>捐款資訊</li>
+				<li>付款資訊</li>
+				<li>捐款完成</li>
+			</ul>
+		</div>	
+		<div id="progress-container">
+			<div id="progress-bar"></div>
+		</div>
 	</div>
 
 	<div class="form">
 		<!-- output would be send to formprocess.php -->
-		<form id="personal"action="formprocess.php" method="post">
+		<form id="info" action="formprocess.php" method="post">
 			<!-- 1.填寫基本資料 -->
-			<fieldset>
-				<div class="form-group identify">
-					<label for="identify"><span style="color:red">*</span>請選擇您的身分</label><br>
-					<select id="identity_type" name="identity_type">
-						<option value="public">一般民眾</option>
-						<option value="enterprise">公司企業</option>
-						<option value="alumnus" selected="">中正校友</option>
-					</select>
-				</div>
+			<fieldset id="page1">
+				<div>
+					<div class="form-group identify">
+						<label for="identify"><span style="color:red">*</span>請選擇您的身分</label><br>
+						<select id="identity_type" name="identity_type">
+							<option value="public">一般民眾</option>
+							<option value="enterprise">公司企業</option>
+							<option value="alumnus" selected="">中正校友</option>
+						</select>
+					</div>
 
-				<div class="form-group name">
-					<label for="name"><span style="color:red">*</span>姓名或機構名稱</label>
-					<input id="name" type="text" name="name" required>
-				</div>
+					<div class="form-group name">
+						<label for="name"><span style="color:red">*</span>姓名或機構名稱</label><br>
+						<input id="name" type="text" name="name" required>
+					</div>
 
-				<div class="anonymity">
-					<label for="anonymity">是否需要匿名</label>
-					<input type="radio" name="receipt" value="1">
-					<label>是</label>
-					<input type="radio" name="receipt" value="0">
-					<label>否</label>
-					<p>選擇匿名您的名字將會以"中正人"顯示</p>
-				</div>
+					<div class="form-group anonymity">
+					<script src="{{ asset('txt.js') }}" type="text/javascript"></script>
+						<label for="anonymity">是否需要匿名</label><br>
+						<input type="radio" name="anonymity" value="1" onchange="showTextbox()">
+						<label>是</label>
+						<input type="radio" name="anonymity" value="0" checked="checked" onchange="showTextbox()">
+						<label>否</label>
+						<p class="remark blueTxt" id="txt_anonymity">選擇匿名您的名字將會以"中正人"顯示</p>
+					</div>
 
-				<div class="id">
-					<label for="id"><span style="color:red">*</span>身份證字號或統一編號</label>
-					<input id="id" type="text" name="id">
-				</div>
+					<div class="form-group id_number">
+						<label for="id_number"><span style="color:red">*</span>身份證字號或統一編號</label><br>
+						<input id="id_number" type="text" name="id" required>
+					</div>
 
-				<div class="form-group email">
-					<label for="email"><span style="color:red">*</span>Email</label>
-					<input id="email" name="email" type="email">
-				</div>
+					<div class="form-group email">
+						<label for="email"><span style="color:red">*</span>Email</label><br>
+						<input id="email" name="email" type="text" required>
+					</div>
 
-				<div class="form-group phone">
-					<label for="phone"><span style="color:red">*</span>聯絡電話</label>
-					<input id="phone" maxlength="10" name="phone" type="tel">
-				</div>
+					<div class="form-group phone">
+						<label for="phone"><span style="color:red">*</span>聯絡電話</label><br>
+						<input id="phone" maxlength="10" name="phone" type="text" required>
+					</div>
 
-				<div class="form-group comments">
-					<label for="comments">備註</label>
-					<textarea id="comments" name="comments" rows="5" cols="20"></textarea>
+					<div class="form-group comments">
+						<label for="comments">備註</label><br>
+						<textarea id="comments" name="comments" rows="1" cols="100"></textarea>
+					</div>
 				</div>
 
 				<div>
-					<input type="button" name="next" class="next action-button" value="下一步">
+					<input type="button" name="next" class="next action-button" value="下一步" onclick="plusProgress()">
 				</div>
 			</fieldset>
 
 			<!-- 2.填寫捐贈項目、金額、付款方式 -->
-			<fieldset>
-			</fieldset>
+			<fieldset id="page2">
+				<div class="form-group project">
+				<script src="{{ asset('project.js') }}" type="text/javascript"></script>
+					<label for="project"><span style="color:red">*</span>請選擇想要捐款的項目</label><br>
+					<select id="department" name="department" onchange="select_dept(this.value);">
+						<option value="none" selected disabled hidden>請選擇捐款單位</option>
+						<option value="0">中正大學</option>
+						<option value="1">文學院</option>
+						<option value="2">社會科學院</option>
+						<option value="3">管理學院</option>
+						<option value="4">教育學院</option>
+						<option value="5">理學院</option>
+						<option value="6">工學院</option>
+						<option value="7">法學院</option>
+						<option value="8">語言中心</option>
+						<option value="9">通識中心</option>
+						<option value="10">師培中心</option>
+					</select>
 
-			<!-- 3.付款資訊以及是否需要收據 -->
-			<fieldset>
-				<!-- maybe add * after coosing "yes" -->
-				<div class="receipt">
-					<label for="receipt">收據類型</label>
-					<input type="radio" name="receipt">
-					<label>紙本</label>
-					<input type="radio" name="receipt">
-					<label>電子</label>
-					<input type="radio" name="receipt">
-					<label>不需要</label>
-					<p>不需要收據請略過下面項目直接點選下一步</p>
+					<select id="dept" name="dept" style="display: none;">
+						<option value="none" selected disabled hidden>請選擇捐款單位</option>
+					</select>
+	
+					</select>
+					<select id="project" name="project">
+						<option value="none" selected disabled hidden>請選擇捐款項目</option>
+						<option>中正之友捐款</option>
+						<option>「小小力量，大大未來」小額捐款專戶</option>
+						<option>校慶聯誼餐會募款專戶</option>
+						<option>中正菁英願景基金</option>
+						<option>中正大學「嘉有機會希望專戶」-學生獎助學金及急難救助金捐款</option>
+					</select>
 				</div>
 
-				<div class="title">
-					<label for="title"><span style="color:red">*</span>收據抬頭</label>
-					<input id="title" type="text" name="title">
+				<div class="form-group money">
+					<label for="money"><span style="color:red">*</span>請選擇捐款金額</label><br>
+					<select disabled style="padding: 10px;">
+						<option selected="selected">TWD</option>
+					</select>
+					<input id="money" type="number" min="0" required>
 				</div>
 
-				<div class="form-group address">
-					<script src="{{ asset('area.js') }}" type="text/javascript"></script>
-					<label for="address"><span style="color:red">*</span>收據寄送地址</label>
-					<input type="text" name="zipcode_1" placeholder="郵遞區號" maxlength="3">-<input type="text" name="zipcode_2" placeholder="郵遞區號" maxlength="2">
-					<select id="country">
-						<option>臺灣</option>
-						<option>其他海外地區</option>
+				<div class="form-group pay">
+					<label for="pay">請選擇捐款方式</label><br>
+					<select id="pay" name="pay" disabled>
+						<option selected="selected">信用卡線上捐款</option>
 					</select>
-					<select id="county" name="county" onchange="select_area(this.value);">
-						<option value="none" selected disabled hidden>請選擇縣市</option>
-						<option value="1">基隆市</option>
-						<option value="2">臺北市</option>
-						<option value="3">新北市</option>
-						<option value="4">桃園市</option>
-						<option value="5">新竹市</option>
-						<option value="6">新竹縣</option>
-						<option value="7">苗栗縣</option>
-						<option value="8">臺中市</option>
-						<option value="9">彰化縣</option>
-						<option value="10">南投縣</option>
-						<option value="11">雲林縣</option>
-						<option value="12">嘉義市</option>
-						<option value="13">嘉義縣</option>
-						<option value="14">臺南市</option>
-						<option value="15">高雄市</option>
-						<option value="16">屏東縣</option>
-						<option value="17">臺東縣</option>
-						<option value="18">花蓮縣</option>
-						<option value="19">宜蘭縣</option>
-						<option value="20">澎湖縣</option>
-						<option value="21">金門縣</option>
-						<option value="22">連江縣</option>
-					</select>
-					<select id="area" name="area">
-						<option value="none" selected disabled hidden>請選擇鄉鎮市區</option>
-					</select>
-					<input id="address" name="address" type="text">
 				</div>
 
 				<div>
-					<p id="code"></p>
+					<input type="button" name="next" class="next action-button" value="下一步" onclick="plusProgress()">
+					<input type="button" name="previous" class="previous action-button" value="上一步" onclick="minusProgress()">
+				</div>
+			</fieldset>
+
+			<!-- 3.付款資訊以及是否需要收據 -->
+			<fieldset id="page3">
+			<script src="{{ asset('txt.js') }}" type="text/javascript"></script>
+				<!-- maybe add * after coosing "yes" -->
+				<div class="form-group receipt">
+					<label for="receipt"><span style="color:red">*</span>收據類型</label><br>
+					<input type="radio" name="receipt" value="0" onclick="showAddress()">
+					<label>紙本</label>
+					<input type="radio" name="receipt" value="1" onclick="showAddress()">
+					<label>電子</label>
+					<input type="radio" name="receipt" value="2" onclick="showAddress()">
+					<label>不需要</label>
+					<p class="remark blueTxt" id="txt_email">電子收據將會寄送到您的Email</p>
+				</div>
+
+				<div class="receipt_control" id="receipt_control"">
+					<div class="form-group title">
+						<label for="title"><span style="color:red">*</span>收據抬頭</label><br>
+						<input name="title" type="radio" checked="checked">
+						<label>同捐款人名稱</label>
+						<input name="title" type="radio">
+						<label>其他</label>
+						<input id="title" type="text" style="width: 20%;">
+					</div>
+
+					<div class="form-group address">
+						<script src="{{ asset('area.js') }}" type="text/javascript"></script>
+						<label for="address"><span style="color:red">*</span>收據寄送地址</label><br>
+						<select id="country">
+							<option>臺灣</option>
+							<option>其他海外地區</option>
+						</select>
+						<select id="county" name="county" onchange="select_area(this.value);">
+							<option value="none" selected disabled hidden>請選擇縣市</option>
+							<option value="1">基隆市</option>
+							<option value="2">臺北市</option>
+							<option value="3">新北市</option>
+							<option value="4">桃園市</option>
+							<option value="5">新竹市</option>
+							<option value="6">新竹縣</option>
+							<option value="7">苗栗縣</option>
+							<option value="8">臺中市</option>
+							<option value="9">彰化縣</option>
+							<option value="10">南投縣</option>
+							<option value="11">雲林縣</option>
+							<option value="12">嘉義市</option>
+							<option value="13">嘉義縣</option>
+							<option value="14">臺南市</option>
+							<option value="15">高雄市</option>
+							<option value="16">屏東縣</option>
+							<option value="17">臺東縣</option>
+							<option value="18">花蓮縣</option>
+							<option value="19">宜蘭縣</option>
+							<option value="20">澎湖縣</option>
+							<option value="21">金門縣</option>
+							<option value="22">連江縣</option>
+						</select>
+						<select id="area" name="area">
+							<option value="none" selected disabled hidden>請選擇鄉鎮市區</option>
+						</select>
+						<br>
+						<input type="text" name="zipcode_1" maxlength="3">
+						<input type="text" name="zipcode_2" maxlength="2">
+						<input id="address" name="address" type="text" style="width: 40%;">
+					</div>
+				</div>
+
+				<div class="form-group verify">
+					<label id="code"></label>
+					<label><a href="#" id="recode">更新驗證碼</a><label>
 					<p></p>
-					<a href="#" id="recode">更新驗證碼</a>
-					<p></p>
-					<input type = "text" id = "input" placeholder="請輸入驗證碼,不分大、小寫">
+					<input type = "text" id = "input" placeholder="請輸入驗證碼" style="width: 15%;">
 					<p></p>
 					<input type = "button" value="驗證" id="validate"> 
 				</div>
 
-				<input type="button" name="previous" class="previous action-button" value="上一步">
-				<input type="submit" value="送出">
+				<input type="submit" class="action-button" value="送出" onclick="plusProgress()">
+				<input type="button" name="previous" class="previous action-button" value="上一步" onclick="minusProgress()">
 
 			</fieldset>
 
