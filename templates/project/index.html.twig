@@ -1,0 +1,26 @@
+{# templates/project/index.html.twig #}
+
+{% extends '/base.html.twig' %}
+{% block body%}
+
+{{ form(form) }}
+
+<h3>DataBase</h3>
+<table>
+    <tr>
+        <td>Institution</td>
+        <td>Department</td>
+        <td>Name</td>
+        <td>delete</td>
+    </tr>
+    {% for project in projects %}
+    <tr>
+        <td>{{ project.institution }}</td>
+        <td>{{ project.department }}</td>
+        <td>{{ project.name }}</td>
+        <td><a href="{{ path('project_delete', {'did': project.id}) }}">delete</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
