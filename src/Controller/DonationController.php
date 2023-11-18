@@ -32,6 +32,21 @@ class DonationController extends AbstractController
         $donation = new Donation();
         $donation->setName('Keyboard');
         $donation->setMoney(1999);
+        $donation->setPersonId('A123456789');
+        $donation->setAnonymous(true);
+        $donation->setIdentityType('normal');
+        $donation->setEmail('tester@ivalid_maybe');
+        $donation->setPhone('0912345678');
+        $donation->setDepartment('CSIE');
+        $donation->setProject('test');
+        $donation->setPay('VISA');
+        $donation->setStatus('not yet');
+        $donation->setType('paper');
+        $donation->setDescription('first_test_case');
+        $donation->setDate(new \DateTime());
+
+
+
 
         $form = $this->createForm(DonationType::class, $donation);
         $form->handleRequest($request);
