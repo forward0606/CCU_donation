@@ -60,6 +60,12 @@ class Donation
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $pay_date = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 16, nullable: true)]
+    private ?string $zipcode = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -242,6 +248,30 @@ class Donation
     public function setPayDate(\DateTimeInterface $pay_date): static
     {
         $this->pay_date = $pay_date;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getZipcode(): ?string
+    {
+        return $this->zipcode;
+    }
+
+    public function setZipcode(?string $zipcode): static
+    {
+        $this->zipcode = $zipcode;
 
         return $this;
     }

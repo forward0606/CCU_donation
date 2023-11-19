@@ -44,6 +44,8 @@ class DonationController extends AbstractController
         $donation->setType('paper');
         $donation->setDescription('first_test_case');
         $donation->setDate(new \DateTime());
+        $donation->setAddress('test');
+        $donation->setZipcode('12345');
 
 
 
