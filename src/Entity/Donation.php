@@ -218,7 +218,7 @@ class Donation
 
     public function getDescription(): ?string
     {
-        return $this->desciption;
+        return $this->description;
     }
 
     public function setDescription(?string $description): static

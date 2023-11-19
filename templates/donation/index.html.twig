@@ -5,5 +5,39 @@ id: {{ donation.id }}
 <br>
 name: {{ donation.name }}
 <br>
+person_id: {{ donation.personId }}
+<br>
+email: {{ donation.email }}
+<br>
+phone: {{ donation.phone }}
+<br>
+address: {{ donation.address }}
+<br>
+zipcode: {{ donation.zipcode }}
+<br>
+
+identity_type: {{ donation.identityType }}
+<br>
+anonynous: {{ donation.anonymous }}
+<br>
+
 money: {{ donation.money }}
+<br>
+department: {{ donation.department }}
+<br>
+project: {{ donation.project }}
+<br>
+pay: {{ donation.pay }}
+<br>
+status: {{ donation.status }}
+<br> 
+type: {{ donation.type }}
+<br>
+description: {{ donation.description }}
+<br>
+
+date: {{ donation.date|date('Y-m-d') }}
+<br>
+paydate: {{ donation.paydate is empty ? '' : donation.paydate|date('Y-m-d') }}
+
 {% endblock %}

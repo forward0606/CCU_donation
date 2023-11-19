@@ -8,6 +8,21 @@
             id: {{ donation.id }}
             name: {{ donation.name }}
             money: {{ donation.money }}
+            person_id: {{ donation.personId }}
+            email: {{ donation.email }}
+            phone: {{ donation.phone }}
+            anonymous: {{ donation.anonymous }}
+            identity_type: {{ donation.identityType }}
+            department: {{ donation.department }}
+            project: {{ donation.project }}
+            pay: {{ donation.pay }}
+            status: {{ donation.status }}
+            type: {{ donation.type }}
+            description: {{ donation.description }}
+            address: {{ donation.address }}
+            zipcode: {{ donation.zipcode }}
+            date: {{ donation.date|date('Y-m-d') }}
+            paydate: {{ donation.paydate is empty ? '' : donation.paydate|date('Y-m-d') }}
             <a class="btn btn-outline-secondary" role="button"
                 href="{{ path('donation_show', {'did': donation.id}) }}">
                 link

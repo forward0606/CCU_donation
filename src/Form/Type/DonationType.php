@@ -16,6 +16,21 @@ class DonationType extends AbstractType
         $builder
             ->add('name', TextType::class)
             ->add('money', TextType::class)
+            ->add('person_id', TextType::class)
+            ->add('email', TextType::class)
+            ->add('phone', TextType::class)
+            ->add('anonymous', TextType::class)
+            ->add('identity_type', TextType::class)
+            ->add('department', TextType::class)
+            ->add('project', TextType::class)
+            ->add('pay', TextType::class)
+            ->add('status', TextType::class)
+            ->add('type', TextType::class)
+            ->add('date', DateType::class)
+            ->add('pay_date', DateType::class)
+            ->add('description', TextType::class)
+            ->add('address', TextType::class)
+            ->add('zipcode', TextType::class)
             ->add('save', SubmitType::class)
         ;
     }
