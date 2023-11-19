@@ -66,6 +66,10 @@ class Donation
     #[ORM\Column(length: 16, nullable: true)]
     private ?string $zipcode = null;
 
+    #[ORM\ManyToOne(inversedBy: 'donations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?project $project_name = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -272,6 +276,18 @@ class Donation
     public function setZipcode(?string $zipcode): static
     {
         $this->zipcode = $zipcode;
+
+        return $this;
+    }
+
+    public function getProjectName(): ?Project
+    {
+        return $this->project_name;
+    }
+
+    public function setProjectName(?Project $project_name): static
+    {
+        $this->project_name = $project_name;
 
         return $this;
     }

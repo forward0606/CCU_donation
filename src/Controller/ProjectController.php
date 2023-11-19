@@ -22,6 +22,7 @@ class ProjectController extends AbstractController
         $project->setName('贊助我');
         $project->setInstitution('工學院');
         $project->setDepartment('資工系');
+        $project->setAvailable(true);
 
         $form = $this->createForm(ProjectType::class, $project);
 

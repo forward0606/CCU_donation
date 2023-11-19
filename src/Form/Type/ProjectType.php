@@ -17,6 +17,7 @@ class ProjectType extends AbstractType
             ->add('institution', TextType::class)
             ->add('department', TextType::class)
             ->add('name', TextType::class)
+            ->add('available', TextType::class)
             ->add('save', SubmitType::class)
         ;
     }

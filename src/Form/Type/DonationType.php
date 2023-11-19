@@ -3,10 +3,16 @@
 // src/Form/Type/DonationType.php
 namespace App\Form\Type;
 
+use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class DonationType extends AbstractType
@@ -14,24 +20,54 @@ class DonationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('identity_type', ChoiceType::class, [
+                'choices'  => [
+                    '一般民眾' => 'normal',
+                    '公司企業' => 'business',
+                    '中正校友' => 'alumni',
+                ],
+            ])
             ->add('name', TextType::class)
-            ->add('money', TextType::class)
+            ->add('anonymous', ChoiceType::class, [
+                'choices'  => [
+                    'No' => false,
+                    'Yes' => true,
+                ],
+                'expanded' =>	true,
+            ])
             ->add('person_id', TextType::class)
-            ->add('email', TextType::class)
-            ->add('phone', TextType::class)
-            ->add('anonymous', TextType::class)
-            ->add('identity_type', TextType::class)
-            ->add('department', TextType::class)
-            ->add('project', TextType::class)
-            ->add('pay', TextType::class)
-            ->add('status', TextType::class)
-            ->add('type', TextType::class)
-            ->add('date', DateType::class)
-            ->add('pay_date', DateType::class)
+            ->add('email', EmailType::class)
+            ->add('phone', TelType::class)
             ->add('description', TextType::class)
-            ->add('address', TextType::class)
+            
+            // ->add('department', TextType::class)
+            // ->add('project', TextType::class)
+            ->add('project_name', EntityType::class, [
+                'class' => Project::class, 
+                'choice_label' => 'id',
+                'placeholder' => 'Choose project id',
+            ])
+            ->add('money', MoneyType::class, [
+                'currency' => 'TWD',
+            ])
+            ->add('pay', TextType::class)
+
+            
+            ->add('type',  ChoiceType::class, [
+                'choices'  => [
+                    '電子收據' => 'electronic',
+                    '紙本收據' => 'paper',
+                    '不需要收據' => 'none',
+                ],
+            ])
+
             ->add('zipcode', TextType::class)
+            ->add('address', TextType::class)
             ->add('save', SubmitType::class)
+
+            // ->add('date', DateType::class)
+            // ->add('pay_date', DateType::class)
+            // ->add('status', TextType::class)
         ;
     }
 }

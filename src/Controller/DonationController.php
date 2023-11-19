@@ -35,7 +35,7 @@ class DonationController extends AbstractController
         $donation->setPersonId('A123456789');
         $donation->setAnonymous(true);
         $donation->setIdentityType('normal');
-        $donation->setEmail('tester@ivalid_maybe');
+        $donation->setEmail('tester@ivalid.maybe');
         $donation->setPhone('0912345678');
         $donation->setDepartment('CSIE');
         $donation->setProject('test');

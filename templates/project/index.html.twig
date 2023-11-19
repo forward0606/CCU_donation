@@ -11,13 +11,15 @@
         <td>Institution</td>
         <td>Department</td>
         <td>Name</td>
-        <td>delete</td>
+        <td>Available</td>
+        <td>Delete</td>
     </tr>
     {% for project in projects %}
     <tr>
         <td>{{ project.institution }}</td>
         <td>{{ project.department }}</td>
         <td>{{ project.name }}</td>
+        <td>{{ project.available }}</td>
         <td><a href="{{ path('project_delete', {'did': project.id}) }}">delete</a></td>
     </tr>
     {% endfor %}
