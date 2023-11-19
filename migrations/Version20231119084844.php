@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231118043802 extends AbstractMigration
+final class Version20231119084844 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,7 +21,9 @@ final class Version20231118043802 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SEQUENCE donation_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE donation (id INT NOT NULL, name VARCHAR(255) DEFAULT NULL, money INT NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE SEQUENCE project_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE TABLE donation (id INT NOT NULL, name VARCHAR(255) DEFAULT NULL, money INT NOT NULL, person_id VARCHAR(16) NOT NULL, anonymous BOOLEAN NOT NULL, identity_type VARCHAR(8) NOT NULL, email VARCHAR(255) NOT NULL, phone VARCHAR(32) NOT NULL, department VARCHAR(255) NOT NULL, project VARCHAR(255) NOT NULL, pay VARCHAR(255) DEFAULT NULL, status VARCHAR(30) NOT NULL, type VARCHAR(16) NOT NULL, description VARCHAR(255) DEFAULT NULL, date DATE NOT NULL, pay_date DATE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE project (id INT NOT NULL, institution VARCHAR(255) NOT NULL, department VARCHAR(255) NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE messenger_messages (id BIGSERIAL NOT NULL, body TEXT NOT NULL, headers TEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, available_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, delivered_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_75EA56E0FB7336F0 ON messenger_messages (queue_name)');
         $this->addSql('CREATE INDEX IDX_75EA56E0E3BD61CE ON messenger_messages (available_at)');
@@ -44,7 +46,9 @@ final class Version20231118043802 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP SEQUENCE donation_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE project_id_seq CASCADE');
         $this->addSql('DROP TABLE donation');
+        $this->addSql('DROP TABLE project');
         $this->addSql('DROP TABLE messenger_messages');
     }
 }
