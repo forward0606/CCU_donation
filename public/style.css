@@ -6,6 +6,7 @@ body {
     font-family: 'Microsoft JhengHei', 'Helvetica', 'Arial', 'Verdana', "sans-serif" !important;
     font-weight: 400;
     background: white;
+    margin: 0;
 }
 
 ul {
@@ -260,15 +261,27 @@ fieldset {
 }  
 
 #progress-container {
-    width: 1200px;
+    width: 80%;
     height: 20px;
     border: 1px solid #ccc;
-    margin: 20px 220px;
+    margin: 20px auto;
+    justify-content: center;
 }
 
 #progress-bar {
+    margin: 0 ;
     height: 100%;
     width: 0;
     background-color: #634a87;
 }
 
+.bottom {
+
+    background-color: #634a87;
+    color: #fff;
+    padding: 20px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    line-height: 2;
+}
