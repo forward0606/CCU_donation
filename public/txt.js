@@ -12,18 +12,53 @@ function showTextbox() {
 
 function showAddress() {
     var selectedValue = document.querySelector('input[name="receipt"]:checked').value;
-    var divbox = document.getElementById("receipt_control");
+    var titlebox = document.getElementById("form-group title");
+    var addressbox = document.getElementById("form-group address");
     var textbox = document.getElementById("txt_email");
 
-    if (selectedValue === "0") {
-        divbox.style.display = "block";
-    }else{
-        divbox.style.display = "none";
-    }
-
-    if (selectedValue == "1") {
-        textbox.style.display = "inline-block";
-    }else{
+    if (selectedValue == "0") {
+        titlebox.style.display = "block";
+        addressbox.style.display = "block";
         textbox.style.display = "none";
     }
+    else if (selectedValue == "1") {
+        titlebox.style.display = "block";
+        addressbox.style.display = "none";
+        textbox.style.display = "inline-block";
+    }
+    else if (selectedValue == "2") {
+        titlebox.style.display = "none";
+        addressbox.style.display = "none";
+        textbox.style.display = "none";
+    }
+
 }
+
+function showInputName() {
+    var identity_type = document.getElementById("identity_type").value;
+    var public = document.getElementById("form-group public");
+    var enterprise = document.getElementById("form-group enterprise");
+    var NID = document.getElementById("NID");
+    var UBN = document.getElementById("UBN");
+
+    if (identity_type == "public") {
+        public.style.display = "block";
+        enterprise.style.display = "none";
+        NID.style.display = "block";
+        UBN.style.display = "none";
+    }
+    else if (identity_type == "enterprise") {
+        enterprise.style.display = "block";
+        public.style.display = "none";
+        UBN.style.display = "block";
+        NID.style.display = "none";
+    }
+    else if (identity_type == "alumnus") {
+        public.style.display = "block";
+        enterprise.style.display = "none";
+        NID.style.display = "block";
+        UBN.style.display = "none";
+    }
+
+}
+
