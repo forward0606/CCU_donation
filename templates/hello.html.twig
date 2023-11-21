@@ -27,17 +27,16 @@
 	<!-- 1.填寫基本資料 2.填寫捐贈項目、金額、付款方式 3.付款資訊以及是否需要收據 -->
 	<div style="text-align: center;">
 	<script src="{{ asset('progress.js') }}" type="text/javascript"></script>
-		<div>
+		<div class="progress_list_container">
 			<ul class="progress_list">
-				<li>基本資料</li>
-				<li>捐款資訊</li>
-				<li>付款資訊</li>
-				<li>捐款完成</li>
+				<li>基本資料</li><li>捐款資訊</li><li>付款資訊</li><li>捐款完成</li>
 			</ul>
-		</div>	
-		<div id="progress-container" >
-			<div id="progress-bar" style="width: 25%;"></div>
+			<div id="progress-container" >
+				<div id="progress-bar" style="width: 25%;"></div>
+			</div>
 		</div>
+
+		
 	</div>
 
 	<div class="form">
@@ -121,16 +120,16 @@
 						<option value="5">理學院</option>
 						<option value="6">工學院</option>
 						<option value="7">法學院</option>
-						<option value="8">語言中心</option>
-						<option value="9">通識中心</option>
+						<option value="8">通識中心</option>
+						<option value="9">體育中心</option>
 						<option value="10">師培中心</option>
+						<option value="11">獎助學金</option>
+						<option value="12">研究中心</option>
 					</select>
 
 					<select id="dept" name="dept" style="display: block;" onchange="select_project();" >
 						<option value="none" selected disabled hidden>請選擇捐款單位</option>
 					</select>
-
-
 
 					<select id="project" name="project" style="display: block;">
 						<option value="none" selected disabled hidden>請選擇捐款項目</option>
@@ -150,7 +149,12 @@
 					<label for="pay">請選擇捐款方式</label><br>
 					<select id="pay" name="pay" disabled>
 						<option selected="selected">信用卡線上捐款</option>
+						
 					</select>
+					<p class="remark blueTxt" id="txt_credit">※ 注意事項 ※</p>
+					<p class="remark blueTxt" id="txt_credit">♦ 適用卡別：VISA、MasterCard、JCB。</p>
+					<p class="remark blueTxt" id="txt_credit">♦ 僅限單次捐款，若需定期定額捐款，請依紙本捐款方式操作。</p>
+
 				</div>
 
 				<div>
@@ -239,19 +243,11 @@
 				<input type="button" name="previous" class="previous action-button" value="上一步" onclick="minusPage('page3')">
 
 			</fieldset>
-
-			<!-- example -->
-			<p>以下佔存一些格式的用法</p>
-			<p>付款方式</p>
-				<p><input type="radio" name="pay" value="credit card">信用卡付款</p>
-				<p><input type="radio" name="pay" value="transfer monry">轉帳</p>
-			
-			<p>example</p>
-			<p><input type="text" name="trash" placeholder="Have a nice day."></p>
-
+		<p></p>
 		</form>
 	</div>
 </div>
+
 <div class="bottom" >
 	2022 Copyright © 國立中正大學 | 秘書室 | 媒體暨公關中心<br>
 	聯絡人: 林婉茹小姐<br>
