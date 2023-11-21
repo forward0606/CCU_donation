@@ -1,5 +1,6 @@
 var deptArr = new Array();
 
+deptArr[0] = [ "hidden" ];
 deptArr[1] = [ "歷史學系","哲學系","中國文學系","外國語文學系","語言學研究所"];
 deptArr[2] = [ "社會福利學系","心理學系","勞工關係學系","政治學系","傳播學系","戰略暨國際事務研究所"]
 deptArr[3] = [ "經濟學系","財務金融學系","企業管理學系","會計與資訊科技學系","資訊管理學系"]
@@ -9,6 +10,9 @@ deptArr[6] = [ "資訊工程學系","電機工程學系","機械工程學系","�
 deptArr[7] = [ "法律學系","財經法律學系"]
 
 var projectArr = new Array();
+
+projectArr[0] = [ ];
+projectArr[0][1] = [ "中正之友捐款","「小小力量，大大未來」小額捐款專戶"];
 
 projectArr[1] = [ ];
 projectArr[1][1] = [ "募款--歷史所(112DB04)"];
@@ -32,30 +36,31 @@ projectArr[3][3] = [ "募款--企管所系(112DB23)","募款--企管系創新創
 
 
 function select_dept(index){
-    
     var deptSelect = document.getElementById('dept');
+
     if(index == 0){
         deptSelect.style.display = 'none';
-        
-        return;
     }
-	deptSelect.style.display = 'inline';
-	deptSelect.options.length = 1;
+    else{
+	    deptSelect.style.display = 'inline';
+    }
+	deptSelect.options.length = 0;
 	for(var i=0; i<deptArr[index].length; i++){
-		deptSelect.options[i+1] = new Option(deptArr[index][i], i+1);
+		deptSelect.options[i] = new Option(deptArr[index][i], i+1);
 	}
 }
 
-function select_dept2() {
-    var deptSelect2 = document.getElementById('dept_test');
+function select_project() {
+    var projectSelect = document.getElementById('project');
+    var deptSelect = document.getElementById('dept');
+    var departmentSelect = document.getElementById('department');
     
-    deptSelect2.style.display = 'inline';
-    deptSelect2.options.length = 1;
-    var deptSelect3 = document.getElementById('dept');
-    var deptSelect1 = document.getElementById('department');
-    for (var i = 0; i < projectArr[deptSelect1.value][deptSelect3.value].length; i++) {
-        deptSelect2.options[i+1] = new Option(
-            projectArr[deptSelect1.value][deptSelect3.value][i]
+    projectSelect.style.display = 'inline';
+    projectSelect.options.length = 0;
+    
+    for (var i = 0; i < projectArr[departmentSelect.value][deptSelect.value].length; i++) {
+        projectSelect.options[i] = new Option(
+            projectArr[departmentSelect.value][deptSelect.value][i]
         );
     }
 
