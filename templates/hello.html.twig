@@ -107,11 +107,11 @@
 			</fieldset>
 
 			<!-- 2.填寫捐贈項目、金額、付款方式 -->
-			<fieldset id="page2" style="display: none;">
+			<fieldset id="page2" style="display: block;">
 				<div class="form-group project">
 				<script src="{{ asset('project.js') }}" type="text/javascript"></script>
 					<label for="project"><span style="color:red">*</span>請選擇想要捐款的項目</label><br>
-					<select id="department" name="department" onchange="select_dept(this.value);">
+					<select id="department" name="department" onchange="select_dept(this.value); select_project();">
 						<option value="none" selected disabled hidden>請選擇捐款單位</option>
 						<option value="0">中正大學</option>
 						<option value="1">文學院</option>
@@ -126,25 +126,16 @@
 						<option value="10">師培中心</option>
 					</select>
 
-					<select id="dept" name="dept" style="display: none;" onchange="select_dept2();">
+					<select id="dept" name="dept" style="display: block;" onchange="select_project();" >
 						<option value="none" selected disabled hidden>請選擇捐款單位</option>
 					</select>
 
 
 
-					<select id="dept_test" name="dept_test" style="display: block;">
-						<option value="none" selected disabled hidden>請選擇捐款測試</option>
-					</select>
-	
-					</select>
-					<select id="project" name="project">
+					<select id="project" name="project" style="display: block;">
 						<option value="none" selected disabled hidden>請選擇捐款項目</option>
-						<option>中正之友捐款</option>
-						<option>「小小力量，大大未來」小額捐款專戶</option>
-						<option>校慶聯誼餐會募款專戶</option>
-						<option>中正菁英願景基金</option>
-						<option>中正大學「嘉有機會希望專戶」-學生獎助學金及急難救助金捐款</option>
 					</select>
+
 				</div>
 
 				<div class="form-group money">
@@ -169,7 +160,7 @@
 			</fieldset>
 
 			<!-- 3.付款資訊以及是否需要收據 -->
-			<fieldset id="page3" style="display: none;">
+			<fieldset id="page3" style="display: block;">
 			<script src="{{ asset('txt.js') }}" type="text/javascript"></script>
 				<!-- maybe add * after coosing "yes" -->
 				<div class="form-group receipt">
