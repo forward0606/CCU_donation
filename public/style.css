@@ -133,6 +133,10 @@ fieldset {
     display: none;
 }
 
+#txt_credit {
+    display: block;
+}
+
 .remark {
     display: inline-block;
     font-size: 14px;
@@ -254,14 +258,26 @@ fieldset {
     color: black;
 }
 
-.progress_list li{
-    list-style: none;
+.progress_list_container {
+    width: 80%;
+    margin: 0 auto; /* 居中显示 */
+}
+
+.progress_list {
+    padding: 0;
+    margin: 0;
+}
+
+ .progress_list li{
+    box-sizing: border-box;
     display: inline-block;
     padding: 0 10px;
-}  
+    list-style: none;
+    width: 25%;
+}    
 
 #progress-container {
-    width: 80%;
+
     height: 20px;
     border: 1px solid #ccc;
     margin: 20px auto;
