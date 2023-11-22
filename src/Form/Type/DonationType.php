@@ -40,8 +40,6 @@ class DonationType extends AbstractType
             ->add('phone', TelType::class)
             ->add('description', TextType::class)
             
-            // ->add('department', TextType::class)
-            // ->add('project', TextType::class)
             ->add('project_name', EntityType::class, [
                 'class' => Project::class, 
                 'choice_label' => 'id',
@@ -52,7 +50,7 @@ class DonationType extends AbstractType
             ])
             ->add('pay', TextType::class)
 
-            
+	    ->add('title', TextType::class) 
             ->add('type',  ChoiceType::class, [
                 'choices'  => [
                     '電子收據' => 'electronic',

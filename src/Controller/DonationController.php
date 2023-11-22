@@ -37,15 +37,14 @@ class DonationController extends AbstractController
         $donation->setIdentityType('normal');
         $donation->setEmail('tester@ivalid.maybe');
         $donation->setPhone('0912345678');
-        $donation->setDepartment('CSIE');
-        $donation->setProject('test');
         $donation->setPay('VISA');
         $donation->setStatus('not yet');
         $donation->setType('paper');
         $donation->setDescription('first_test_case');
         $donation->setDate(new \DateTime());
         $donation->setAddress('test');
-        $donation->setZipcode('12345');
+	$donation->setZipcode('12345');
+	$donation->settitle('Keyboard');
 
 
 
