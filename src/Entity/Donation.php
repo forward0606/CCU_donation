@@ -36,12 +36,6 @@ class Donation
     #[ORM\Column(length: 32)]
     private ?string $phone = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $department = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $project = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pay = null;
 
@@ -69,6 +63,9 @@ class Donation
     #[ORM\ManyToOne(inversedBy: 'donations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Project $project_name = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $title = null;
 
     public function getId(): ?int
     {
@@ -156,30 +153,6 @@ class Donation
     public function setPhone(string $phone): static
     {
         $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getDepartment(): ?string
-    {
-        return $this->department;
-    }
-
-    public function setDepartment(string $department): static
-    {
-        $this->department = $department;
-
-        return $this;
-    }
-
-    public function getProject(): ?string
-    {
-        return $this->project;
-    }
-
-    public function setProject(string $project): static
-    {
-        $this->project = $project;
 
         return $this;
     }
@@ -288,6 +261,18 @@ class Donation
     public function setProjectName(?Project $project_name): static
     {
         $this->project_name = $project_name;
+
+        return $this;
+    }
+
+    public function getTitle(): ?string
+    {
+        return $this->title;
+    }
+
+    public function setTitle(?string $title): static
+    {
+        $this->title = $title;
 
         return $this;
     }
