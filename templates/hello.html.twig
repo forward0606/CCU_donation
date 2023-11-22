@@ -47,6 +47,8 @@
 				<div>
 					<div class="form-group identify">
 						<label for="identify"><span style="color:red">*</span>請選擇您的身分</label><br>
+						{{ form_widget(form.identity_type) }}
+						{{ form_widget(form.save) }}
 						<select id="identity_type" name="identity_type" onchange="showInputName()">
 							<option value="public">一般民眾</option>
 							<option value="enterprise">公司企業</option>
