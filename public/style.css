@@ -237,6 +237,15 @@ fieldset {
     margin-right: 200px;
 }
 
+#address-TW {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+#address {
+    margin-top: 0;
+}
+
 #code { 
     cursor: pointer;
     font-family: Arial; 
@@ -268,7 +277,7 @@ fieldset {
     margin: 0;
 }
 
- .progress_list li{
+.progress_list li{
     box-sizing: border-box;
     display: inline-block;
     padding: 0 10px;
@@ -277,7 +286,6 @@ fieldset {
 }    
 
 #progress-container {
-
     height: 20px;
     border: 1px solid #ccc;
     margin: 20px auto;
@@ -292,7 +300,6 @@ fieldset {
 }
 
 .bottom {
-
     background-color: #634a87;
     color: #fff;
     padding: 20px;

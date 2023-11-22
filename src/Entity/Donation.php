@@ -68,7 +68,7 @@ class Donation
 
     #[ORM\ManyToOne(inversedBy: 'donations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?project $project_name = null;
+    private ?Project $project_name = null;
 
     public function getId(): ?int
     {

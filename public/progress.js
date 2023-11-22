@@ -33,11 +33,13 @@ function plusPage(pageNum) {
         page1.style.display = "none";
         page2.style.display = "block";
         plusProgress();
+        scrollToTop();
     }
     else if(currentPage === page2){
         page2.style.display = "none";
         page3.style.display = "block";
         plusProgress();
+        scrollToTop();
     }
 }
 
@@ -54,10 +56,16 @@ function minusPage(pageNum) {
         page1.style.display = "block";
         page2.style.display = "none";
         minusProgress();
+        scrollToTop();
     }
     else if(currentPage === page3){
         page2.style.display = "block";
         page3.style.display = "none";
         minusProgress();
+        scrollToTop();
     }
+}
+
+function scrollToTop() {
+    document.documentElement.scrollTop = 0; 
 }
