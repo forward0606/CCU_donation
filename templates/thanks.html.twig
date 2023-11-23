@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+ 
+{% block body %}
+
+<!-- head of the donation web -->
+<div class="top">
+	<div class="logo">
+		<a href="https://localhost/" title="中正大學捐款網站">
+			<span style="font-size:32px; color:#634a87;">中正大學線上捐款系統</span>
+			<br>
+			<span>DONATE, CCU</span> 
+		</a>
+	</div>
+
+	<div class="nav">
+		<ul class="menu">
+			<li><a href="https://www.ccu.edu.tw/" title="國立中正大學">國立中正大學</a></li>
+			<li><a href="https://donate.ccu.edu.tw/">捐款中正</a></li>
+			<li><a href="https://localhost/" title="回首頁">回首頁</a></li>
+			<li><a href="mailto:admwrl@ccu.edu.tw">聯絡我們</a></li>
+		</ul>
+	</div>
+</div>
+
+<!-- body of the donation web -->
+<div class="center">
+	<div style="text-align: center;">
+	<script src="{{ asset('progress.js') }}" type="text/javascript"></script>
+		<div class="progress_list_container">
+			<ul class="progress_list">
+				<li>基本資料</li><li>捐款資訊</li><li>付款資訊</li><li>捐款完成</li>
+			</ul>
+			<div id="progress-container" >
+				<div id="progress-bar" style="width: 100%;"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="form">
+		
+		<fieldset>
+			<p>中正大學誠摯感謝您的捐款，透過捐款中正，為雲嘉地區帶來改變，為台灣未來孕育人才。</p>	
+		</fieldset>
+
+	</div>
+</div>
+
+<div class="bottom" >
+	2022 Copyright © 國立中正大學 | 秘書室 | 媒體暨公關中心<br>
+	聯絡人: 林婉茹小姐<br>
+	E-mail: mprc@ccu.edu.tw<br>
+	TEL: (05)272-0411 # 10252 專線: (05)272-4295<br>
+	地址: 621301 嘉義縣民雄鄉三興村7鄰大學路一段168號行政大樓6樓
+</div>
+{% endblock %}

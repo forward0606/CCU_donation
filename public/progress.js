@@ -34,8 +34,7 @@ function plusPage(pageNum) {
         page2.style.display = "block";
         plusProgress();
         scrollToTop();
-    }
-    else if(currentPage === page2){
+    }else if(currentPage === page2){
         page2.style.display = "none";
         page3.style.display = "block";
         plusProgress();
@@ -57,8 +56,7 @@ function minusPage(pageNum) {
         page2.style.display = "none";
         minusProgress();
         scrollToTop();
-    }
-    else if(currentPage === page3){
+    }else if(currentPage === page3){
         page2.style.display = "block";
         page3.style.display = "none";
         minusProgress();

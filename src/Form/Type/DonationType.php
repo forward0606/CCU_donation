@@ -30,10 +30,10 @@ class DonationType extends AbstractType
             ->add('name', TextType::class)
             ->add('anonymous', ChoiceType::class, [
                 'choices'  => [
-                    'No' => false,
-                    'Yes' => true,
+                    '是' => true,
+                    '否' => false,
                 ],
-                'expanded' =>	true,
+                'expanded' => true,
             ])
             ->add('person_id', TextType::class)
             ->add('email', EmailType::class)
@@ -46,11 +46,15 @@ class DonationType extends AbstractType
                 'placeholder' => 'Choose project id',
             ])
             ->add('money', MoneyType::class, [
-                'currency' => 'TWD',
+                'currency' => null,
             ])
-            ->add('pay', TextType::class)
+            ->add('pay', ChoiceType::class, [
+                'choices' => [
+                    '信用卡線上捐款' => 'VISA',
+                ],
+            ])
 
-	    ->add('title', TextType::class) 
+	        ->add('title', TextType::class) 
             ->add('type',  ChoiceType::class, [
                 'choices'  => [
                     '電子收據' => 'electronic',
@@ -61,7 +65,11 @@ class DonationType extends AbstractType
 
             ->add('zipcode', TextType::class)
             ->add('address', TextType::class)
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class , [
+                'attr' => [
+                    'class' => 'custom-submit-button',
+                ],
+            ])
 
             // ->add('date', DateType::class)
             // ->add('pay_date', DateType::class)

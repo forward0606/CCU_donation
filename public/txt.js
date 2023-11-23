@@ -1,9 +1,9 @@
-function showTextbox() {
+function showTextbox(selectedValue) {
 
-    var selectedValue = document.querySelector('input[name="anonymity"]:checked').value;
     var textbox = document.getElementById("txt_anonymity");
 
-    if (selectedValue === "1") {
+    alert(selectedValue.value);
+    if (selectedValue.value === true) {
       textbox.style.display = "inline-block";
     } else {
       textbox.style.display = "none";
@@ -21,46 +21,45 @@ function showTW() {
     }
 }
 
-function showAddress() {
-    var selectedValue = document.querySelector('input[name="receipt"]:checked').value;
+function showAddress(selectedValue) {
     var titlebox = document.getElementById("form-group title");
     var addressbox = document.getElementById("form-group address");
     var textbox = document.getElementById("txt_email");
-
-    if (selectedValue == "0") {
+    
+    if (selectedValue.value == "paper") {
         titlebox.style.display = "block";
         addressbox.style.display = "block";
         textbox.style.display = "none";
-    }else if (selectedValue == "1") {
+    }else if (selectedValue.value == "electronic") {
         titlebox.style.display = "block";
         addressbox.style.display = "none";
         textbox.style.display = "inline-block";
-    }else if (selectedValue == "2") {
+    }else if (selectedValue.value == "none") {
         titlebox.style.display = "none";
         addressbox.style.display = "none";
         textbox.style.display = "none";
     }
-
 }
 
-function showInputName() {
-    var identity_type = document.getElementById("identity_type").value;
+
+function showInputName(selectedValue) {
+    // alert(selectedValue.value);
     var public = document.getElementById("form-group public");
     var enterprise = document.getElementById("form-group enterprise");
     var NID = document.getElementById("NID");
     var UBN = document.getElementById("UBN");
 
-    if (identity_type == "public") {
+    if (selectedValue.value == "normal") {
         public.style.display = "block";
         enterprise.style.display = "none";
         NID.style.display = "block";
         UBN.style.display = "none";
-    }else if (identity_type == "enterprise") {
+    }else if (selectedValue.value == "business") {
         enterprise.style.display = "block";
         public.style.display = "none";
         UBN.style.display = "block";
         NID.style.display = "none";
-    }else if (identity_type == "alumnus") {
+    }else if (selectedValue.value == "alumni") {
         public.style.display = "block";
         enterprise.style.display = "none";
         NID.style.display = "block";

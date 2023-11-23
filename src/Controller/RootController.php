@@ -23,8 +23,25 @@ class RootController extends AbstractController
     #[Route('/')]
     public function hello(EntityManagerInterface $entityManager, Request $request): Response
     {
+        // example
         $donation = new Donation();
         $donation->setName('show');
+        $donation->setMoney(1999);
+        $donation->setPersonId('A123456789');
+        $donation->setEmail('tester@ivalid.maybe');
+        $donation->setPhone('0912345678');
+        $donation->setPay('VISA');
+        $donation->setDescription('first_test_case');
+        $donation->setAddress('test');
+	    $donation->setZipcode('12345');
+	    $donation->settitle('Keyboard');
+
+        // real needed
+        $donation->setIdentityType('alumni');
+        $donation->setAnonymous(false);
+        $donation->setType('paper');
+        $donation->setDate(new \DateTime());
+        $donation->setStatus('not yet');
 
 
         $form = $this->createForm(DonationType::class, $donation);
@@ -36,6 +53,7 @@ class RootController extends AbstractController
 
             // actually executes the queries (i.e. the INSERT query)
             $entityManager->flush();
+            return $this->render('thanks.html.twig');
         }
         return $this->render('hello.html.twig', [
             'form' => $form,
