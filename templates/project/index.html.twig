@@ -2,26 +2,48 @@
 
 {% extends '/base.html.twig' %}
 {% block body%}
-
+<h3>Add New</h3>
+<div style='height:250px'>
+{% if testid == 0%}
 {{ form(form) }}
+{% else %}
+<p>editing....</p>
+{% endif %}
 
-<h3>DataBase</h3>
+</div>
+<h3>Data</h3>
 <table>
     <tr>
+        <td>id</td>
         <td>Institution</td>
         <td>Department</td>
         <td>Name</td>
         <td>Available</td>
-        <td>Delete</td>
+        <td>Edit</td>
     </tr>
     {% for project in projects %}
-    <tr>
-        <td>{{ project.institution }}</td>
-        <td>{{ project.department }}</td>
-        <td>{{ project.name }}</td>
-        <td>{{ project.available }}</td>
-        <td><a href="{{ path('project_delete', {'did': project.id}) }}">delete</a></td>
-    </tr>
+        {% if project.id == testid %}
+            <tr>
+                <td>{{project.id}}</td>
+                {{ form_start(form)}}
+                <td>{{ form_widget(form.institution)}}</td>
+                <td>{{ form_widget(form.department)}}</td>
+                <td>{{ form_widget(form.name)}}</td>
+                <td>{{ form_widget(form.available)}}</td>
+                <td>{{ form_widget(form.save)}}</td>
+                {{ form_end(form)}}
+            </tr>
+        {% else %}
+            <tr>
+                <td>{{ project.id }}</td>
+                <td>{{ project.institution }}</td>
+                <td>{{ project.department }}</td>
+                <td>{{ project.name }}</td>
+                <td>{{ project.available }}</td>
+                <td><a href="{{ path('project_edit', {'did': project.id}) }}">Edit</a></td>
+            </tr>
+
+        {% endif %}
     {% endfor %}
 </table>
 

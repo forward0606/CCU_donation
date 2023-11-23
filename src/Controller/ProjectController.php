@@ -20,7 +20,7 @@ class ProjectController extends AbstractController
     {
         $project = new Project();
         $project->setName('贊助我');
-        $project->setInstitution('工學院');
+        $project->setInstitution('engineering');
         $project->setDepartment('資工系');
         $project->setAvailable(true);
 
@@ -39,6 +39,7 @@ class ProjectController extends AbstractController
         return $this->render('project/index.html.twig', [
             'form' => $form,
             'projects' => $projects,
+            'testid' => 0,
         ]);
     }
 
@@ -50,5 +51,30 @@ class ProjectController extends AbstractController
         $entityManager->flush();
 
         return $this->redirectToRoute('all_project');
+    }
+
+    #[Route(path: '/edit/{did}', name: 'project_edit')]
+    public function editAction(EntityManagerInterface $entityManager, ProjectRepository $projectRepository, int $did, Request $request): Response
+    {
+        $project = $projectRepository->find($did);
+
+        $form = $this->createForm(ProjectType::class, $project);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($project);
+            $entityManager->flush();
+            return $this->redirectToRoute('all_project');
+        }
+
+        $repository = $entityManager->getRepository(Project::class);
+        $projects = $repository->findAll();
+
+        return $this->render('project/index.html.twig', [
+            'form' => $form,
+            'projects' => $projects,
+            'testid' => $did,
+        ]);
+
     }
 }
