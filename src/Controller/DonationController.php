@@ -20,7 +20,7 @@ class DonationController extends AbstractController
     {
         $repository = $entityManager->getRepository(Donation::class);
 
-        $donations = $repository->findAll();
+	$donations = $repository->findAll();
         return $this->render('donation/all.html.twig', [
             'donations' => $donations,
         ]);
@@ -65,6 +65,17 @@ class DonationController extends AbstractController
         ]);
     }
 
+    #[Route(path: '/{fields}', name: 'donation_filter')]
+    public function filterAction(DonationRepository $donationRepository, string $fields) :Response //how to pass value in is a problem..
+    {
+	$fieldList = explode(',', $fields);    
+	$filters = $donationRepository->displaySpecificFields($fieldList);
+	return $this->render('donation/filter.html.twig', [
+	    'donations' => $filters,
+	]);
+    }
+
+
     #[Route(path: '/{did}', name: 'donation_show')]
     public function indexAction(DonationRepository $donationRepository, int $did): Response
     {
@@ -76,5 +87,9 @@ class DonationController extends AbstractController
         ]);
     }
 
+    public function sortAction(DonationRepository $donationRepository, array $orderBy=null): Response
+    {
+        return $donationRepository->findBy([], [$orderBy => 'DESC']); //SELECT * FROM donationRepository ORDER BY $orderBy DESC;
+    }
     
 }
