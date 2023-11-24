@@ -34,12 +34,16 @@
         href="{{ path('donation_add') }}">
         add
     </a>
-    <br>
+    <br><br>
     <a class="btn btn-outline-secondary" role="button"
         href="{{ path('donation_filter', {'fields': 'id'}) }}"> 
-        filter
+        filter_testing
     </a>
-
+    <br>
+    <a class="btn btn-outline-secondary" role="button"
+        href="{{ path('donation_sort', {'fields': 'id', 'orderBy': 'desc'}) }}">
+        sort_testing
+    </a>
 
 {% endblock %}
 

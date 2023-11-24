@@ -65,7 +65,7 @@ class DonationController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/{fields}', name: 'donation_filter')]
+    #[Route(path: '/filter/{fields}', name: 'donation_filter')]
     public function filterAction(DonationRepository $donationRepository, string $fields) :Response //how to pass value in is a problem..
     {
 	$fieldList = explode(',', $fields);    
@@ -87,9 +87,15 @@ class DonationController extends AbstractController
         ]);
     }
 
-    public function sortAction(DonationRepository $donationRepository, array $orderBy=null): Response
-    {
-        return $donationRepository->findBy([], [$orderBy => 'DESC']); //SELECT * FROM donationRepository ORDER BY $orderBy DESC;
+    #[Route(path: '/sort/{fields}/{orderBy}', name: 'donation_sort')]
+    public function sortAction(DonationRepository $donationRepository, string $fields, string $orderBy=null): Response
+    {// simply accept correct strings that are not validated and generate sorted data
+	$fieldList = explode(',', $fields);
+	$orderByList = explode(',', $orderBy);
+	$sort = $donationRepository->orderBy($fieldList, $orderByList);
+	return $this->render('donation/all.html.twig', [
+		'donations' => $sort
+	]);
     }
     
 }

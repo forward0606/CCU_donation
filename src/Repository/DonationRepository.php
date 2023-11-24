@@ -32,6 +32,17 @@ class DonationRepository extends ServiceEntityRepository
 	$qb->from('App\Entity\Donation', 'd');
 	return $qb->getQuery()->getResult();
     }
+    public function orderBy(array $fieldList, array $orderByList){
+        if (count($fieldList) == count($orderByList)) $length = count($fieldList);
+	$em = $this->getEntityManager();
+	$qb = $em->createQueryBuilder();
+	$qb->select('d');
+        $qb->from('App\Entity\Donation', 'd');
+        for($i=0 ; $i<$length ; ++$i) {
+            $qb->addorderBy('d.'.$fieldList[$i], $orderByList[$i]);
+        }
+        return  $qb->getQuery()->getResult();
+    }
 
 //    /**
 //     * @return Donation[] Returns an array of Donation objects
