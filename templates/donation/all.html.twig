@@ -26,6 +26,10 @@
                 href="{{ path('donation_show', {'did': donation.id}) }}">
                 link
             </a>
+            <a class="btn btn-outline-secondary" role="button"
+                href="{{ path('donation_status', {'did': donation.id}) }}">
+                status
+            </a>
         </li>
     {% endfor %}
     </ul>

@@ -20,7 +20,7 @@ class DonationController extends AbstractController
     {
         $repository = $entityManager->getRepository(Donation::class);
 
-	$donations = $repository->findAll();
+	$donations = $repository->findBy([], ['id' => 'ASC']);
         return $this->render('donation/all.html.twig', [
             'donations' => $donations,
         ]);
@@ -29,8 +29,8 @@ class DonationController extends AbstractController
     #[Route(path: '/add', name: 'donation_add')]
     public function createAction(EntityManagerInterface $entityManager, Request $request): Response
     {
-        $donation = new Donation();
-        $donation->setName('Keyboard');
+	$donation = new Donation();
+	$donation->setName('Keyboard');
         $donation->setMoney(1999);
         $donation->setPersonId('A123456789');
         $donation->setAnonymous(true);
@@ -43,9 +43,8 @@ class DonationController extends AbstractController
         $donation->setDescription('first_test_case');
         $donation->setDate(new \DateTime());
         $donation->setAddress('test');
-	    $donation->setZipcode('12345');
-	    $donation->settitle('Keyboard');
-
+	$donation->setZipcode('12345');
+	$donation->settitle('Keyboard');
 
 
 
@@ -85,6 +84,33 @@ class DonationController extends AbstractController
         return $this->render('donation/index.html.twig', [
             'donation' => $donation,
         ]);
+    }
+
+    #[Route(path: '/status/{did}', name: 'donation_status')]
+    public function statusAction(EntityManagerInterface $entityManager, int $did): Response
+    {
+	$donation = $entityManager->getRepository(Donation::class)->find($did);
+	$status = $donation->getStatus();
+	$type = $donation->getType();
+	if ($type != 'none'){
+	    if ($status == 'not yet') {
+	        $donation->setStatus('delivered');
+            }
+            else if ($status == 'delivered') {
+	        $donation->setStatus('not yet');
+	    }
+	    else if ($status == 'none') {
+                // no change
+            }
+	    else {
+	        throw exception('invalid value in status');
+	    }
+	    $entityManager->flush();
+	}
+	$donations = $entityManager->getRepository(Donation::class)->findAll();
+	return $this->redirectToRoute('donation_all', [
+	    'donations' => $donations,
+	]);
     }
 
     #[Route(path: '/sort/{fields}/{orderBy}', name: 'donation_sort')]
