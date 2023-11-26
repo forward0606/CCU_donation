@@ -315,9 +315,26 @@ fieldset {
     display: flex;
     justify-content: center;
     line-height: 2;
+    font-size: 16px;
 }
+
+.bottom_thanks {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #634a87;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 2;
+    font-size: 16px;
+}
+
+
 .progress_list_container{
-    /* background-color: #34db7c; */
     width: 75%;
     margin: auto;
 }
@@ -336,19 +353,26 @@ fieldset {
 }
 
 .progress_list li::before{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     margin: 10px;
     content: '';
     width: 60px;
     height: 60px;
-    display: block;
+    color: #ffffff;
+    font-size: 30px;
     background-color: #ffffff;
     border: 3px solid #634a87;
     border-radius: 50%; 
+    content: '\2714';
+    
 }
 
 .progress_list li.active_cir::before {
     background-color: #634a87;
+    
   }
 
 .progress_list li:not(:nth-child(4)):after {
