@@ -111,7 +111,7 @@ function select_dept(institution){
     var index = dictionary[institution];
     
     if(index == 0 || index == 8 || index == 9 || index == 10 || index == 11 || index == 12){
-        deptSelect.style.display = 'inline';
+        deptSelect.style.display = 'none';
     }
     else{
 	    deptSelect.style.display = 'inline';
