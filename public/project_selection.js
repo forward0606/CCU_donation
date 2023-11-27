@@ -125,14 +125,9 @@ function select_dept(institution){
 function select_project() {
     var deptSelect = document.getElementById('dept');
     var departmentSelect = document.getElementById('project_institution');
-    
     var project_institution_id = dictionary[departmentSelect.value];
 
-    console.log(deptArr[project_institution_id][deptSelect.value-1]);
-
-    
     document.getElementById('project_department').value = deptArr[project_institution_id][deptSelect.value-1];
-    
 
     return;
 }
