@@ -19,9 +19,9 @@ class ProjectController extends AbstractController
     public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
         $project = new Project();
-        $project->setName('贊助我');
-        $project->setInstitution('engineering');
-        $project->setDepartment('資工系');
+        // $project->setInstitution('工學院');
+        // $project->setDepartment('資工系');
+        // $project->setName('贊助我');
         $project->setAvailable(true);
 
         $form = $this->createForm(ProjectType::class, $project);
@@ -29,6 +29,11 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
         
+            
+            // 可能要改成白名單，現在這樣超爛
+            if($project->getDepartment() == 'hidden'){
+                $project->setDepartment('');
+            }
             $entityManager->persist($project);
             $entityManager->flush();
         }
