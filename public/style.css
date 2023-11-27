@@ -392,4 +392,50 @@ fieldset {
     background-color: #634a87;
 }
 
+.donation_list {
+    display: flex;
+    margin-top: 20px;
+    justify-content: center; 
+}
 
+.donation_list table{
+    color: black;
+}
+
+td {
+    padding: 0px 20px;
+}
+
+.donation_list a{
+    text-transform: initial;
+    color: blue;
+}
+
+.person_info {
+    margin: 20px;
+}
+
+.person_info table {
+    color: black;
+    text-align: left;
+}
+
+.person_info th {
+    background-color: #634a87;
+    color: white;
+    padding: 3px 5px;
+}
+
+.person_info td {
+    background-color: white;
+}
+
+h3 {
+    text-align: center;
+    font-size: 30px;
+}
+
+hr {
+    size: 5px;
+    width: 80%;
+}
