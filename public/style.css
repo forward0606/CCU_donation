@@ -368,11 +368,28 @@ fieldset {
     border-radius: 50%; 
 }
 
-.progress_list li.active_cir::before {
-    background-color: #634a87;    
-  }
+.progress_list li.active_cir:nth-child(1)::before {
+    background-color: #634a87;
+    content: "1";    
+}
 
-.progress_list li.active_rec::before {
+.progress_list li.active_cir:nth-child(2)::before {
+    background-color: #634a87;
+    content: "2";    
+}
+
+.progress_list li.active_cir:nth-child(3)::before {
+    background-color: #634a87;
+    content: "3";    
+}
+
+.progress_list li.active_cir:nth-child(4)::before {
+    background-color: #634a87;
+    content: "4";    
+}
+
+.progress_list li.active_complete::before {
+    background-color: #634a87;
     content: '\2714';
 }
 
@@ -413,12 +430,15 @@ td {
 }
 
 .person_info {
-    margin: 20px;
+    margin: 30px;
+    text-align: center;
 }
 
 .person_info table {
+    padding: 25px;
     color: black;
     text-align: left;
+    margin: auto;
 }
 
 .person_info th {
@@ -428,7 +448,7 @@ td {
 }
 
 .person_info td {
-    background-color: white;
+    background-color: rgb(240, 240, 240);
 }
 
 h3 {
