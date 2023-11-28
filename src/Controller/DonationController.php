@@ -11,6 +11,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\PropertyInfo\Extractor\ReflectionExtractor;
+use Symfony\Component\PropertyInfo\PropertyInfoExtractor;
 
 #[Route(path: '/donation')]
 class DonationController extends AbstractController
@@ -64,13 +66,117 @@ class DonationController extends AbstractController
         ]);
     }
 
-    #[Route(path: '/filter/{fields}', name: 'donation_filter')]
-    public function filterAction(DonationRepository $donationRepository, string $fields) :Response //how to pass value in is a problem..
+    #[Route(path: '/filter', name: 'donation_filter')]
+    public function filterAction(EntityManagerInterface $entityManager, Request $request) :Response //
     {
-	$fieldList = explode(',', $fields);    
-	$filters = $donationRepository->displaySpecificFields($fieldList);
-	return $this->render('donation/filter.html.twig', [
-	    'donations' => $filters,
+	$donation = new Donation();
+	$form = $this->createForm(DonationType::class, $donation, ['filter' => true]);
+	$form->submit($request->get($form->getName()));
+
+	if ($form->isSubmitted() && $form->isValid())
+	{
+            //$donation = $form->getData();
+	    $reflectionExtractor = new ReflectionExtractor();
+	    $propertyInfo = new PropertyInfoExtractor([$reflectionExtractor]);
+	    $properties = $propertyInfo->getProperties(Donation::class); //return an array of properties name
+
+	    $qb = $entityManager->createQueryBuilder()->select('d');
+	    $qb->from('App\Entity\Donation', 'd');
+
+
+	    if ($form->get('andOperator')->getData()) {
+   	        foreach($properties as $property) {
+	            switch($property)
+		    {
+	                //reason for switch case is that symfony seems to ignore _ between characters and just change the character after _ to capital.
+		        case 'personId':
+			    $data = $form->get('person_id')->getData();
+			    if ($data === null) {;}
+			    else $qb->andWhere('d.person_id = ' . $data);
+			    break;
+		        case 'identityType':
+                            $data = $form->get('identity_type')->getData();
+                            if ($data === null) {;}
+			    else $qb->andWhere('d.identity_type' . $data);
+			    break;
+		        case 'date':
+                            $date = $form->get('date')->getData();
+                            if ($date === null) {;}
+			    else {$qb->andWhere('d.date = \''.$date->format('Y-m-d').'\'');}
+		            break;
+		        case 'payDate':
+                            $pay_date = $form->get('pay_date')->getData();
+                            if ($pay_date === null) {;}
+                            else {$qb->andWhere('d.pay_date = \''.$pay_date->format('Y-m-d').'\'');}
+                            break;
+		        case 'projectName':
+			    $data = $form->get('project_name')->getData();
+                            if ($data === null) {;}
+			    else $qb->andWhere('d.project_name = ' . $data);
+			    break;
+		        //break directly since there is no such field in form
+		        case 'id':
+			    break;
+		        case 'description':
+			    break;
+		        default: // those who don't has _ in their name.
+			    $data = $form->get($property)->getData();
+                            if ($data === null) {;}
+			    else $qb->andWhere('d.' . $property . ' = ' . $data);
+			    break;
+		    }
+		}
+	    }
+	    else {
+                foreach($properties as $property) {
+                    switch($property)
+                    {
+                        case 'personId':
+                            $data = $form->get('person_id')->getData();
+                            if ($data === null) {;}
+                            else $qb->orWhere('d.person_id = ' . $data);
+                            break;
+                        case 'identityType':
+                            $data = $form->get('identity_type')->getData();
+                            if ($data === null) {;}
+                            else $qb->orWhere('d.identity_type' . $data);
+                            break;
+                        case 'date':
+                            $date = $form->get('date')->getData();
+                            if ($date === null) {;}
+                            else {$qb->orWhere('d.date = \''.$date->format('Y-m-d').'\'');}
+                            break;
+                        case 'payDate':
+                            $pay_date = $form->get('pay_date')->getData();
+                            if ($pay_date === null) {;}
+                            else {$qb->orWhere('d.pay_date = \''.$pay_date->format('Y-m-d').'\'');}
+                            break;
+                        case 'projectName':
+                            $data = $form->get('project_name')->getData();
+                            if ($data === null) {;}
+                            else $qb->orWhere('d.project_name = ' . $data);
+                            break;
+                        //break directly since there is no such field in form
+                        case 'id':
+                            break;
+                        case 'description':
+                            break;
+                        default: // those who don't has _ in their name.
+                            $data = $form->get($property)->getData();
+                            if ($data === null) {;}
+                            else $qb->orWhere('d.' . $property . ' = ' . $data);
+                            break;
+                    }
+		}
+	    }
+	    $matches = $qb->getQuery()->getResult(); //get query result as array of donation object
+	    return $this->render('donation/filter.html.twig', [
+		'donations' => $matches,
+		//'sql' => $qb->getQuery()->getDQL(),
+	    ]);
+	}
+	return $this->render('donation/add.html.twig', [
+            'form' => $form,
 	]);
     }
 

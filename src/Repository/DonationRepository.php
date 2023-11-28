@@ -21,17 +21,6 @@ class DonationRepository extends ServiceEntityRepository
         parent::__construct($registry, Donation::class);
     }
 
-    public function displaySpecificFields(array $fields)
-    {
-	$entityManager = $this->getEntityManager();
-	$qb = $entityManager->createQueryBuilder('d');
-
-	foreach ($fields as $field) {
-	    $qb->addSelect('d.'.trim($field));
-	}
-	$qb->from('App\Entity\Donation', 'd');
-	return $qb->getQuery()->getResult();
-    }
     public function orderBy(array $fieldList, array $orderByList){
         if (count($fieldList) == count($orderByList)) $length = count($fieldList);
 	$em = $this->getEntityManager();
