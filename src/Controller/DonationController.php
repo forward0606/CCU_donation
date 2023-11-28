@@ -92,12 +92,12 @@ class DonationController extends AbstractController
 		        case 'personId':
 			    $data = $form->get('person_id')->getData();
 			    if ($data === null) {;}
-			    else $qb->andWhere('d.person_id = ' . $data);
+			    else $qb->andWhere('d.person_id = \'' . $data . '\'');
 			    break;
 		        case 'identityType':
                             $data = $form->get('identity_type')->getData();
                             if ($data === null) {;}
-			    else $qb->andWhere('d.identity_type' . $data);
+			    else $qb->andWhere('d.identity_type = \'' . $data . '\'');
 			    break;
 		        case 'date':
                             $date = $form->get('date')->getData();
@@ -122,7 +122,7 @@ class DonationController extends AbstractController
 		        default: // those who don't has _ in their name.
 			    $data = $form->get($property)->getData();
                             if ($data === null) {;}
-			    else $qb->andWhere('d.' . $property . ' = ' . $data);
+			    else $qb->andWhere('d.' . $property . ' = \'' . $data. '\'');
 			    break;
 		    }
 		}
@@ -134,12 +134,12 @@ class DonationController extends AbstractController
                         case 'personId':
                             $data = $form->get('person_id')->getData();
                             if ($data === null) {;}
-                            else $qb->orWhere('d.person_id = ' . $data);
+                            else $qb->orWhere('d.person_id = \'' . $data. '\'');
                             break;
                         case 'identityType':
                             $data = $form->get('identity_type')->getData();
                             if ($data === null) {;}
-                            else $qb->orWhere('d.identity_type' . $data);
+                            else $qb->orWhere('d.identity_type = \'' . $data. '\'');
                             break;
                         case 'date':
                             $date = $form->get('date')->getData();
@@ -164,7 +164,7 @@ class DonationController extends AbstractController
                         default: // those who don't has _ in their name.
                             $data = $form->get($property)->getData();
                             if ($data === null) {;}
-                            else $qb->orWhere('d.' . $property . ' = ' . $data);
+                            else $qb->orWhere('d.' . $property . ' = \'' . $data.'\'');
                             break;
                     }
 		}
