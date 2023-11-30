@@ -19,23 +19,16 @@ class ProjectController extends AbstractController
     public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
         $project = new Project();
-        // $project->setInstitution('工學院');
-        // $project->setDepartment('資工系');
-        // $project->setName('贊助我');
+        $project->setInstitution('中正大學');
         $project->setAvailable(true);
 
         $form = $this->createForm(ProjectType::class, $project);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-        
-            
-            // 可能要改成白名單，現在這樣超爛
-            if($project->getDepartment() == 'hidden'){
-                $project->setDepartment('');
-            }
             $entityManager->persist($project);
             $entityManager->flush();
+            return $this->redirectToRoute('all_project');
         }
 
         $repository = $entityManager->getRepository(Project::class);
@@ -44,7 +37,7 @@ class ProjectController extends AbstractController
         return $this->render('project/index.html.twig', [
             'form' => $form,
             'projects' => $projects,
-            'testid' => 0,
+            'edit_id' => 0,
         ]);
     }
 
@@ -78,7 +71,7 @@ class ProjectController extends AbstractController
         return $this->render('project/index.html.twig', [
             'form' => $form,
             'projects' => $projects,
-            'testid' => $did,
+            'edit_id' => $did,
         ]);
 
     }

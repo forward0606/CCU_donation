@@ -34,17 +34,14 @@ class ProjectType extends AbstractType
 					'研究中心' => '研究中心',
                 ],
                 'attr' => [
-                    // 'id' => 'department',
-                    'name' => 'department',
-                    'onchange' => "select_dept(this.value); select_project();",
+                    'onchange' => "select_dept(); select_project();",
                 ],
             ])
             ->add('department', TextType::class, [
                 'attr' => [
                     'hidden' => true,
                 ]
-                ]
-            )
+            ])
             ->add('name', TextType::class)
             ->add('available', ChoiceType::class, [
                 'choices' => [
