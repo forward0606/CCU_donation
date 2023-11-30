@@ -155,6 +155,9 @@ class DonationType extends AbstractType
                 'choice_label' => 'name',
                 'required' => false,
                 'empty_data' => null,
+                'attr' => [
+                    'hidden' => true,
+                ]
             ])
             ->add('money', MoneyType::class, [
                 'currency' => null,
