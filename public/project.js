@@ -11,9 +11,11 @@ fetch('/get_data')
             const institution = item.institution;
 
             const option_institution = document.createElement('option');
-            option_institution.value = institution;
-            option_institution.textContent = institution;
-            selectInstitution.appendChild(option_institution);
+            if (!selectInstitution.querySelector(`[value="${institution}"]`)) {
+                option_institution.value = institution;
+                option_institution.textContent = institution;
+                selectInstitution.appendChild(option_institution);
+            }
         })
 
         function select_dept(){
@@ -24,9 +26,11 @@ fetch('/get_data')
             selected.forEach(item => {
                 const department = item.department;
                 const option_department = document.createElement('option');
-                option_department.value = department;
-                option_department.textContent = department;
-                selectDepartment.appendChild(option_department);
+                if (!selectDepartment.querySelector(`[value="${department}"]`)) {
+                    option_department.value = department;
+                    option_department.textContent = department;
+                    selectDepartment.appendChild(option_department);
+                }
             });
             if(index === "中正大學"){
                 selectDepartment.style.display = "none";
