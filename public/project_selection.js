@@ -1,6 +1,6 @@
 var deptArr = new Array();
 
-deptArr[0] = [ "hidden" ];
+deptArr[0] = [ "無" ];
 deptArr[1] = [ "歷史學系","哲學系","中國文學系","外國語文學系","台文創應所","語言所","文學院"];
 deptArr[2] = [ "社會福利學系","心理學系","勞工關係學系","政治學系","傳播學系","戰略暨國際事務研究所","社會科學院"]
 deptArr[3] = [ "經濟學系","財務金融學系","企業管理學系","會計與資訊科技學系","資訊管理學系","管理學院"]
@@ -8,11 +8,11 @@ deptArr[4] = [ "成人及繼續教育學系","犯罪防治學系","運動競技�
 deptArr[5] = [ "數學系","地球與環境科學系","物理系","化學暨生物化學系","生物醫學科學系","理學院"]
 deptArr[6] = [ "資訊工程學系","電機工程學系","機械工程學系","化學工程學系","通訊工程學系","工學院"]
 deptArr[7] = [ "法律學系","財經法律學系","法學院"]
-deptArr[8] = [ "hidden" ];
-deptArr[9] = [ "hidden" ];
-deptArr[10] = [ "hidden" ];
-deptArr[11] = [ "hidden" ];
-deptArr[12] = [ "hidden" ];
+deptArr[8] = [ "無" ];
+deptArr[9] = [ "無" ];
+deptArr[10] = [ "無" ];
+deptArr[11] = [ "無" ];
+deptArr[12] = [ "無" ];
 
 var dictionary = {};
 
@@ -106,9 +106,10 @@ projectArr[12][1] = [ "超低功耗微控制器實驗室工程捐款","醫療資
 "自旋科技研究中心","精緻電能應用研究中心","國立中正大學高齡研究基地研究經費","人類研究倫理中心","台灣法律資訊中心","社會企業研究中心","東協與南亞研究中心","新農業科技暨產學推廣中心","大數據研究中心","行銷策略與創意研究中心","體育運動研究發展中心",
 "民意及市場調查中心","智慧生活研究中心「臺印AI產學技術聯盟」","國際文化創藝整合發展中心","前瞻製造系統頂尖研究中心"];
 
-function select_dept(institution){
-    var deptSelect = document.getElementById('dept');
-    var index = dictionary[institution];
+function select_dept(){
+    var instValue = document.getElementById('project_institution').value;
+    var deptSelect = document.getElementById('dept_select');
+    var index = dictionary[instValue];
     
     if(index == 0 || index == 8 || index == 9 || index == 10 || index == 11 || index == 12){
         deptSelect.style.display = 'none';
@@ -123,11 +124,16 @@ function select_dept(institution){
 }
 
 function select_project() {
-    var deptSelect = document.getElementById('dept');
-    var departmentSelect = document.getElementById('project_institution');
-    var project_institution_id = dictionary[departmentSelect.value];
+    var deptSelect = document.getElementById('dept_select');
+    var instSelect = document.getElementById('project_institution');
+    var project_institution_id = dictionary[instSelect.value];
 
     document.getElementById('project_department').value = deptArr[project_institution_id][deptSelect.value-1];
 
     return;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    select_dept();
+    select_project();
+});
