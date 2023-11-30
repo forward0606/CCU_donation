@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 	
-	var validate=document.getElementById('validate');
+	var validate=document.getElementById('donation_save');
 	validate.addEventListener("click",function(e){
 		var inputCode = document.getElementById("input").value.toUpperCase();  
 		if(inputCode.length <= 0) { 

@@ -2,7 +2,7 @@ function showTextbox(selectedValue) {
 
     var textbox = document.getElementById("txt_anonymity");
 
-    alert(selectedValue.value);
+    // alert(selectedValue.value);
     if (selectedValue.value === true) {
       textbox.style.display = "inline-block";
     } else {
