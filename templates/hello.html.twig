@@ -68,11 +68,10 @@
 						{{ form_widget(form.name) }}
 					</div>
 
-					<label style="color: red;">施工中</label>
 					<div class="form-group anonymity">
 						<label for="anonymity">是否需要匿名</label><br>
 						{{ form_widget(form.anonymous,{'attr': {'onclick': 'showTextbox(this)'}}) }}
-						<p class="remark blueTxt" id="txt_anonymity">選擇匿名您的名字將會以"中正人"顯示</p>
+						<p class="remark blueTxt" id="txt_anonymity" style="display: inline-block;">選擇匿名您的名字將會以"中正人"顯示</p>
 					</div>
 
 					<div class="form-group id_number">
@@ -189,6 +188,8 @@
 					<label>其他海外地區</label><br>
 
 					<div class="form-group county" id="address-TW" >
+						{#{{ form_widget(form.city)}}
+    					<select id="area" name="area" style="display: none;"></select>#}
 						<select id="county" name="county" onchange="select_area(this.value);">
 							<option value="none" selected disabled hidden>請選擇縣市</option>
 							<option value="1">基隆市</option>
@@ -225,12 +226,11 @@
 					</div>
 				</div>
 
+				{# 待重寫 #}
 				<div class="form-group verify">
 					<label id="code"></label>
-					<label><a href="#" id="recode">更新驗證碼</a><label>
-					<p></p>
-					<input type = "text" id = "input" placeholder="請輸入驗證碼" style="width: 15%;">
-					<p></p>
+					<label><a href="#" id="recode">更新驗證碼</a><label><br>
+					<input type = "text" id = "input" placeholder="請輸入驗證碼" style="width: 15%;"><br>
 					<input type = "button" value="驗證" id="validate"> 
 				</div>
 				

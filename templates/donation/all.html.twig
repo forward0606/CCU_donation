@@ -34,15 +34,32 @@
                 </a></td>
             <td><a class="btn btn-outline-secondary" role="button"
                     href="{{ path('donation_status', {'did': donation.id}) }}">
-                    status
+                    change status
                 </a></td>
         </tr>
         {% endfor %}
         
     </table>
 </div>
+<p></p>
+<div class="function">
+    <a class="btn btn-outline-secondary" role="button"
+        href="{{ path('donation_add') }}">
+        add
+    </a>
+    <br><br>
+    <a class="btn btn-outline-secondary" role="button"
+        href="{{ path('donation_filter') }}"> 
+        filter
+    </a>
+    <br>
+    <a class="btn btn-outline-secondary" role="button"
+        href="{{ path('donation_sort', {'fields': 'id', 'orderBy': 'desc'}) }}">
+        sort_testing
+    </a>
+</div>
 
-    Donation List:
+    {#Donation List:
     <ul>
     {% for donation in donations %}
         <li>id: {{ donation.id }}
@@ -72,22 +89,7 @@
             </a>
         </li>
     {% endfor %}
-    </ul>
-
-    <a class="btn btn-outline-secondary" role="button"
-        href="{{ path('donation_add') }}">
-        add
-    </a>
-    <br><br>
-    <a class="btn btn-outline-secondary" role="button"
-        href="{{ path('donation_filter') }}"> 
-        filter
-    </a>
-    <br>
-    <a class="btn btn-outline-secondary" role="button"
-        href="{{ path('donation_sort', {'fields': 'id', 'orderBy': 'desc'}) }}">
-        sort_testing
-    </a>
+    </ul>#}
 
 {% endblock %}
 
