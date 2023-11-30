@@ -67,6 +67,12 @@ class Donation
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $title = null;
 
+    #[ORM\Column(length: 16)]
+    private ?string $city = null;
+
+    #[ORM\Column(length: 16)]
+    private ?string $district = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -273,6 +279,30 @@ class Donation
     public function setTitle(?string $title): static
     {
         $this->title = $title;
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(string $city): static
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getDistrict(): ?string
+    {
+        return $this->district;
+    }
+
+    public function setDistrict(string $district): static
+    {
+        $this->district = $district;
 
         return $this;
     }
