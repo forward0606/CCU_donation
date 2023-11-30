@@ -36,6 +36,7 @@
             <tr>
                 <td>{{project.id}}</td>
                 {{ form_start(form)}}
+                {{ form_widget(form.department)}}
                 <td>{{ form_widget(form.institution)}}</td>
                 <td><select id="dept_select" style="display: none;" onchange="select_project();" ></select></td>
                 <td>{{ form_widget(form.name)}}</td>

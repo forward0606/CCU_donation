@@ -50,6 +50,9 @@ class DonationType extends AbstractType
                     'class' => Project::class, 
                     'choice_label' => 'id',
                     'placeholder' => 'Choose project id',
+                    'attr' => [
+                        'hidden' => true,
+                    ]
 	            ])
 	        /*
                 ->add('institution', EntityType::class, [

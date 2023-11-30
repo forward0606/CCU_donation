@@ -105,6 +105,7 @@
 				<script src="{{ asset('project.js') }}" type="text/javascript"></script>
 					<label for="data_select"><span style="color:red">*</span>請選擇想要捐款的項目</label><br>
 					<script src="{{ asset('test.js') }}" type="text/javascript"></script>
+					{{ form_widget(form.project_name) }}
 					<select id="institution" name="institution">
 						<option value="none" selected disabled hidden>請選擇想要捐款的單位</option>
 					</select>
