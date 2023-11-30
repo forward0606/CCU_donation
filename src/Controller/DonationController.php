@@ -22,7 +22,11 @@ class DonationController extends AbstractController
     {
         $repository = $entityManager->getRepository(Donation::class);
 
-	$donations = $repository->findBy([], ['id' => 'ASC']);
+        //$donations = $repository->findBy([], ['id' => 'ASC']);
+        $qb = $entityManager->createQueryBuilder()->select('d')->from('App\Entity\Donation', 'd');
+        $qb->join('d.project_name', 'p', 'WITH', 'p.id = d.project_name');
+        $qb->orderBy('d.id', 'ASC');
+        $donations = $qb->getQuery()->getResult();
         return $this->render('donation/all.html.twig', [
             'donations' => $donations,
         ]);
@@ -31,8 +35,8 @@ class DonationController extends AbstractController
     #[Route(path: '/add', name: 'donation_add')]
     public function createAction(EntityManagerInterface $entityManager, Request $request): Response
     {
-	$donation = new Donation();
-	$donation->setName('Keyboard');
+        $donation = new Donation();
+        $donation->setName('Keyboard');
         $donation->setMoney(1999);
         $donation->setPersonId('A123456789');
         $donation->setAnonymous(true);
@@ -45,8 +49,8 @@ class DonationController extends AbstractController
         $donation->setDescription('first_test_case');
         $donation->setDate(new \DateTime());
         $donation->setAddress('test');
-	$donation->setZipcode('12345');
-	$donation->settitle('Keyboard');
+        $donation->setZipcode('12345');
+        $donation->settitle('Keyboard');
 
 
 
@@ -69,65 +73,65 @@ class DonationController extends AbstractController
     #[Route(path: '/filter', name: 'donation_filter')]
     public function filterAction(EntityManagerInterface $entityManager, Request $request) :Response //
     {
-	$donation = new Donation();
-	$form = $this->createForm(DonationType::class, $donation, ['filter' => true]);
-	$form->submit($request->get($form->getName()));
+        $donation = new Donation();
+        $form = $this->createForm(DonationType::class, $donation, ['filter' => true]);
+        $form->submit($request->get($form->getName()));
 
-	if ($form->isSubmitted() && $form->isValid())
-	{
+        if ($form->isSubmitted() && $form->isValid())
+        {
             //$donation = $form->getData();
-	    $reflectionExtractor = new ReflectionExtractor();
-	    $propertyInfo = new PropertyInfoExtractor([$reflectionExtractor]);
-	    $properties = $propertyInfo->getProperties(Donation::class); //return an array of properties name
+            $reflectionExtractor = new ReflectionExtractor();
+            $propertyInfo = new PropertyInfoExtractor([$reflectionExtractor]);
+            $properties = $propertyInfo->getProperties(Donation::class); //return an array of properties name
 
-	    $qb = $entityManager->createQueryBuilder()->select('d');
-	    $qb->from('App\Entity\Donation', 'd');
+            $qb = $entityManager->createQueryBuilder()->select('d');
+            $qb->from('App\Entity\Donation', 'd');
 
 
-	    if ($form->get('andOperator')->getData()) {
-   	        foreach($properties as $property) {
-	            switch($property)
-		    {
-	                //reason for switch case is that symfony seems to ignore _ between characters and just change the character after _ to capital.
-		        case 'personId':
-			    $data = $form->get('person_id')->getData();
-			    if ($data === null) {;}
-			    else $qb->andWhere('d.person_id = \'' . $data . '\'');
-			    break;
-		        case 'identityType':
+            if ($form->get('andOperator')->getData()) {
+   	            foreach($properties as $property) {
+                    switch($property)
+                    {
+                        //reason for switch case is that symfony seems to ignore _ between characters and just change the character after _ to capital.
+                        case 'personId':
+                            $data = $form->get('person_id')->getData();
+                            if ($data === null) {;}
+                            else $qb->andWhere('d.person_id = \'' . $data . '\'');
+                            break;
+                        case 'identityType':
                             $data = $form->get('identity_type')->getData();
                             if ($data === null) {;}
-			    else $qb->andWhere('d.identity_type = \'' . $data . '\'');
-			    break;
-		        case 'date':
+                            else $qb->andWhere('d.identity_type = \'' . $data . '\'');
+                            break;
+                        case 'date':
                             $date = $form->get('date')->getData();
                             if ($date === null) {;}
-			    else {$qb->andWhere('d.date = \''.$date->format('Y-m-d').'\'');}
-		            break;
-		        case 'payDate':
+                            else {$qb->andWhere('d.date = \''.$date->format('Y-m-d').'\'');}
+                            break;
+                        case 'payDate':
                             $pay_date = $form->get('pay_date')->getData();
                             if ($pay_date === null) {;}
                             else {$qb->andWhere('d.pay_date = \''.$pay_date->format('Y-m-d').'\'');}
                             break;
-		        case 'projectName':
-			    $data = $form->get('project_name')->getData();
+                        case 'projectName':
+                            $data = $form->get('project_name')->getData();
                             if ($data === null) {;}
-			    else $qb->andWhere('d.project_name = ' . $data);
-			    break;
-		        //break directly since there is no such field in form
-		        case 'id':
-			    break;
-		        case 'description':
-			    break;
-		        default: // those who don't has _ in their name.
-			    $data = $form->get($property)->getData();
+                            else $qb->andWhere('d.project_name = ' . $data);
+                            break;
+                            //break directly since there is no such field in form
+                        case 'id':
+                            break;
+                        case 'description':
+                            break;
+                        default: // those who don't has _ in their name.
+                            $data = $form->get($property)->getData();
                             if ($data === null) {;}
-			    else $qb->andWhere('d.' . $property . ' = \'' . $data. '\'');
-			    break;
-		    }
-		}
-	    }
-	    else {
+                            else $qb->andWhere('d.' . $property . ' = \'' . $data. '\'');
+                            break;
+                    }
+                }
+            }
+            else {
                 foreach($properties as $property) {
                     switch($property)
                     {
@@ -167,25 +171,30 @@ class DonationController extends AbstractController
                             else $qb->orWhere('d.' . $property . ' = \'' . $data.'\'');
                             break;
                     }
-		}
-	    }
-	    $matches = $qb->getQuery()->getResult(); //get query result as array of donation object
-	    return $this->render('donation/filter.html.twig', [
-		'donations' => $matches,
-		//'sql' => $qb->getQuery()->getDQL(),
-	    ]);
-	}
-	return $this->render('donation/add.html.twig', [
+                }
+            }
+            $matches = $qb->getQuery()->getResult(); //get query result as array of donation object
+            return $this->render('donation/filter.html.twig', [
+                'donations' => $matches,
+                //'sql' => $qb->getQuery()->getDQL(),
+            ]);
+        }
+        return $this->render('donation/add.html.twig', [
             'form' => $form,
-	]);
+        ]);
     }
 
 
     #[Route(path: '/{did}', name: 'donation_show')]
     public function indexAction(DonationRepository $donationRepository, int $did): Response
     {
-        $donation = $donationRepository
-            ->find($did);
+        //$donation = $donationRepository
+            //->find($did);
+        $qb = $entityManager->createQueryBuilder()->select('d')->from('App\Entity\Donation', 'd')->where('d.id = ?1');
+        $qb->join('d.project_name', 'p', 'WITH', 'p.id = d.project_name');
+        $qb->setParameter(1, $did);
+        $donation = $qb->getQuery()->getResult();
+
 
         return $this->render('donation/index.html.twig', [
             'donation' => $donation,
@@ -195,39 +204,39 @@ class DonationController extends AbstractController
     #[Route(path: '/status/{did}', name: 'donation_status')]
     public function statusAction(EntityManagerInterface $entityManager, int $did): Response
     {
-	$donation = $entityManager->getRepository(Donation::class)->find($did);
-	$status = $donation->getStatus();
-	$type = $donation->getType();
-	if ($type != 'none'){
-	    if ($status == 'not yet') {
-	        $donation->setStatus('delivered');
+        $donation = $entityManager->getRepository(Donation::class)->find($did);
+        $status = $donation->getStatus();
+        $type = $donation->getType();
+        if ($type != 'none'){
+            if ($status == 'not yet') {
+                $donation->setStatus('delivered');
             }
             else if ($status == 'delivered') {
-	        $donation->setStatus('not yet');
-	    }
-	    else if ($status == 'none') {
+                $donation->setStatus('not yet');
+            }
+            else if ($status == 'none') {
                 // no change
             }
-	    else {
-	        throw exception('invalid value in status');
-	    }
-	    $entityManager->flush();
-	}
-	$donations = $entityManager->getRepository(Donation::class)->findAll();
-	return $this->redirectToRoute('donation_all', [
-	    'donations' => $donations,
-	]);
+            else {
+                throw exception('invalid value in status');
+            }
+            $entityManager->flush();
+        }
+        $donations = $entityManager->getRepository(Donation::class)->findAll();
+        return $this->redirectToRoute('donation_all', [
+            'donations' => $donations,
+        ]);
     }
 
     #[Route(path: '/sort/{fields}/{orderBy}', name: 'donation_sort')]
     public function sortAction(DonationRepository $donationRepository, string $fields, string $orderBy=null): Response
     {// simply accept correct strings that are not validated and generate sorted data
-	$fieldList = explode(',', $fields);
-	$orderByList = explode(',', $orderBy);
-	$sort = $donationRepository->orderBy($fieldList, $orderByList);
-	return $this->render('donation/all.html.twig', [
-		'donations' => $sort
-	]);
+        $fieldList = explode(',', $fields);
+        $orderByList = explode(',', $orderBy);
+        $sort = $donationRepository->orderBy($fieldList, $orderByList);
+        return $this->render('donation/all.html.twig', [
+            'donations' => $sort
+        ]);
     }
     
 }

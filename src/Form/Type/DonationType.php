@@ -56,14 +56,14 @@ class DonationType extends AbstractType
 	            ])
 	        /*
                 ->add('institution', EntityType::class, [
-	            'class' => Project::class,
-		    'choice_label' => 'institution',
-		    'mapped' => false,
-		    'query_builder' => function(EntityRepository $er): QueryBuilder {
-		        return $er->createQueryBuilder('p')->orderBy('p.institution', 'ASC');
-		    },
-		    'choice_value' =>'institution', //邪門辦法除去duplicate
-	        ])
+                    'class' => Project::class,
+                    'choice_label' => 'institution',
+                    'mapped' => false,
+                    'query_builder' => function(EntityRepository $er): QueryBuilder {
+                        return $er->createQueryBuilder('p')->orderBy('p.institution', 'ASC');
+                    },
+		            'choice_value' =>'institution', //邪門辦法除去duplicate
+                ])
 	        */
                 ->add('money', MoneyType::class, [
                     'currency' => null,
