@@ -41,6 +41,10 @@
 		<script>
 			alert("使用前須知：\n 1.請先到/project建立至少一個project\n 2.確保not null的欄位都有填東西再按送出\n");
 		</script>
+		<script src="{{ asset('test.js') }}" type="text/javascript"></script>
+		<select id="institution" name="institution"></select>
+		<select id="department" name="department"></select>
+		<select id="data_select" name="data_select"></select>
 		<!-- output would be send to formprocess.php -->
 		<div id="info">
 		{{ form_start(form) }}
@@ -107,7 +111,7 @@
 			<fieldset id="page2" style="display: none;">
 				<div class="form-group project">
 				<script src="{{ asset('project.js') }}" type="text/javascript"></script>
-					<label for="project"><span style="color:red">*</span>請選擇想要捐款的項目</label><br>
+					{#<label for="project"><span style="color:red">*</span>請選擇想要捐款的項目</label><br>
 					<select id="department" name="department" onchange="select_dept(this.value); select_project();">
 						<option value="none" selected disabled hidden>請選擇捐款單位</option>
 						<option value="0">中正大學</option>
@@ -129,7 +133,7 @@
 					</select>
 
 					<select id="project" name="project" style="display: none;">
-					</select>
+					</select>#}
 
 				</div>
 

@@ -9,6 +9,8 @@ use App\Entity\Donation;
 use App\Form\Type\DonationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\ProjectRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class RootController extends AbstractController
 {
@@ -58,5 +60,25 @@ class RootController extends AbstractController
         return $this->render('hello.html.twig', [
             'form' => $form,
         ]);
+    }
+
+    #[Route(path: '/get_data', name: 'get_data')]
+    public function getData(ProjectRepository $ProjectRepository)
+    {
+        $dataFromDatabase = $ProjectRepository->findAll();
+
+        $dataArray = [];
+        foreach ($dataFromDatabase as $entity) {
+            if($entity->isAvailable()){
+                $dataArray[] = [
+                    'id' => $entity->getId(),
+                    'institution' => $entity->getInstitution(),
+                    'department' => $entity->getDepartment(),
+                    'name' => $entity->getName(),
+                ];
+            }
+        }
+
+        return new JsonResponse($dataArray);
     }
 }
