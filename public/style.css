@@ -467,3 +467,21 @@ hr {
     size: 5px;
     width: 80%;
 }
+
+.project_input input[type=text]{
+    width: 80%;
+}
+
+.project_input {
+    margin: 10px 500px;
+    padding-left: 10rem;
+    padding-right: 2rem;
+}
+
+.project_list {
+    display: flex;
+    justify-content: center;
+}
+
+
+

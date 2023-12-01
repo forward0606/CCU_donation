@@ -50,7 +50,11 @@ class ProjectType extends AbstractType
                 ],
                 'expanded' =>	true,
             ])
-            ->add('save', SubmitType::class)
+            ->add('save', SubmitType::class, [
+                'attr' => [
+                    'class' => 'custom-submit-button',
+                ],
+            ])
         ;
     }
 }
