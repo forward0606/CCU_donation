@@ -165,36 +165,9 @@
 					<label>其他海外地區</label><br>
 
 					<div class="form-group county" id="address-TW" >
-						{#{{ form_widget(form.city)}}
-    					<select id="area" name="area" style="display: none;"></select>#}
-						<select id="county" name="county" onchange="select_area(this.value);">
-							<option value="none" selected disabled hidden>請選擇縣市</option>
-							<option value="1">基隆市</option>
-							<option value="2">臺北市</option>
-							<option value="3">新北市</option>
-							<option value="4">桃園市</option>
-							<option value="5">新竹市</option>
-							<option value="6">新竹縣</option>
-							<option value="7">苗栗縣</option>
-							<option value="8">臺中市</option>
-							<option value="9">彰化縣</option>
-							<option value="10">南投縣</option>
-							<option value="11">雲林縣</option>
-							<option value="12">嘉義市</option>
-							<option value="13">嘉義縣</option>
-							<option value="14">臺南市</option>
-							<option value="15">高雄市</option>
-							<option value="16">屏東縣</option>
-							<option value="17">臺東縣</option>
-							<option value="18">花蓮縣</option>
-							<option value="19">宜蘭縣</option>
-							<option value="20">澎湖縣</option>
-							<option value="21">金門縣</option>
-							<option value="22">連江縣</option>
-						</select>
-						<select id="area" name="area">
-							<option value="none" selected disabled hidden>請選擇鄉鎮市區</option>
-						</select>
+						{{ form_widget(form.city)}}
+						{{ form_widget(form.district)}}
+    					<select id="area" name="area" style="display: none;" onchange="select_area();"></select>
 						{{ form_widget(form.zipcode) }}
 					</div>
 					<br>

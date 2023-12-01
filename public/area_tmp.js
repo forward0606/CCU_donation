@@ -60,48 +60,11 @@ areaArr[20] = ["馬公市", "湖西鄉", "白沙鄉", "西嶼鄉", "望安鄉", 
 areaArr[21] = ["金城鎮", "金湖鎮", "金沙鎮", "金寧鄉", "烈嶼鄉", "烏坵鄉"];
 areaArr[22] = ["南竿鄉", "北竿鄉", "莒光鄉", "東引鄉"];
 
-var dictionary = {};
-
-dictionary["基隆市"] = 1;
-dictionary["臺北市"] = 2;
-dictionary["新北市"] = 3;
-dictionary["桃園市"] = 4;
-dictionary["新竹市"] = 5;
-dictionary["新竹縣"] = 6;
-dictionary["苗栗縣"] = 7;
-dictionary["臺中市"] = 8;
-dictionary["彰化縣"] = 9;
-dictionary["南投縣"] = 10;
-dictionary["雲林縣"] = 11;
-dictionary["嘉義市"] = 12;
-dictionary["嘉義縣"] = 13;
-dictionary["臺南市"] = 14;
-dictionary["高雄市"] = 15;
-dictionary["屏東縣"] = 16;
-dictionary["臺東縣"] = 17;
-dictionary["花蓮縣"] = 18;
-dictionary["宜蘭縣"] = 19;
-dictionary["澎湖縣"] = 20;
-dictionary["金門縣"] = 21;
-dictionary["連江縣"] = 22;
-
-function select_city(){
+function select_area(index){
     var areaSelect = document.getElementById('area');
-    var intCity = document.getElementById('donation_city').value;
-    var index = dictionary[intCity];
 	areaSelect.style.display = 'inline';
 	areaSelect.options.length = 0;
 	for(var i=0; i<areaArr[index].length; i++){
 		areaSelect.options[i] = new Option(areaArr[index][i], areaArr[index][i]);
 	}
 }
-
-function select_area(){
-    var intArea = document.getElementById('area').value;
-    document.getElementById('donation_district').value = intArea;
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    select_city();
-    select_area();
-});

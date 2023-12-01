@@ -54,17 +54,6 @@ class DonationType extends AbstractType
                         'hidden' => true,
                     ]
 	            ])
-	        /*
-                ->add('institution', EntityType::class, [
-                    'class' => Project::class,
-                    'choice_label' => 'institution',
-                    'mapped' => false,
-                    'query_builder' => function(EntityRepository $er): QueryBuilder {
-                        return $er->createQueryBuilder('p')->orderBy('p.institution', 'ASC');
-                    },
-		            'choice_value' =>'institution', //邪門辦法除去duplicate
-                ])
-	        */
                 ->add('money', MoneyType::class, [
                     'currency' => null,
                 ])
@@ -84,7 +73,7 @@ class DonationType extends AbstractType
                 ])
 
                 ->add('zipcode', TextType::class)
-                /*->add('city', ChoiceType::class, [
+                ->add('city', ChoiceType::class, [
                     'choices' => [
                         '基隆市' => '基隆市',
 						'臺北市' => '臺北市',
@@ -110,10 +99,14 @@ class DonationType extends AbstractType
                         '連江縣' => '連江縣',
                     ],
                     'attr' => [
-                        'name' => 'city',
-                        'onchange' => "select_area(this.value)",
+                        'onchange' => "select_city(); select_area();",
                     ],
-                ])*/
+                ])
+                ->add('district', TextType::class , [
+                    'attr' => [
+                        'hidden' => true,
+                    ],
+                ])
                 ->add('address', TextType::class)
                 ->add('save', SubmitType::class , [
                     'attr' => [
