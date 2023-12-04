@@ -22,11 +22,11 @@ class DonationController extends AbstractController
     {
         $repository = $entityManager->getRepository(Donation::class);
 
-        //$donations = $repository->findBy([], ['id' => 'ASC']);
-        $qb = $entityManager->createQueryBuilder()->select('d')->from('App\Entity\Donation', 'd');
-        $qb->join('d.project_name', 'p', 'WITH', 'p.id = d.project_name');
-        $qb->orderBy('d.id', 'ASC');
-        $donations = $qb->getQuery()->getResult();
+        $donations = $repository->findBy([], ['id' => 'ASC']);
+        //$qb = $entityManager->createQueryBuilder()->select('d')->from('App\Entity\Donation', 'd');
+        //$qb->join('d.project_name', 'p', 'WITH', 'p.id = d.project_name');
+        //$qb->orderBy('d.id', 'ASC');
+        //$donations = $qb->getQuery()->getResult();
         return $this->render('donation/all.html.twig', [
             'donations' => $donations,
         ]);
@@ -188,13 +188,12 @@ class DonationController extends AbstractController
     #[Route(path: '/{did}', name: 'donation_show')]
     public function indexAction(DonationRepository $donationRepository, int $did): Response
     {
-        //$donation = $donationRepository
-            //->find($did);
-        $qb = $entityManager->createQueryBuilder()->select('d')->from('App\Entity\Donation', 'd')->where('d.id = ?1');
-        $qb->join('d.project_name', 'p', 'WITH', 'p.id = d.project_name');
-        $qb->setParameter(1, $did);
-        $donation = $qb->getQuery()->getResult();
-
+        $donation = $donationRepository
+            ->find($did);
+        // looks like it handles association itself, so no need to write join...
+        //$qb = $entityManager->createQueryBuilder()->select('d')->from('App\Entity\Donation', 'd')->where('d.id = ?1');
+        //$qb->setParameter(1, $did);
+        //$donation = $qb->getQuery()->getResult()[0]; //since getResult() return an object array, and query with primary key.
 
         return $this->render('donation/index.html.twig', [
             'donation' => $donation,
