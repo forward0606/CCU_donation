@@ -38,9 +38,11 @@
 	</div>
 
 	<div id="alert_window">
-		<p id="message"></p>
-		<button onclick="closeAlert()">確定</button>
+		<div id="message"></div>
+		<span class="close" onclick="closeAlert()">&times;</span>
+		<button onclick="closeAlert()">OK</button>
 	</div>
+	<div id="overlay"></div>
 
 	<div class="form">
 		<!-- output would be send to formprocess.php -->
@@ -100,8 +102,92 @@
 				</div>
 
 				<div>
-					<input type="button" name="next" class="next action-button" value="下一步" onclick="plusPage('page1');">
+					<input type="button" name="next" class="next action-button" value="下一步" onclick="plusPage_1();">
 				</div>
+				<script>
+					var currentProgress = 0;
+					function validate_1() {
+						// Perform validation for specific fields on the page
+						var name = document.getElementById("donation_name").value;
+						var person_id = document.getElementById("donation_person_id").value;
+						var email = document.getElementById("donation_email").value;
+						var phone = document.getElementById("donation_phone").value;
+						var flag = 0;
+
+						var Message = document.getElementById('message');
+						Message.innerHTML = '';
+						const title = document.createElement('h2');
+						title.textContent = "請留意";
+						Message.appendChild(title);
+
+						if (name.trim() === ''){
+							const label = document.createElement('div');
+							label.textContent = "姓名不得為空";
+							Message.appendChild(label);
+							flag++;
+						}
+						if (person_id.trim() === ''){
+							const label = document.createElement('div');
+							label.textContent = "身分證字號不得為空";
+							Message.appendChild(label);
+							flag++;
+						}
+						if (email.trim() === ''){
+							const label = document.createElement('div');
+							label.textContent = "Email不得為空";
+							Message.appendChild(label);
+							flag++;
+						}
+						if (phone.trim() === ''){
+							const label = document.createElement('div');
+							label.textContent = "電話號碼不得為空";
+							Message.appendChild(label);
+							flag++;
+						}
+						// If all required fields are filled, return true
+						if(flag != 0){
+							showAlert();
+							return false;
+						}else{
+							return true;
+						}
+					}
+
+					function showAlert() {
+						var Alert = document.getElementById('alert_window');
+						var overlay = document.getElementById('overlay');
+						Alert.style.display = 'flex';
+						overlay.style.display = 'flex';
+					}
+
+					function closeAlert() {
+						var Alert = document.getElementById('alert_window');
+						var overlay = document.getElementById('overlay');
+						Alert.style.display = 'none';
+						overlay.style.display = 'none';
+					}
+
+					function plusPage_1() {
+
+						var page1 = document.getElementById("page1");
+						var page2 = document.getElementById("page2");
+						var list = document.querySelectorAll('.progress_list li');
+
+						var tmp = validate_1();
+						console.log(tmp);
+						if (validate_1()) {
+							page1.style.display = "none";
+							page2.style.display = "block";
+							list[currentProgress].classList.remove('active_cir');
+							list[currentProgress].classList.add('active_rec');
+							list[currentProgress].classList.add('active_complete'); 
+							currentProgress = currentProgress + 1;
+							list[currentProgress].classList.add('active_cir');
+							// list[currentProgress].classList.add('active_complete');    
+							scrollToTop();
+						}
+					}
+				</script>
 			</fieldset>
 
 			<!-- 2.填寫捐贈項目、金額、付款方式 -->
@@ -109,7 +195,6 @@
 				<div class="form-group project">
 				<script src="{{ asset('project.js') }}" type="text/javascript"></script>
 					<label for="data_select"><span style="color:red">*</span>請選擇想要捐款的項目</label><br>
-					<script src="{{ asset('test.js') }}" type="text/javascript"></script>
 					{{ form_widget(form.project_name) }}
 					<select id="institution" name="institution">
 						<option value="none" selected disabled hidden>請選擇想要捐款的單位</option>
@@ -119,7 +204,7 @@
 				</div>
 
 				<div class="form-group money">
-					<label for="money"><span style="color:red">*</span>請選擇捐款金額</label><br>
+					<label for="money"><span style="color:red">*</span>請輸入捐款金額</label><br>
 					<select disabled style="padding: 10px;">
 						<option selected="selected">TWD</option>
 					</select>
@@ -137,9 +222,82 @@
 				</div>
 
 				<div>
-					<input type="button" name="next" class="next action-button" value="下一步" onclick="plusPage('page2')">
+					<input type="button" name="next" class="next action-button" value="下一步" onclick="plusPage_2()">
 					<input type="button" name="previous" class="previous action-button" value="上一步" onclick="minusPage('page2')">
 				</div>
+				<script>
+					var currentProgress = 0;
+					function validate_2() {
+						// Perform validation for specific fields on the page
+						var money = document.getElementById("donation_money").value;
+						var project = document.getElementById("donation_project_name").value;
+						var flag = 0;
+
+						var Message = document.getElementById('message');
+						Message.innerHTML = '';
+						const title = document.createElement('h2');
+						title.textContent = "請留意";
+						Message.appendChild(title);
+
+						if (money.trim() === ''){
+							const label = document.createElement('div');
+							label.textContent = "捐款金額不得為空";
+							Message.appendChild(label);
+							flag++;
+						}
+						if (project.trim() === ''){
+							const label = document.createElement('div');
+							label.textContent = "捐款項目不得為空";
+							Message.appendChild(label);
+							flag++;
+						}
+
+						console.log('flag:', flag);
+
+						// If all required fields are filled, return true
+						if(flag != 0){
+							showAlert();
+							return false;
+						}else{
+							return true;
+						}
+					}
+
+					function showAlert() {
+						var Alert = document.getElementById('alert_window');
+						var overlay = document.getElementById('overlay');
+						Alert.style.display = 'flex';
+						overlay.style.display = 'flex';
+					}
+
+					function closeAlert() {
+						var Alert = document.getElementById('alert_window');
+						var overlay = document.getElementById('overlay');
+						Alert.style.display = 'none';
+						overlay.style.display = 'none';
+					}
+
+					function plusPage_2() {
+
+						var page2 = document.getElementById("page2");
+						var page3 = document.getElementById("page3");
+						var list = document.querySelectorAll('.progress_list li');
+
+						var tmp = validate_2();
+						console.log(tmp);
+						if(validate_2()){
+							page2.style.display = "none";
+							page3.style.display = "block";
+							list[currentProgress].classList.remove('active_cir');
+							list[currentProgress].classList.add('active_rec');
+							list[currentProgress].classList.add('active_complete');
+							currentProgress = currentProgress + 1;
+							list[currentProgress].classList.add('active_cir');
+							// list[currentProgress].classList.add('active_complete'); 
+							scrollToTop();
+						}
+					}
+				</script>
 			</fieldset>
 
 			<!-- 3.付款資訊以及是否需要收據 -->
