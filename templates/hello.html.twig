@@ -3,30 +3,33 @@
 {% block body %}
 
 <!-- head of the donation web -->
-<div class="top">
-	<div class="logo">
-		<a href="https://localhost/" title="中正大學捐款網站">
-			<span style="font-size:32px; color:#634a87;">中正大學線上捐款系統</span>
-			<br>
-			<span>DONATE, CCU</span> 
-		</a>
+<div class="top_container">
+	<div class="top">
+		<div class="logo">
+			<a href="https://localhost/" title="中正大學捐款網站">
+				<span style="font-size:32px; color:#634a87;">中正大學線上捐款系統</span>
+				<br>
+				<span>DONATE, CCU</span> 
+			</a>
+		</div>
 	</div>
-
 	<div class="nav">
-		<ul class="menu">
-			<li><a href="https://www.ccu.edu.tw/" title="國立中正大學">國立中正大學</a></li>
-			<li><a href="https://donate.ccu.edu.tw/">捐款中正</a></li>
-			<li><a href="https://localhost/" title="回首頁">回首頁</a></li>
-			<li><a href="mailto:admwrl@ccu.edu.tw">聯絡我們</a></li>
-		</ul>
+			<ul class="menu">
+				<li><a href="https://www.ccu.edu.tw/" title="國立中正大學">國立中正大學</a></li>
+				<li><a href="https://donate.ccu.edu.tw/">捐款中正</a></li>
+				<li><a href="https://localhost/" title="回首頁">回首頁</a></li>
+				<li><a href="mailto:admwrl@ccu.edu.tw">聯絡我們</a></li>
+			</ul>
+		</div>
 	</div>
 </div>
-
 <!-- body of the donation web -->
 <div class="center">
 	<!-- 1.填寫基本資料 2.填寫捐贈項目、金額、付款方式 3.付款資訊以及是否需要收據 -->
 	<div style="text-align: center;">
 	<script src="{{ asset('progress.js') }}" type="text/javascript"></script>
+		<p>progress bar 砍掉重練</p>
+		<!--
 		<div class="progress_list_container">
 			<ul class="progress_list">
 				<li class="active_cir">基本資料</li>
@@ -34,7 +37,8 @@
 				<li>付款資訊</li>
 				<li>捐款完成</li>
 			</ul>
-		</div>		
+		</div>
+		-->		
 	</div>
 
 	<div id="alert_window">
@@ -343,7 +347,7 @@
 				<div class="form-group verify">
 					<label id="code"></label>
 					<label><a href="#" id="recode">更新驗證碼</a><label><br>
-					<input type = "text" id = "input" placeholder="請輸入驗證碼" style="width: 15%;"><br>
+					<input type = "text" id = "input" placeholder="請輸入驗證碼" style="width: 100px;"><br>
 					<input type = "button" value="驗證" id="validate"> 
 				</div>
 				
