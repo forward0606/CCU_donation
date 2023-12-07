@@ -27,7 +27,7 @@ class RootController extends AbstractController
     {
         // example
         $donation = new Donation();
-        //$donation->setName('show');
+        $donation->setName('show');
         $donation->setMoney(1999);
         $donation->setPersonId('A123456789');
         $donation->setEmail('tester@ivalid.maybe');
@@ -36,7 +36,7 @@ class RootController extends AbstractController
         $donation->setDescription('first_test_case');
         $donation->setAddress('test');
 	    $donation->setZipcode('12345');
-	    $donation->settitle('Keyboard');
+	    //$donation->settitle('Keyboard');
 
         // really needed
         $donation->setIdentityType('alumni');

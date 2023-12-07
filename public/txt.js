@@ -25,6 +25,9 @@ function showAddress(selectedValue) {
     var titlebox = document.getElementById("form-group title");
     var addressbox = document.getElementById("form-group address");
     var textbox = document.getElementById("txt_email");
+
+    var address = document.getElementById("donation_address");
+    var zipcode = document.getElementById("donation_zipcode");
     
     if (selectedValue.value == "paper") {
         titlebox.style.display = "block";
@@ -34,10 +37,13 @@ function showAddress(selectedValue) {
         titlebox.style.display = "block";
         addressbox.style.display = "none";
         textbox.style.display = "inline-block";
+        address.value = '-';
     }else if (selectedValue.value == "none") {
         titlebox.style.display = "none";
         addressbox.style.display = "none";
         textbox.style.display = "none";
+        address.value = '-';
+        zipcode.value = '-';
     }
 }
 
