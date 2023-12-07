@@ -4,6 +4,8 @@
 {% block body%}
 <script src="{{ asset('project_selection.js') }}" type="text/javascript"></script>
 
+{{ form_errors(form.name) }}
+
 <h3>Add New Donation Project</h3>
 <hr style="width: 60%;"></hr>
 <div class="project_input" style='height:250px'>
