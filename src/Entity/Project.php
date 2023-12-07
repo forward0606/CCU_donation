@@ -12,6 +12,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 #[UniqueEntity(
     fields: ['institution', 'department', 'name'],
     message: 'already existed!',
+    errorPath: 'name',
 )]
 class Project
 {
