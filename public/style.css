@@ -47,7 +47,7 @@ select {
 }
 
 input[type=text], input[type=number] {
-    width: 300px;
+    width: 280px;
     padding: 3.5px 3.5px;
     margin: 5px 0px;
     box-sizing: border-box;
@@ -86,7 +86,7 @@ input[type=button], input[type=submit], input[type=reset] {
 }
 
 .form-input{
-    width: 200px;
+    width: 280px;
     padding: 3.5px 3.5px;
     margin: 5px 0px;
     box-sizing: border-box;
@@ -115,23 +115,19 @@ input[type=button], input[type=submit], input[type=reset] {
     width: 100px;
 }
 
-.road input[type=text]{
-    width: 300px;
-}
-
 .id_number input[type=text]{
-    width: 200px;
+    width: 180px;
     left: -100px;
 }
 
 .name input[type=text]{
-    width: 200px;
+    width: 180px;
 }
 
 .money input[type=text]{
     text-align: right;
     padding: 10px; 
-    width: 100px;
+    width: 120px;
 }
 
 #info .identify {
@@ -195,7 +191,7 @@ fieldset {
 }
 
 .road input[type=text]{
-    width: 300px;
+    width: 280px;
 }
 
 .identity_type {
@@ -266,6 +262,38 @@ fieldset {
     .form {
         width: 900px;
     }
+}
+
+@media screen and (min-width:1200px) {
+    .form {
+        width: 75%;
+    }
+    input[type=text], input[type=number] {
+        width: 40%;
+    }
+    .form-input{
+        width: 40%;
+    }
+    .address input[type=text]{
+        width: 15%;
+    }
+    
+    .road input[type=text]{
+        width: 40%;
+    }
+    
+    .id_number input[type=text]{
+        width: 25%;
+    }
+    
+    .name input[type=text]{
+        width: 25%;
+    }
+
+    .title input[type=text]{
+        width: 15%;
+    }
+
 }
 
 @media screen and (max-width:400px) {
@@ -608,4 +636,3 @@ hr {
     right: 10px;
     cursor: pointer;
 }
-
