@@ -213,60 +213,47 @@ fieldset {
 }
 
 .top_container{
+    padding: 20px;
+    width: 90%;
     display: block;
     margin: 0 auto;
     text-align: center;
 }
 
 .top {
-    display: inline-block;
-    padding: 0px 40px;
-    margin: 0%;
+    float: center;
 }
 
+.clear-fix{
+    clear:both;
+}
 
 .nav {
-    display: block;
-    position: relative;
-    top: -15px;
-    text-align: right;
-    margin: 0px;
-    padding: 20px 0px;
-    text-align: center;
-}
-
-@media screen and (min-width:800px) {
-    .top {
-        padding: 0px 10px;
-    }
-    .nav {
-        display: inline-block;
-        text-align: center;
-        padding: 20px 10px;
-        /* background-color: #ff0000; */
-    }
-    .form {
-        width: 800px;
-    }
+    padding: 35px 0px;
+    float: center;
 }
 
 @media screen and (min-width:920px) {
-    .top {
-        padding: 0px 40px;
+    .top{
+        float: left;
     }
-    .nav {
-        display: inline-block;
-        text-align: center;
-        padding: 20px 40px;
+    .nav{
+        float: right;
     }
     .form {
         width: 900px;
+    }
+    .top_container{
+        width: 810px;
     }
 }
 
 @media screen and (min-width:1200px) {
     .form {
         width: 75%;
+    }
+    .top_container {
+        width: 67.5%;
     }
     input[type=text], input[type=number] {
         width: 40%;
