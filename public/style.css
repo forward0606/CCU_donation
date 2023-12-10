@@ -248,7 +248,7 @@ fieldset {
     }
     .progress_list_container{
         position: relative;
-        top: 30px;
+        top: 10px;
     }
 }
 
@@ -392,12 +392,13 @@ fieldset {
 }   
 
 .bottom {
+    height: 200px;
     margin: 40px 0px 0px;
     background-color: #634a87;
     color: #fff;
-    padding: 10px;
     display: flex;
     justify-content: center;
+    align-items: center;
     line-height: 2;
     font-size: 16px;
 }
@@ -691,3 +692,10 @@ hr {
     left: 12.5%;
     z-index: -1;
 }
+
+html, body {
+    height: 100%;
+}
+.wrapper {
+    min-height: calc(100% - 240px);
+  }
