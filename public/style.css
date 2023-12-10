@@ -403,21 +403,6 @@ fieldset {
     font-size: 16px;
 }
 
-.bottom_thanks {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #634a87;
-    color: #fff;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    line-height: 2;
-    font-size: 16px;
-}
-
 
 /* .progress_list_container{
     width: 75%;
