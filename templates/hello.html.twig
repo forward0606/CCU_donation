@@ -3,17 +3,18 @@
 {% block body %}
 
 <!-- head of the donation web -->
-<div class="top_container">
-	<div class="top">
-		<div class="logo">
-			<a href="https://localhost/" title="中正大學捐款網站">
-				<span style="font-size:32px; color:#634a87;">中正大學線上捐款系統</span>
-				<br>
-				<span>DONATE, CCU</span> 
-			</a>
+<div class="wrapper">
+	<div class="top_container">
+		<div class="top">
+			<div class="logo">
+				<a href="https://localhost/" title="中正大學捐款網站">
+					<span style="font-size:32px; color:#634a87;">中正大學線上捐款系統</span>
+					<br>
+					<span>DONATE, CCU</span> 
+				</a>
+			</div>
 		</div>
-	</div>
-	<div class="nav">
+		<div class="nav">
 			<ul class="menu">
 				<li><a href="https://www.ccu.edu.tw/" title="國立中正大學">國立中正大學</a></li>
 				<li><a href="https://donate.ccu.edu.tw/">捐款中正</a></li>
@@ -21,363 +22,362 @@
 				<li><a href="mailto:admwrl@ccu.edu.tw">聯絡我們</a></li>
 			</ul>
 		</div>
+		<div class = "clear-fix"></div>
 	</div>
-	<div class = "clear-fix"></div>
-</div>
-<!-- body of the donation web -->
-<div class="center">
-	<!-- 1.填寫基本資料 2.填寫捐贈項目、金額、付款方式 3.付款資訊以及是否需要收據 -->
-	<div style="text-align: center;">
-	<script src="{{ asset('progress.js') }}" type="text/javascript"></script>
-		<div class="progress_list_container">
-			<ul class="progress_list">
-				<li class="circle active">1</li>
-				<li class="circle">2</li>
-				<li class="circle">3</li>
-				<li class="circle">4</li>
-			</ul>
-			<div class="progress_bar"></div>
-			<div class="progress_bar_cover" id="progress_bar_cover"></div>
-			<ul class="list_content">
-				<li>基本資料</li>
-				<li>捐款資訊</li>
-				<li>付款資訊</li>
-				<li>捐款完成</li>
-			</ul>
+	<!-- body of the donation web -->
+	<div class="center">
+		<!-- 1.填寫基本資料 2.填寫捐贈項目、金額、付款方式 3.付款資訊以及是否需要收據 -->
+		<div style="text-align: center;">
+		<script src="{{ asset('progress.js') }}" type="text/javascript"></script>
+			<div class="progress_list_container">
+				<ul class="progress_list">
+					<li class="circle active">1</li>
+					<li class="circle">2</li>
+					<li class="circle">3</li>
+					<li class="circle">4</li>
+				</ul>
+				<div class="progress_bar"></div>
+				<div class="progress_bar_cover" id="progress_bar_cover"></div>
+				<ul class="list_content">
+					<li>基本資料</li>
+					<li>捐款資訊</li>
+					<li>付款資訊</li>
+					<li>捐款完成</li>
+				</ul>
+			</div>
+		</div>
+
+		<div id="alert_window">
+			<div id="message"></div>
+			<span class="close" onclick="closeAlert()">&times;</span>
+			<button onclick="closeAlert()">OK</button>
+		</div>
+		<div id="overlay"></div>
+
+		<div class="form">
+			<!-- output would be send to formprocess.php -->
+			<div id="info">
+			{{ form_start(form) }}
+				<!-- 1.填寫基本資料 -->
+				<fieldset id="page1">
+				<script src="{{ asset('txt.js') }}" type="text/javascript"></script>
+					<div>
+						<div class="form-group identify">
+							<label for="identify"><span style="color:red">*</span>請選擇您的身分</label><br>
+							{{ form_widget(form.identity_type,{'attr': {'onchange': 'showInputName(this)'}}) }}
+						</div>
+
+						<div class="form-group name">
+							<div id="form-group public">
+								<label for="name"><span style="color:red">*</span>姓名</label><br>
+							</div>
+
+							<div id="form-group enterprise" style="display: none;">
+								<label for="name"><span style="color:red">*</span>機構名稱</label><br>
+							</div>
+							{{ form_widget(form.name) }}
+						</div>
+
+						<div class="form-group anonymity">
+							<label for="anonymity">是否需要匿名</label><br>
+							{{ form_widget(form.anonymous,{'attr': {'onclick': 'showTextbox(this)'}}) }}
+							<p class="remark blueTxt" id="txt_anonymity" style="display: inline-block;">選擇匿名您的名字將會以"中正人"顯示</p>
+						</div>
+
+						<div class="form-group id_number">
+							<div id="NID">
+								<label for="id_number"><span style="color:red">*</span>身份證字號</label><br>
+							</div>
+
+							<div id="UBN" style="display: none;">
+								<label for="id_number"><span style="color:red">*</span>統一編號</label><br>
+							</div>
+							{{ form_widget(form.person_id) }}
+						</div>
+
+						<div class="form-group email">
+							<label for="email"><span style="color:red">*</span>Email</label><br>
+							{{ form_widget(form.email,{'attr': {'class': 'form-input'}}) }}
+						</div>
+
+						<div class="form-group phone">
+							<label for="phone"><span style="color:red">*</span>聯絡電話</label><br>
+							{{ form_widget(form.phone,{'attr': {'class': 'form-input'}}) }}
+						</div>
+
+						<div class="form-group comments">
+							<label for="comments">備註</label><br>
+							{{ form_widget(form.description,{'attr': {'class' : 'textarea'}}) }}
+						</div>
+					</div>
+
+					<div>
+						<input type="button" name="next" class="next action-button" value="下一步" onclick="plusPage_1();">
+					</div>
+					<script>
+						var currentProgress = 0;
+						function validate_1() {
+							// Perform validation for specific fields on the page
+							var name = document.getElementById("donation_name").value;
+							var person_id = document.getElementById("donation_person_id").value;
+							var email = document.getElementById("donation_email").value;
+							var phone = document.getElementById("donation_phone").value;
+							var flag = 0;
+
+							var Message = document.getElementById('message');
+							Message.innerHTML = '';
+							const title = document.createElement('h2');
+							title.textContent = "請留意";
+							Message.appendChild(title);
+
+							if (name.trim() === ''){
+								const label = document.createElement('div');
+								label.textContent = "姓名不得為空";
+								Message.appendChild(label);
+								flag++;
+							}
+							if (person_id.trim() === ''){
+								const label = document.createElement('div');
+								label.textContent = "身分證字號不得為空";
+								Message.appendChild(label);
+								flag++;
+							}
+							if (email.trim() === ''){
+								const label = document.createElement('div');
+								label.textContent = "Email不得為空";
+								Message.appendChild(label);
+								flag++;
+							}
+							if (phone.trim() === ''){
+								const label = document.createElement('div');
+								label.textContent = "電話號碼不得為空";
+								Message.appendChild(label);
+								flag++;
+							}
+							// If all required fields are filled, return true
+							if(flag != 0){
+								showAlert();
+								return false;
+							}else{
+								return true;
+							}
+						}
+
+						function showAlert() {
+							var Alert = document.getElementById('alert_window');
+							var overlay = document.getElementById('overlay');
+							Alert.style.display = 'flex';
+							overlay.style.display = 'flex';
+						}
+
+						function closeAlert() {
+							var Alert = document.getElementById('alert_window');
+							var overlay = document.getElementById('overlay');
+							Alert.style.display = 'none';
+							overlay.style.display = 'none';
+						}
+
+						function plusPage_1() {
+
+							var page1 = document.getElementById("page1");
+							var page2 = document.getElementById("page2");
+							var list = document.querySelectorAll('.progress_list li');
+							var cover = document.getElementById('progress_bar_cover');
+
+							var tmp = validate_1();
+							console.log(tmp);
+							if (validate_1()) {
+								page1.style.display = "none";
+								page2.style.display = "block";
+								currentProgress = currentProgress + 1;
+								list[currentProgress].classList.add('active');
+								cover.style.width = '25%'; 
+								scrollToTop();
+							}
+						}
+					</script>
+				</fieldset>
+
+				<!-- 2.填寫捐贈項目、金額、付款方式 -->
+				<fieldset id="page2" style="display: none;">
+					<div class="form-group project">
+					<script src="{{ asset('project.js') }}" type="text/javascript"></script>
+						<label for="data_select"><span style="color:red">*</span>請選擇想要捐款的項目</label><br>
+						{{ form_widget(form.project_name) }}
+						<select id="institution" name="institution">
+							<option value="none" selected disabled hidden>請選擇想要捐款的單位</option>
+						</select>
+						<select id="department" name="department" style="display: none;"></select>
+						<select id="data_select" name="data_select" style="display: none;"></select>
+					</div>
+
+					<div class="form-group money">
+						<label for="money"><span style="color:red">*</span>請輸入捐款金額</label><br>
+						<select disabled style="padding: 10px;">
+							<option selected="selected">TWD</option>
+						</select>
+						{{ form_widget(form.money) }}
+					</div>
+
+					<div class="form-group pay">
+						<label for="pay">請選擇捐款方式</label><br>
+						{{ form_widget(form.pay,{'attr': {'disabled': 'disabled'}}) }}
+
+						<p class="remark blueTxt" id="txt_credit">※ 注意事項 ※<br>
+						適用卡別：VISA、MasterCard、JCB。<br>
+						僅限單次捐款，若需定期定額捐款，請依紙本捐款方式操作。<br></p>
+
+					</div>
+
+					<div>
+						<input type="button" name="next" class="next action-button" value="下一步" onclick="plusPage_2()">
+						<input type="button" name="previous" class="previous action-button" value="上一步" onclick="minusPage('page2')">
+					</div>
+					<script>
+						var currentProgress = 0;
+						function validate_2() {
+							// Perform validation for specific fields on the page
+							var money = document.getElementById("donation_money").value;
+							var project = document.getElementById("donation_project_name").value;
+							var flag = 0;
+
+							var Message = document.getElementById('message');
+							Message.innerHTML = '';
+							const title = document.createElement('h2');
+							title.textContent = "請留意";
+							Message.appendChild(title);
+
+							if (money.trim() === ''){
+								const label = document.createElement('div');
+								label.textContent = "捐款金額不得為空";
+								Message.appendChild(label);
+								flag++;
+							}
+							if (project.trim() === ''){
+								const label = document.createElement('div');
+								label.textContent = "捐款項目不得為空";
+								Message.appendChild(label);
+								flag++;
+							}
+
+							console.log('flag:', flag);
+
+							// If all required fields are filled, return true
+							if(flag != 0){
+								showAlert();
+								return false;
+							}else{
+								return true;
+							}
+						}
+
+						function showAlert() {
+							var Alert = document.getElementById('alert_window');
+							var overlay = document.getElementById('overlay');
+							Alert.style.display = 'flex';
+							overlay.style.display = 'flex';
+						}
+
+						function closeAlert() {
+							var Alert = document.getElementById('alert_window');
+							var overlay = document.getElementById('overlay');
+							Alert.style.display = 'none';
+							overlay.style.display = 'none';
+						}
+
+						function plusPage_2() {
+
+							var page2 = document.getElementById("page2");
+							var page3 = document.getElementById("page3");
+							var list = document.querySelectorAll('.progress_list li');
+							var cover = document.getElementById('progress_bar_cover');
+
+							var tmp = validate_2();
+							console.log(tmp);
+							if(validate_2()){
+								page2.style.display = "none";
+								page3.style.display = "block";
+								currentProgress = currentProgress + 1;
+								list[currentProgress].classList.add('active');
+								cover.style.width = '50%'; 
+								scrollToTop();
+							}
+						}
+					</script>
+				</fieldset>
+
+				<!-- 3.付款資訊以及是否需要收據 -->
+				<fieldset id="page3" style="display: none;">
+					<!-- maybe add * after coosing "yes" -->
+					<div class="form-group receipt">
+						<label for="receipt"><span style="color:red">*</span>收據類型</label><br>
+						{{ form_widget(form.type,{'attr': {'onchange': 'showAddress(this)'}}) }}
+						<p class="remark blueTxt" id="txt_email">電子收據將會寄送到您的Email</p>
+					</div>
+				
+					<div class="form-group title" id="form-group title">
+						<label for="title"><span style="color:red">*</span>收據抬頭</label><br>
+						{{ form_widget(form.title) }}<br>
+						<input type="checkbox" id="title" name="title">
+						<label>同捐款人名稱</label>
+					</div>
+					
+					<script>
+						var checkbox = document.getElementById('title');
+						var title = document.getElementById('donation_title');
+						var name = document.getElementById('donation_name').value;
+
+						checkbox.addEventListener('change', function() {
+							if (checkbox.checked) {
+								title.value = name;
+							}else {
+								title.value = '';
+							}
+						});
+
+						title.addEventListener('input', function() {
+							checkbox.checked = false;
+						});
+					</script>
+
+					<div class="form-group address" id="form-group address">
+						<script src="{{ asset('area.js') }}" type="text/javascript"></script>
+						<label for="address"><span style="color:red">*</span>收據寄送地址</label><br>
+						<input name="country" type="radio" value="1" onclick="showTW()" checked="checked">
+						<label>臺灣</label>
+						<input name="country" type="radio" value="0" onclick="showTW()">
+						<label>其他海外地區</label><br>
+
+						<div class="form-group county" id="address-TW" >
+							{{ form_widget(form.city)}}
+							{{ form_widget(form.district)}}
+							<select id="area" name="area" style="display: none;" onchange="select_area();"></select>
+							{{ form_widget(form.zipcode) }}
+						</div>
+						<br>
+						<div class="form-group road">
+							{{ form_widget(form.address) }}
+						</div>
+					</div>
+
+					<div class="form-group verify">
+						<label id="code"></label>
+						<label><a href="#" id="recode">更新驗證碼</a><label><br>
+						<input type = "text" id = "input" placeholder="請輸入驗證碼" style="width: 100px;"><br>
+						{#<input type = "button" value="驗證" id="validate"> #}
+					</div>
+					
+					{{ form_widget(form.save,{'label' : '送出'},{'attr': {'onclick': "plusPage('page3')"}}) }}
+					<input type="button" name="previous" class="previous action-button" value="上一步" onclick="minusPage('page3')">
+
+				</fieldset>
+
+			<p></p>
+			{{ form_end(form) }}
+			</div>
 		</div>
 	</div>
-
-	<div id="alert_window">
-		<div id="message"></div>
-		<span class="close" onclick="closeAlert()">&times;</span>
-		<button onclick="closeAlert()">OK</button>
-	</div>
-	<div id="overlay"></div>
-
-	<div class="form">
-		<!-- output would be send to formprocess.php -->
-		<div id="info">
-		{{ form_start(form) }}
-			<!-- 1.填寫基本資料 -->
-			<fieldset id="page1">
-			<script src="{{ asset('txt.js') }}" type="text/javascript"></script>
-				<div>
-					<div class="form-group identify">
-						<label for="identify"><span style="color:red">*</span>請選擇您的身分</label><br>
-						{{ form_widget(form.identity_type,{'attr': {'onchange': 'showInputName(this)'}}) }}
-					</div>
-
-					<div class="form-group name">
-						<div id="form-group public">
-							<label for="name"><span style="color:red">*</span>姓名</label><br>
-						</div>
-
-						<div id="form-group enterprise" style="display: none;">
-							<label for="name"><span style="color:red">*</span>機構名稱</label><br>
-						</div>
-						{{ form_widget(form.name) }}
-					</div>
-
-					<div class="form-group anonymity">
-						<label for="anonymity">是否需要匿名</label><br>
-						{{ form_widget(form.anonymous,{'attr': {'onclick': 'showTextbox(this)'}}) }}
-						<p class="remark blueTxt" id="txt_anonymity" style="display: inline-block;">選擇匿名您的名字將會以"中正人"顯示</p>
-					</div>
-
-					<div class="form-group id_number">
-						<div id="NID">
-							<label for="id_number"><span style="color:red">*</span>身份證字號</label><br>
-						</div>
-
-						<div id="UBN" style="display: none;">
-							<label for="id_number"><span style="color:red">*</span>統一編號</label><br>
-						</div>
-						{{ form_widget(form.person_id) }}
-					</div>
-
-					<div class="form-group email">
-						<label for="email"><span style="color:red">*</span>Email</label><br>
-						{{ form_widget(form.email,{'attr': {'class': 'form-input'}}) }}
-					</div>
-
-					<div class="form-group phone">
-						<label for="phone"><span style="color:red">*</span>聯絡電話</label><br>
-						{{ form_widget(form.phone,{'attr': {'class': 'form-input'}}) }}
-					</div>
-
-					<div class="form-group comments">
-						<label for="comments">備註</label><br>
-						{{ form_widget(form.description,{'attr': {'class' : 'textarea'}}) }}
-					</div>
-				</div>
-
-				<div>
-					<input type="button" name="next" class="next action-button" value="下一步" onclick="plusPage_1();">
-				</div>
-				<script>
-					var currentProgress = 0;
-					function validate_1() {
-						// Perform validation for specific fields on the page
-						var name = document.getElementById("donation_name").value;
-						var person_id = document.getElementById("donation_person_id").value;
-						var email = document.getElementById("donation_email").value;
-						var phone = document.getElementById("donation_phone").value;
-						var flag = 0;
-
-						var Message = document.getElementById('message');
-						Message.innerHTML = '';
-						const title = document.createElement('h2');
-						title.textContent = "請留意";
-						Message.appendChild(title);
-
-						if (name.trim() === ''){
-							const label = document.createElement('div');
-							label.textContent = "姓名不得為空";
-							Message.appendChild(label);
-							flag++;
-						}
-						if (person_id.trim() === ''){
-							const label = document.createElement('div');
-							label.textContent = "身分證字號不得為空";
-							Message.appendChild(label);
-							flag++;
-						}
-						if (email.trim() === ''){
-							const label = document.createElement('div');
-							label.textContent = "Email不得為空";
-							Message.appendChild(label);
-							flag++;
-						}
-						if (phone.trim() === ''){
-							const label = document.createElement('div');
-							label.textContent = "電話號碼不得為空";
-							Message.appendChild(label);
-							flag++;
-						}
-						// If all required fields are filled, return true
-						if(flag != 0){
-							showAlert();
-							return false;
-						}else{
-							return true;
-						}
-					}
-
-					function showAlert() {
-						var Alert = document.getElementById('alert_window');
-						var overlay = document.getElementById('overlay');
-						Alert.style.display = 'flex';
-						overlay.style.display = 'flex';
-					}
-
-					function closeAlert() {
-						var Alert = document.getElementById('alert_window');
-						var overlay = document.getElementById('overlay');
-						Alert.style.display = 'none';
-						overlay.style.display = 'none';
-					}
-
-					function plusPage_1() {
-
-						var page1 = document.getElementById("page1");
-						var page2 = document.getElementById("page2");
-						var list = document.querySelectorAll('.progress_list li');
-						var cover = document.getElementById('progress_bar_cover');
-
-						var tmp = validate_1();
-						console.log(tmp);
-						if (validate_1()) {
-							page1.style.display = "none";
-							page2.style.display = "block";
-							currentProgress = currentProgress + 1;
-							list[currentProgress].classList.add('active');
-  							cover.style.width = '25%'; 
-							scrollToTop();
-						}
-					}
-				</script>
-			</fieldset>
-
-			<!-- 2.填寫捐贈項目、金額、付款方式 -->
-			<fieldset id="page2" style="display: none;">
-				<div class="form-group project">
-				<script src="{{ asset('project.js') }}" type="text/javascript"></script>
-					<label for="data_select"><span style="color:red">*</span>請選擇想要捐款的項目</label><br>
-					{{ form_widget(form.project_name) }}
-					<select id="institution" name="institution">
-						<option value="none" selected disabled hidden>請選擇想要捐款的單位</option>
-					</select>
-					<select id="department" name="department" style="display: none;"></select>
-					<select id="data_select" name="data_select" style="display: none;"></select>
-				</div>
-
-				<div class="form-group money">
-					<label for="money"><span style="color:red">*</span>請輸入捐款金額</label><br>
-					<select disabled style="padding: 10px;">
-						<option selected="selected">TWD</option>
-					</select>
-					{{ form_widget(form.money) }}
-				</div>
-
-				<div class="form-group pay">
-					<label for="pay">請選擇捐款方式</label><br>
-					{{ form_widget(form.pay,{'attr': {'disabled': 'disabled'}}) }}
-
-					<p class="remark blueTxt" id="txt_credit">※ 注意事項 ※<br>
-					適用卡別：VISA、MasterCard、JCB。<br>
-					僅限單次捐款，若需定期定額捐款，請依紙本捐款方式操作。<br></p>
-
-				</div>
-
-				<div>
-					<input type="button" name="next" class="next action-button" value="下一步" onclick="plusPage_2()">
-					<input type="button" name="previous" class="previous action-button" value="上一步" onclick="minusPage('page2')">
-				</div>
-				<script>
-					var currentProgress = 0;
-					function validate_2() {
-						// Perform validation for specific fields on the page
-						var money = document.getElementById("donation_money").value;
-						var project = document.getElementById("donation_project_name").value;
-						var flag = 0;
-
-						var Message = document.getElementById('message');
-						Message.innerHTML = '';
-						const title = document.createElement('h2');
-						title.textContent = "請留意";
-						Message.appendChild(title);
-
-						if (money.trim() === ''){
-							const label = document.createElement('div');
-							label.textContent = "捐款金額不得為空";
-							Message.appendChild(label);
-							flag++;
-						}
-						if (project.trim() === ''){
-							const label = document.createElement('div');
-							label.textContent = "捐款項目不得為空";
-							Message.appendChild(label);
-							flag++;
-						}
-
-						console.log('flag:', flag);
-
-						// If all required fields are filled, return true
-						if(flag != 0){
-							showAlert();
-							return false;
-						}else{
-							return true;
-						}
-					}
-
-					function showAlert() {
-						var Alert = document.getElementById('alert_window');
-						var overlay = document.getElementById('overlay');
-						Alert.style.display = 'flex';
-						overlay.style.display = 'flex';
-					}
-
-					function closeAlert() {
-						var Alert = document.getElementById('alert_window');
-						var overlay = document.getElementById('overlay');
-						Alert.style.display = 'none';
-						overlay.style.display = 'none';
-					}
-
-					function plusPage_2() {
-
-						var page2 = document.getElementById("page2");
-						var page3 = document.getElementById("page3");
-						var list = document.querySelectorAll('.progress_list li');
-						var cover = document.getElementById('progress_bar_cover');
-
-						var tmp = validate_2();
-						console.log(tmp);
-						if(validate_2()){
-							page2.style.display = "none";
-							page3.style.display = "block";
-							currentProgress = currentProgress + 1;
-							list[currentProgress].classList.add('active');
-  							cover.style.width = '50%'; 
-							scrollToTop();
-						}
-					}
-				</script>
-			</fieldset>
-
-			<!-- 3.付款資訊以及是否需要收據 -->
-			<fieldset id="page3" style="display: none;">
-				<!-- maybe add * after coosing "yes" -->
-				<div class="form-group receipt">
-					<label for="receipt"><span style="color:red">*</span>收據類型</label><br>
-					{{ form_widget(form.type,{'attr': {'onchange': 'showAddress(this)'}}) }}
-					<p class="remark blueTxt" id="txt_email">電子收據將會寄送到您的Email</p>
-				</div>
-			
-				<div class="form-group title" id="form-group title">
-					<label for="title"><span style="color:red">*</span>收據抬頭</label><br>
-					{{ form_widget(form.title) }}<br>
-					<input type="checkbox" id="title" name="title">
-					<label>同捐款人名稱</label>
-				</div>
-				
-				<script>
-					var checkbox = document.getElementById('title');
-					var title = document.getElementById('donation_title');
-					var name = document.getElementById('donation_name').value;
-
-					checkbox.addEventListener('change', function() {
-						if (checkbox.checked) {
-							title.value = name;
-						}else {
-							title.value = '';
-						}
-					});
-
-					title.addEventListener('input', function() {
-						checkbox.checked = false;
-					});
-				</script>
-
-				<div class="form-group address" id="form-group address">
-					<script src="{{ asset('area.js') }}" type="text/javascript"></script>
-					<label for="address"><span style="color:red">*</span>收據寄送地址</label><br>
-					<input name="country" type="radio" value="1" onclick="showTW()" checked="checked">
-					<label>臺灣</label>
-					<input name="country" type="radio" value="0" onclick="showTW()">
-					<label>其他海外地區</label><br>
-
-					<div class="form-group county" id="address-TW" >
-						{{ form_widget(form.city)}}
-						{{ form_widget(form.district)}}
-    					<select id="area" name="area" style="display: none;" onchange="select_area();"></select>
-						{{ form_widget(form.zipcode) }}
-					</div>
-					<br>
-					<div class="form-group road">
-						{{ form_widget(form.address) }}
-					</div>
-				</div>
-
-				<div class="form-group verify">
-					<label id="code"></label>
-					<label><a href="#" id="recode">更新驗證碼</a><label><br>
-					<input type = "text" id = "input" placeholder="請輸入驗證碼" style="width: 100px;"><br>
-					{#<input type = "button" value="驗證" id="validate"> #}
-				</div>
-				
-				{{ form_widget(form.save,{'label' : '送出'},{'attr': {'onclick': "plusPage('page3')"}}) }}
-				<input type="button" name="previous" class="previous action-button" value="上一步" onclick="minusPage('page3')">
-
-			</fieldset>
-
-		<p></p>
-		{{ form_end(form) }}
-		</div>
-	</div>
 </div>
-
 <div class="bottom" >
 	2022 Copyright © 國立中正大學 | 秘書室 | 媒體暨公關中心<br>
 	聯絡人: 林婉茹小姐<br>
