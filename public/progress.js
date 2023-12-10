@@ -102,26 +102,23 @@ function minusPage(pageNum) {
     var page2 = document.getElementById("page2");
     var page3 = document.getElementById("page3");
     var list = document.querySelectorAll('.progress_list li');
+    var cover = document.getElementById('progress_bar_cover');
 
     var currentPage = document.getElementById(pageNum);
 
     if (currentPage === page2) {
         page1.style.display = "block";
         page2.style.display = "none";
-        list[currentProgress].classList.remove('active_cir');
+        list[currentProgress].classList.remove('active');
         currentProgress = currentProgress - 1;
-        list[currentProgress].classList.add('active_cir');
-        list[currentProgress].classList.remove('active_rec');
-        list[currentProgress].classList.remove('active_complete');
+        cover.style.width = '0%'; 
         scrollToTop();
     }else if(currentPage === page3){
         page2.style.display = "block";
         page3.style.display = "none";
-        list[currentProgress].classList.remove('active_cir');
+        list[currentProgress].classList.remove('active');
         currentProgress = currentProgress - 1;
-        list[currentProgress].classList.add('active_cir');
-        list[currentProgress].classList.remove('active_rec');
-        list[currentProgress].classList.remove('active_complete');
+        cover.style.width = '25%'; 
         scrollToTop();
     }
 }
