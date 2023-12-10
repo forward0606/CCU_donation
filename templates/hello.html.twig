@@ -29,17 +29,22 @@
 	<!-- 1.填寫基本資料 2.填寫捐贈項目、金額、付款方式 3.付款資訊以及是否需要收據 -->
 	<div style="text-align: center;">
 	<script src="{{ asset('progress.js') }}" type="text/javascript"></script>
-		<p>progress bar 砍掉重練</p>
-		<!--
 		<div class="progress_list_container">
 			<ul class="progress_list">
-				<li class="active_cir">基本資料</li>
+				<li class="circle active">1</li>
+				<li class="circle">2</li>
+				<li class="circle">3</li>
+				<li class="circle">4</li>
+			</ul>
+			<div class="progress_bar"></div>
+			<div class="progress_bar_cover" id="progress_bar_cover"></div>
+			<ul class="list_content">
+				<li>基本資料</li>
 				<li>捐款資訊</li>
 				<li>付款資訊</li>
 				<li>捐款完成</li>
 			</ul>
 		</div>
-		-->		
 	</div>
 
 	<div id="alert_window">
@@ -177,18 +182,16 @@
 						var page1 = document.getElementById("page1");
 						var page2 = document.getElementById("page2");
 						var list = document.querySelectorAll('.progress_list li');
+						var cover = document.getElementById('progress_bar_cover');
 
 						var tmp = validate_1();
 						console.log(tmp);
 						if (validate_1()) {
 							page1.style.display = "none";
 							page2.style.display = "block";
-							list[currentProgress].classList.remove('active_cir');
-							list[currentProgress].classList.add('active_rec');
-							list[currentProgress].classList.add('active_complete'); 
 							currentProgress = currentProgress + 1;
-							list[currentProgress].classList.add('active_cir');
-							// list[currentProgress].classList.add('active_complete');    
+							list[currentProgress].classList.add('active');
+  							cover.style.width = '25%'; 
 							scrollToTop();
 						}
 					}
@@ -287,18 +290,16 @@
 						var page2 = document.getElementById("page2");
 						var page3 = document.getElementById("page3");
 						var list = document.querySelectorAll('.progress_list li');
+						var cover = document.getElementById('progress_bar_cover');
 
 						var tmp = validate_2();
 						console.log(tmp);
 						if(validate_2()){
 							page2.style.display = "none";
 							page3.style.display = "block";
-							list[currentProgress].classList.remove('active_cir');
-							list[currentProgress].classList.add('active_rec');
-							list[currentProgress].classList.add('active_complete');
 							currentProgress = currentProgress + 1;
-							list[currentProgress].classList.add('active_cir');
-							// list[currentProgress].classList.add('active_complete'); 
+							list[currentProgress].classList.add('active');
+  							cover.style.width = '50%'; 
 							scrollToTop();
 						}
 					}
