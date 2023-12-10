@@ -246,6 +246,10 @@ fieldset {
     .top_container{
         width: 810px;
     }
+    .progress_list_container{
+        position: relative;
+        top: 30px;
+    }
 }
 
 @media screen and (min-width:1200px) {
@@ -414,7 +418,7 @@ fieldset {
 }
 
 
-.progress_list_container{
+/* .progress_list_container{
     width: 75%;
     margin: auto;
 }
@@ -494,7 +498,7 @@ fieldset {
     display: flex;
     margin-top: 20px;
     justify-content: center; 
-}
+} */
 
 .donation_list table{
     color: black;
@@ -622,4 +626,68 @@ hr {
     top: 4px;
     right: 10px;
     cursor: pointer;
+}
+
+.progress_list_container{
+    margin: auto;
+    width: 75%;
+}
+
+.progress_list{
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+}
+
+.progress_list li {
+    font-size: 24px;
+    color: black;
+  }
+
+.circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background-color: white;
+    border-radius: 50%;
+    border: 3px solid #634a87;
+}
+
+.circle.active{
+    background-color: #634a87;
+    color: white;
+}
+
+.list_content{
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    top: -50px;
+}
+
+.progress_bar{
+    position: relative;
+    height: 15px;
+    background-color: white;
+    width: 75%;
+    top: -58px;
+    z-index: -1;
+    border: 3px solid #634a87;
+    margin: auto;
+}
+
+.progress_bar_cover{
+    position: relative;
+    height: 15px;
+    top: -75px;
+    background-color: #634a87;
+    width: 0%;
+    left: 12.5%;
+    z-index: -1;
 }
