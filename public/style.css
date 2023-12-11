@@ -478,13 +478,13 @@ fieldset {
 
 .progress_list li.active_rec::after {
     background-color: #634a87;
-}
+}*/
 
 .donation_list {
     display: flex;
     margin-top: 20px;
     justify-content: center; 
-} */
+} 
 
 .donation_list table{
     color: black;

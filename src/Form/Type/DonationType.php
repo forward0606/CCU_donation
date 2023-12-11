@@ -37,8 +37,8 @@ class DonationType extends AbstractType
                 ->add('name', TextType::class)
                 ->add('anonymous', ChoiceType::class, [
                     'choices'  => [
-                        '是' => true,
-                        '否' => false,
+                        '是  ' => true,
+                        '否  ' => false,
                     ],
                     'expanded' => true,
                 ])

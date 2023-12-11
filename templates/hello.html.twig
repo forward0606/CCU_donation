@@ -360,17 +360,59 @@
 						</div>
 					</div>
 
-					<div class="form-group verify">
+					{#<div class="form-group verify">
 						<label id="code"></label>
 						<label><a href="#" id="recode">更新驗證碼</a><label><br>
 						<input type = "text" id = "input" placeholder="請輸入驗證碼" style="width: 100px;"><br>
-						{#<input type = "button" value="驗證" id="validate"> #}
-					</div>
+						{#<input type = "button" value="驗證" id="validate"> 
+					</div>#}
 					
 					{{ form_widget(form.save,{'label' : '送出'},{'attr': {'onclick': "plusPage('page3')"}}) }}
 					<input type="button" name="previous" class="previous action-button" value="上一步" onclick="minusPage('page3')">
 
 				</fieldset>
+
+				{#<button onclick="show();">test</button>
+
+				<fieldset id="page4">
+					<div id="confirm_name" class="confirm"></div>
+					<div id="confirm_anonymous" class="confirm"></div>
+					<div id="confirm_person_id" class="confirm"></div>
+					<div id="confirm_email" class="confirm"></div>
+					<div id="confirm_phone" class="confirm"></div>
+					<div id="confirm_description" class="confirm"></div>
+					<div id="confirm_project" class="confirm"></div>
+					<div id="confirm_money" class="confirm"></div>
+					<div id="confirm_pay" class="confirm"></div>
+					<div id="confirm_type" class="confirm"></div>
+					<div id="confirm_title" class="confirm"></div>
+					<div id="confirm_address" class="confirm"></div>
+				</fieldset>
+
+				<script>
+					function show(){
+						var div = document.getElementById("confirm_name");
+						const label_name = document.createElement('label');
+						label_name.textContent = "名稱";
+						div.appendChild(label_name);
+						const value_name = document.createElement('label');
+						value_name.textContent = document.getElementById('donation_name').value;
+						div.appendChild(value_name);
+
+						div = document.getElementById("confirm_anonymous");
+						const label_anonymous = document.createElement('label');
+						label_anonymous.textContent = "顯示名稱";
+						div.appendChild(label_anonymous);
+						const value_anonymous = document.createElement('label');
+						const tmp = document.getElementById('donation_anonymous').value;
+						if(tmp){
+							value_anonymous.textContent = "中正人";
+						}else{
+							value_anonymous.textContent = document.getElementById('donation_name').value;
+						}
+						div.appendChild(value_anonymous);
+					}
+				</script>#}
 
 			<p></p>
 			{{ form_end(form) }}

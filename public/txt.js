@@ -26,6 +26,7 @@ function showAddress(selectedValue) {
     var addressbox = document.getElementById("form-group address");
     var textbox = document.getElementById("txt_email");
 
+    var title = document.getElementById("donation_title");
     var address = document.getElementById("donation_address");
     var zipcode = document.getElementById("donation_zipcode");
     
@@ -38,12 +39,14 @@ function showAddress(selectedValue) {
         addressbox.style.display = "none";
         textbox.style.display = "inline-block";
         address.value = '-';
+        zipcode.value = '-';
     }else if (selectedValue.value == "none") {
         titlebox.style.display = "none";
         addressbox.style.display = "none";
         textbox.style.display = "none";
         address.value = '-';
         zipcode.value = '-';
+        title.value = '-';
     }
 }
 
