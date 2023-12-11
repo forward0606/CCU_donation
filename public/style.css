@@ -671,10 +671,8 @@ hr {
 .progress_bar_cover{
     position: relative;
     height: 15px;
-    top: -75px;
     background-color: #634a87;
     width: 0%;
-    left: 12.5%;
     z-index: -1;
 }
 
