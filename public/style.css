@@ -675,6 +675,14 @@ hr {
 html, body {
     height: 100%;
 }
+
 .wrapper {
     min-height: calc(100% - 240px);
-  }
+}
+
+.picture_container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
