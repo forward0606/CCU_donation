@@ -229,82 +229,6 @@ fieldset {
     float: center;
 }
 
-@media screen and (min-width:920px) {
-    .top{
-        float: left;
-    }
-    .nav{
-        float: right;
-    }
-    .form {
-        width: 900px;
-    }
-    .top_container{
-        width: 810px;
-    }
-    .progress_list_container{
-        position: relative;
-        top: 10px;
-    }
-}
-
-@media screen and (min-width:1200px) {
-    .form {
-        width: 75%;
-    }
-    .top_container {
-        width: 67.5%;
-    }
-    input[type=text], input[type=number] {
-        width: 40%;
-    }
-    .form-input{
-        width: 40%;
-    }
-    .address input[type=text]{
-        width: 15%;
-    }
-    
-    .road input[type=text]{
-        width: 40%;
-    }
-    
-    .id_number input[type=text]{
-        width: 25%;
-    }
-    
-    .name input[type=text]{
-        width: 25%;
-    }
-
-    .title input[type=text]{
-        width: 15%;
-    }
-
-}
-
-@media screen and (max-width:400px) {
-    input[type=text], input[type=number] {
-        width: 90%;
-    }
-    .form-input{
-        width: 80%;
-    }
-    .id_number input[type=text]{
-        width: 80%;
-    }
-    .name input[type=text]{
-        width: 80%;
-    }
-    .road input[type=text]{
-        width: 90%;
-    }
-    fieldset {
-        padding: 10px 20px;
-    }
-}
-
-
 .menu a:hover {
     color: #FFF;
     padding: 0px 3px;
@@ -686,3 +610,96 @@ html, body {
     justify-content: center;
 }
 
+img{
+    width: 100%;
+    height: auto;
+}
+
+
+@media screen and (min-width:920px) {
+    .top{
+        float: left;
+    }
+    .nav{
+        float: right;
+    }
+    .form {
+        width: 900px;
+    }
+    .top_container{
+        width: 810px;
+    }
+    .progress_list_container{
+        position: relative;
+        top: 10px;
+    }
+}
+
+@media screen and (min-width:1200px) {
+    .form {
+        width: 75%;
+    }
+    .top_container {
+        width: 67.5%;
+    }
+    input[type=text], input[type=number] {
+        width: 40%;
+    }
+    .form-input{
+        width: 40%;
+    }
+    .address input[type=text]{
+        width: 15%;
+    }
+    
+    .road input[type=text]{
+        width: 40%;
+    }
+    
+    .id_number input[type=text]{
+        width: 25%;
+    }
+    
+    .name input[type=text]{
+        width: 25%;
+    }
+
+    .title input[type=text]{
+        width: 15%;
+    }
+
+    img{
+        width: 800px;
+        height: auto;
+    }
+
+}
+
+@media screen and (min-width:2000px) {
+    img{
+        width: 70%;
+        height: auto;
+    }
+}
+
+
+@media screen and (max-width:400px) {
+    input[type=text], input[type=number] {
+        width: 90%;
+    }
+    .form-input{
+        width: 80%;
+    }
+    .id_number input[type=text]{
+        width: 80%;
+    }
+    .name input[type=text]{
+        width: 80%;
+    }
+    .road input[type=text]{
+        width: 90%;
+    }
+    fieldset {
+        padding: 10px 20px;
+    }
+}
