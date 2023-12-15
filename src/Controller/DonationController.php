@@ -92,17 +92,16 @@ class DonationController extends AbstractController
    	            foreach($properties as $property) {
                     switch($property)
                     {
-                        //reason for switch case is that symfony seems to ignore _ between characters and just change the character after _ to capital.
+                        //switch case for dealing with different datatype and incosisten name.
                         case 'personId':
                             $data = $form->get('person_id')->getData();
                             if ($data === null) {;}
-                            else $qb->andWhere('d.person_id = \'' . $data . '\'');
+                            else $qb->andWhere('d.person_id LIKE \'' . $data. '\'');
                             break;
                         case 'identityType':
                             $data = $form->get('identity_type')->getData();
                             if ($data === null) {;}
-                            else $qb->andWhere('d.identity_type = \'' . $data . '\'');
-                            break;
+                            else $qb->andWhere('d.identity_type = \'' . $data. '\'');
                         case 'date':
                             $date = $form->get('date')->getData();
                             if ($date === null) {;}
@@ -113,20 +112,31 @@ class DonationController extends AbstractController
                             if ($pay_date === null) {;}
                             else {$qb->andWhere('d.pay_date = \''.$pay_date->format('Y-m-d').'\'');}
                             break;
-                        case 'projectName':
+                        case 'projectName': // project class
                             $data = $form->get('project_name')->getData();
                             if ($data === null) {;}
-                            else $qb->andWhere('d.project_name = ' . $data);
+                            else $qb->andWhere('d.project_name = ' . $data->getId());
                             break;
-                            //break directly since there is no such field in form
+                        case 'anoymous': //boolean
+                            $data = $form->get('anonymous')->getData();
+                            if ($data === null) {;}
+                            else $qb->andWhere('d.anonymous = ' . $data); // query builder seems to treat boolean as 0/1 or 'true'/'false'
+                            break;
+                        case 'money':
+                            $moneyOperator = $form->get('operator')->getData();
+                            $data = $form->get('money')->getData();
+                            if ($data === null) {;}
+                            else $qb->andWhere('d.money' . $moneyOperator . $data);
+                            break;
+                        //break directly since there is no such field in form
                         case 'id':
                             break;
                         case 'description':
                             break;
-                        default: // those who don't has _ in their name.
+                        default: // those who don't has _ in their name. treated as string.
                             $data = $form->get($property)->getData();
                             if ($data === null) {;}
-                            else $qb->andWhere('d.' . $property . ' = \'' . $data. '\'');
+                            else $qb->andWhere('d.' . $property . ' LIKE \'' . $data. '\'');
                             break;
                     }
                 }
@@ -138,13 +148,12 @@ class DonationController extends AbstractController
                         case 'personId':
                             $data = $form->get('person_id')->getData();
                             if ($data === null) {;}
-                            else $qb->orWhere('d.person_id = \'' . $data. '\'');
+                            else $qb->orWhere('d.person_id LIKE \'' . $data. '\'');
                             break;
                         case 'identityType':
                             $data = $form->get('identity_type')->getData();
                             if ($data === null) {;}
                             else $qb->orWhere('d.identity_type = \'' . $data. '\'');
-                            break;
                         case 'date':
                             $date = $form->get('date')->getData();
                             if ($date === null) {;}
@@ -155,20 +164,31 @@ class DonationController extends AbstractController
                             if ($pay_date === null) {;}
                             else {$qb->orWhere('d.pay_date = \''.$pay_date->format('Y-m-d').'\'');}
                             break;
-                        case 'projectName':
+                        case 'projectName': // project class
                             $data = $form->get('project_name')->getData();
                             if ($data === null) {;}
-                            else $qb->orWhere('d.project_name = ' . $data);
+                            else $qb->orWhere('d.project_name = ' . $data->getId());
+                            break;
+                        case 'anoymous': //boolean
+                            $data = $form->get('anonymous')->getData();
+                            if ($data === null) {;}
+                            else $qb->orWhere('d.anonymous = ' . $data);
+                            break;
+                        case 'money':
+                            $moneyOperator = $form->get('operator')->getData();
+                            $data = $form->get('money')->getData();
+                            if ($data === null) {;}
+                            else $qb->orWhere('d.money' . $moneyOperator . $data);
                             break;
                         //break directly since there is no such field in form
                         case 'id':
                             break;
                         case 'description':
                             break;
-                        default: // those who don't has _ in their name.
+                        default: // those who don't has _ in their name. treated as string.
                             $data = $form->get($property)->getData();
                             if ($data === null) {;}
-                            else $qb->orWhere('d.' . $property . ' = \'' . $data.'\'');
+                            else $qb->orWhere('d.' . $property . ' LIKE \'' . $data. '\'');
                             break;
                     }
                 }

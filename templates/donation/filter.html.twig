@@ -1,29 +1,40 @@
 {% extends '/base.html.twig' %}
 
 {% block body%}
-    Matched Donation List:
-    <ul>
+<h3>Matched Donation List</h3>
+<hr></hr>
+<div class="donation_list">
+    <table>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>money</th>
+            <th>person_id</th>
+            <th>pay</th>
+            <th>status</th>
+            <th>date</th>
+            <th>paydate</th>
+            <th>link</th>
+        </tr>
+
         {% for donation in donations %}
-            <li>
-                {% if donation.id is defined %} 		id: {{ donation.id }} 								{% endif %}
-                {% if donation.name is defined %} 		name: {{ donation.name }} 							{% endif %}
-                {% if donation.money is defined %} 		money: {{ donation.money }} 							{% endif %}
-                {% if donation.personId is defined %} 		person_id: {{ donation.personId }} 						{% endif %}
-                {% if donation.email is defined %} 		email: {{ donation.email }} 							{% endif %}
-                {% if donation.phone is defined %} 		phone: {{ donation.phone }} 							{% endif %}
-                {% if donation.anonymous is defined %} 		anonymous: {{ donation.anonymous }}						{% endif %}
-                {% if donation.identity_type is defined %} 	identitytype: {{ donation.identity_type }} 					{% endif %}
-                {% if donation.title is defined %} 		title: {{ donation.title }} 							{% endif %}
-                {% if donation.pay is defined %} 		pay: {{ donation.pay }} 							{% endif %}
-                {% if donation.status is defined %} 		status: {{ donation.status }} 							{% endif %}
-                {% if donation.type is defined %} 		type: {{ donation.type }} 							{% endif %}
-                {% if donation.description is defined %} 	description: {{ donation.description }} 					{% endif %}
-                {% if donation.address is defined %} 		address: {{ donation.address }} 						{% endif %}
-                {% if donation.zipcode is defined %} 		zipcode: {{ donation.zipcode }} 						{% endif %}
-                {% if donation.date is defined %} 		date: {{ donation.date|date('Y-m-d') }} 					{% endif %}
-                {% if donation.pay_date is defined %} 		paydate: {{ donation.pay_date is empty ? '' : donation.pay_date|date('Y-m-d') }}{% endif %}
-            </li>
+        <tr>
+            <td>{{ donation.id }}</td>
+            <td>{{ donation.name }}</td>
+            <td>{{ donation.money }}</td>
+            <td>{{ donation.personId }}</td>
+            <td>{{ donation.pay }}</td>
+            <td>{{ donation.status }}</td>
+            <td>{{ donation.date|date('Y-m-d') }}</td>
+            <td>{{ donation.paydate is empty ? '' : donation.paydate|date('Y-m-d') }}</td>
+            <td><a class="btn btn-outline-secondary" role="button"
+                    href="{{ path('donation_show', {'did': donation.id}) }}">
+                    link
+                </a></td>
+        </tr>
         {% endfor %}
-    </ul>
+
+    </table>
+</div>
 {% endblock %}
 

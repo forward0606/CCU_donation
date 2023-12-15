@@ -71,7 +71,6 @@ class DonationType extends AbstractType
                         '不需要收據' => 'none',
                     ],
                 ])
-
                 ->add('zipcode', TextType::class)
                 ->add('city', ChoiceType::class, [
                     'choices' => [
@@ -139,21 +138,26 @@ class DonationType extends AbstractType
             ->add('anonymous', ChoiceType::class, [
                 'choices'  => [
                     'ignored' => null,
-                    '是' => true,
-                    '否' => false,
+                    '是' => 1,
+                    '否' => 0,
                 ],
             ])
             ->add('person_id', TextType::class, ['required' => false,])
-            ->add('email', EmailType::class, ['required' => false,])
-            ->add('phone', TelType::class, ['required' => false,])
-            ->add('project_name', EntityType::class, [
+            ->add('email', TextType::class, ['required' => false,])
+            ->add('phone', TextType::class, ['required' => false,])
+            ->add('project_name', EntityType::class, [ //if project's name is duplicate, they are distinct to one anoter.
                 'class' => Project::class,
                 'choice_label' => 'name',
                 'required' => false,
                 'empty_data' => null,
-                'attr' => [
-                    'hidden' => true,
-                ]
+            ])
+            ->add('operator', ChoiceType::class, [
+                'choices' => [
+                    '>=' => '>=',
+                    '<=' => '<=',
+                    '=' => '=',
+                ],
+                'mapped' => false,
             ])
             ->add('money', MoneyType::class, [
                 'currency' => null,
@@ -177,6 +181,39 @@ class DonationType extends AbstractType
             ])
 
             ->add('zipcode', TextType::class, ['required' => false,])
+            ->add('city', ChoiceType::class, [
+                'choices' => [
+                    'ignored' => null,
+                    '基隆市' => '基隆市',
+                    '臺北市' => '臺北市',
+                    '新北市' => '新北市',
+                    '桃園市' => '桃園市',
+                    '新竹市' => '新竹市',
+                    '新竹縣' => '新竹縣',
+                    '苗栗縣' => '苗栗縣',
+                    '臺中市' => '臺中市',
+                    '彰化縣' => '彰化縣',
+                    '南投縣' => '南投縣',
+                    '雲林縣' => '雲林縣',
+                    '嘉義市' => '嘉義市',
+                    '嘉義縣' => '嘉義縣',
+                    '臺南市' => '臺南市',
+                    '高雄市' => '高雄市',
+                    '屏東縣' => '屏東縣',
+                    '臺東縣' => '臺東縣',
+                    '花蓮縣' => '花蓮縣',
+                    '宜蘭縣' => '宜蘭縣',
+                    '澎湖縣' => '澎湖縣',
+                    '金門縣' => '金門縣',
+                    '連江縣' => '連江縣',
+                ],
+                'attr' => [
+                    'onchange' => "select_city(); select_area();",
+                ],
+            ])
+            ->add('district', TextType::class , [
+                'required' => false,
+            ])
             ->add('address', TextType::class, ['required' => false,])
             ->add('date', DateType::class, ['required' => false, 'mapped' => false,])
             ->add('pay_date', DateType::class, ['required' => false, 'mapped' => false,])
