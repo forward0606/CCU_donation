@@ -82,7 +82,7 @@
 						<div class="form-group anonymity">
 							<label for="anonymity">是否需要匿名</label><br>
 							{{ form_widget(form.anonymous,{'attr': {'onclick': 'showTextbox(this)'}}) }}
-							<p class="remark blueTxt" id="txt_anonymity" style="display: inline-block;">選擇匿名您的名字將會以"中正人"顯示</p>
+							<p class="remark blueTxt" id="txt_anonymity">選擇匿名您的名字將會以"中正人"顯示</p>
 						</div>
 
 						<div class="form-group id_number">
@@ -119,9 +119,11 @@
 						var currentProgress = 0;
 						function validate_1() {
 							// Perform validation for specific fields on the page
+							var type = document.getElementById("donation_identity_type").value;
 							var name = document.getElementById("donation_name").value;
 							var person_id = document.getElementById("donation_person_id").value;
 							var email = document.getElementById("donation_email").value;
+							//var emailInput = document.getElementById('{{ form.email.vars.id }}');
 							var phone = document.getElementById("donation_phone").value;
 							var flag = 0;
 
@@ -131,15 +133,20 @@
 							title.textContent = "請留意";
 							Message.appendChild(title);
 
+							var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+							var phoneRegex = /^09\d{8}$/;
+
 							if (name.trim() === ''){
 								const label = document.createElement('div');
-								label.textContent = "姓名不得為空";
+								if(type === 'normal' || type === 'alumni') label.textContent = "姓名不得為空";
+								else label.textContent = "機構名稱不得為空";
 								Message.appendChild(label);
 								flag++;
 							}
 							if (person_id.trim() === ''){
 								const label = document.createElement('div');
-								label.textContent = "身分證字號不得為空";
+								if(type === 'normal' || type === 'alumni') label.textContent = "身分證字號不得為空";
+								else label.textContent = "統一編號不得為空";
 								Message.appendChild(label);
 								flag++;
 							}
@@ -149,9 +156,21 @@
 								Message.appendChild(label);
 								flag++;
 							}
+							if (!(emailRegex.test(email))){
+								const label = document.createElement('div');
+								label.textContent = "請輸入合法Email";
+								Message.appendChild(label);
+								flag++;
+							}
 							if (phone.trim() === ''){
 								const label = document.createElement('div');
 								label.textContent = "電話號碼不得為空";
+								Message.appendChild(label);
+								flag++;
+							}
+							if (!(phoneRegex.test(phone))){
+								const label = document.createElement('div');
+								label.textContent = "請輸入合法電話號碼";
 								Message.appendChild(label);
 								flag++;
 							}
@@ -185,8 +204,6 @@
 							var list = document.querySelectorAll('.progress_list li');
 							var cover = document.getElementById('progress_bar_cover');
 
-							var tmp = validate_1();
-							console.log(tmp);
 							if (validate_1()) {
 								page1.style.display = "none";
 								page2.style.display = "block";
@@ -261,8 +278,6 @@
 								flag++;
 							}
 
-							console.log('flag:', flag);
-
 							// If all required fields are filled, return true
 							if(flag != 0){
 								showAlert();
@@ -293,8 +308,6 @@
 							var list = document.querySelectorAll('.progress_list li');
 							var cover = document.getElementById('progress_bar_cover');
 
-							var tmp = validate_2();
-							console.log(tmp);
 							if(validate_2()){
 								page2.style.display = "none";
 								page3.style.display = "block";
@@ -346,31 +359,123 @@
 						<label for="address"><span style="color:red">*</span>收據寄送地址</label><br>
 						<input name="country" type="radio" value="1" onclick="showTW()" checked="checked">
 						<label>臺灣</label>
-						<input name="country" type="radio" value="0" onclick="showTW()">
+						<input name="country" type="radio" value="0" onclick="showTW()" disabled>
 						<label>其他海外地區</label><br>
 
 						<div class="form-group county" id="address-TW" >
 							{{ form_widget(form.city)}}
 							{{ form_widget(form.district)}}
 							<select id="area" name="area" style="display: none;" onchange="select_area();"></select>
-							{{ form_widget(form.zipcode) }}
-						</div>
-						<br>
-						<div class="form-group road">
-							{{ form_widget(form.address) }}
+							{{ form_widget(form.zipcode) }}<br>
+							<span class="form-group road">{{ form_widget(form.address) }}</span>
 						</div>
 					</div>
 
-					{#<div class="form-group verify">
-						<label id="code"></label>
-						<label><a href="#" id="recode">更新驗證碼</a><label><br>
-						<input type = "text" id = "input" placeholder="請輸入驗證碼" style="width: 100px;"><br>
-						{#<input type = "button" value="驗證" id="validate"> 
-					</div>#}
+					<script>
+						var title = document.getElementById('donation_title');
+						var address = document.getElementById('donation_address');
+						var zipcode = document.getElementById('donation_zipcode');
+
+						var select = document.getElementById('donation_type');
+						var checkbox = document.getElementById('title');
+						select.addEventListener('change', function() {
+							title.value = '';
+							address.value = '';
+							zipcode.value = '';
+							checkbox.checked = false;
+							if(select.value == "electronic"){
+								address.value = '-';
+								zipcode.value = '-';
+							}else if(select.value == "none"){
+								address.value = '-';
+								zipcode.value = '-';
+								title.value = '-';
+							}
+						});
+
+					</script>
+
+					<div class="form-group verify">
+						<input type = "text" id = "input" placeholder="請輸入驗證碼" style="width: 120px;">
+						<label id="code"></label><label><a href="#" id="recode"></a><label>
+						{#<input type = "button" value="驗證" id="validate">#}
+					</div>
 					
-					{{ form_widget(form.save,{'label' : '送出'},{'attr': {'onclick': "plusPage('page3')"}}) }}
+					{{ form_widget(form.save,{'label' : '送出'}) }}
+					<input type="button" name="next" class="next action-button" value="送出" onclick="plusPage_3()">
+					<input type="button" id="validate_button" value="驗證" style="display:none;">
 					<input type="button" name="previous" class="previous action-button" value="上一步" onclick="minusPage('page3')">
 
+					<script>
+						var currentProgress = 0;
+						function validate_3() {
+							// Perform validation for specific fields on the page
+							var title_person = document.getElementById("donation_title").value;
+    						var address = document.getElementById("donation_address").value;
+    						var zipcode = document.getElementById("donation_zipcode").value;
+							var flag = 0;
+
+							var Message = document.getElementById('message');
+							Message.innerHTML = '';
+							const title = document.createElement('h2');
+							title.textContent = "請留意";
+							Message.appendChild(title);
+
+							if (title_person.trim() === ''){
+								const label = document.createElement('div');
+								label.textContent = "收據抬頭不得為空";
+								Message.appendChild(label);
+								flag++;
+							}
+							if (address.trim() === ''){
+								const label = document.createElement('div');
+								label.textContent = "寄送地址不得為空";
+								Message.appendChild(label);
+								flag++;
+							}
+							if (zipcode.trim() === ''){
+								const label = document.createElement('div');
+								label.textContent = "郵遞區號不得為空";
+								Message.appendChild(label);
+								flag++;
+							}
+							// If all required fields are filled, return true
+							if(flag != 0){
+								showAlert();
+								return false;
+							}else{
+								return true;
+							}
+						}
+
+						function showAlert() {
+							var Alert = document.getElementById('alert_window');
+							var overlay = document.getElementById('overlay');
+							Alert.style.display = 'flex';
+							overlay.style.display = 'flex';
+						}
+
+						function closeAlert() {
+							var Alert = document.getElementById('alert_window');
+							var overlay = document.getElementById('overlay');
+							Alert.style.display = 'none';
+							overlay.style.display = 'none';
+						}
+
+						function plusPage_3() {
+
+							var page2 = document.getElementById("page2");
+							var page3 = document.getElementById("page3");
+							var list = document.querySelectorAll('.progress_list li');
+							var cover = document.getElementById('progress_bar_cover');
+
+							var validate = document.getElementById('validate_button');
+
+							if(validate_3()){
+								validate.click();
+							}
+						}
+					</script>
 				</fieldset>
 
 				{#<button onclick="show();">test</button>
@@ -421,7 +526,7 @@
 		</div>
 	</div>
 </div>
-<div class="bottom" >
+<div class="footer" >
 	2022 Copyright © 國立中正大學 | 秘書室 | 媒體暨公關中心<br>
 	聯絡人: 林婉茹小姐<br>
 	E-mail: mprc@ccu.edu.tw<br>

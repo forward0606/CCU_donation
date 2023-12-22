@@ -287,6 +287,7 @@ fieldset {
 
 #address {
     margin-top: 0;
+    display: flex;
 }
 
 #code { 
@@ -311,7 +312,7 @@ fieldset {
     color: black;
 }   
 
-.bottom {
+.footer {
     height: 200px;
     margin: 40px 0px 0px;
     background-color: #634a87;
@@ -579,7 +580,7 @@ hr {
 
 .progress_bar{
     position: relative;
-    height: 15px;
+    height: 10px;
     background-color: white;
     width: 75%;
     top: -58px;
@@ -590,7 +591,7 @@ hr {
 
 .progress_bar_cover{
     position: relative;
-    height: 15px;
+    height: 10px;
     background-color: #634a87;
     width: 0%;
     z-index: -1;
@@ -636,6 +637,12 @@ img{
 }
 
 @media screen and (min-width:1200px) {
+    .progress_bar {
+        height: 15px;
+    }
+    .progress_bar_cover{
+        height: 15px;
+    }
     .form {
         width: 75%;
     }

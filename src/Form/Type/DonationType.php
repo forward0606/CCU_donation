@@ -109,6 +109,7 @@ class DonationType extends AbstractType
                 ->add('address', TextType::class)
                 ->add('save', SubmitType::class , [
                     'attr' => [
+                        'hidden' => true,
                         'class' => 'custom-submit-button',
                     ],
 	            ])
@@ -227,6 +228,7 @@ class DonationType extends AbstractType
 		    ])
             ->add('submit', SubmitType::class , [
                 'attr' => [
+                    'hidden' => true,
                     'class' => 'custom-submit-button',
                 ],
             ]);

@@ -30,7 +30,7 @@ class RootController extends AbstractController
         $donation->setName('show');
         $donation->setMoney(1999);
         $donation->setPersonId('A123456789');
-        $donation->setEmail('tester@ivalid.maybe');
+        $donation->setEmail('test');
         $donation->setPhone('0912345678');
         $donation->setPay('VISA');
         $donation->setDescription('first_test_case');
