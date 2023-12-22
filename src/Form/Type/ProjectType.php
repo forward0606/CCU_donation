@@ -45,8 +45,8 @@ class ProjectType extends AbstractType
             ->add('name', TextType::class)
             ->add('available', ChoiceType::class, [
                 'choices' => [
-                    'yes' => True,
-                    'no' => False,
+                    'avalible ' => True,
+                    'unavailable' => False,
                 ],
                 'expanded' =>	true,
             ])

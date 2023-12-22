@@ -1,7 +1,26 @@
 {% extends '/base.html.twig' %}
 
 {% block body%}
-<h3>Donation List</h3>
+<div class="top_donation">
+    <div></div>
+    <h3>Donation List</h3>
+    <div class="function">
+        <ul class="function_nav">
+        {#<a class="btn btn-outline-secondary" role="button"
+            href="{{ path('donation_add') }}">
+            add
+        </a>#}
+            <li><a class="btn btn-outline-secondary" role="button"
+                href="{{ path('donation_filter') }}"> 
+                filter
+            </a></li>
+            <li><a class="btn btn-outline-secondary" role="button"
+                href="{{ path('donation_sort', {'fields': 'id', 'orderBy': 'desc'}) }}">
+                sort_testing
+            </a></li>
+        </ul>
+    </div>
+</div>
 <hr></hr>
 <div class="donation_list">
     <table>
@@ -42,22 +61,6 @@
     </table>
 </div>
 <p></p>
-<div class="function">
-    {#<a class="btn btn-outline-secondary" role="button"
-        href="{{ path('donation_add') }}">
-        add
-    </a>#}
-    <br><br>
-    <a class="btn btn-outline-secondary" role="button"
-        href="{{ path('donation_filter') }}"> 
-        filter
-    </a>
-    <br>
-    <a class="btn btn-outline-secondary" role="button"
-        href="{{ path('donation_sort', {'fields': 'id', 'orderBy': 'desc'}) }}">
-        sort_testing
-    </a>
-</div>
 
     {#Donation List:
     <ul>
