@@ -339,9 +339,9 @@
 					<script>
 						var checkbox = document.getElementById('title');
 						var title = document.getElementById('donation_title');
-						var name = document.getElementById('donation_name').value;
 
 						checkbox.addEventListener('change', function() {
+							var name = document.getElementById('donation_name').value;
 							if (checkbox.checked) {
 								title.value = name;
 							}else {
