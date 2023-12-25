@@ -75,7 +75,8 @@ class DonationController extends AbstractController
     {
         $donation = new Donation();
         $form = $this->createForm(DonationType::class, $donation, ['filter' => true]);
-        $form->submit($request->get($form->getName()));
+        $form->handleRequest($request);
+        //$form->submit($request->get($form->getName()));
 
         if ($form->isSubmitted() && $form->isValid())
         {
