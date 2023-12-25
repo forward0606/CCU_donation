@@ -200,7 +200,7 @@ class DonationController extends AbstractController
                 //'sql' => $qb->getQuery()->getDQL(),
             ]);
         }
-        return $this->render('donation/filter_base.html.twig', [
+        return $this->render('donation/add.html.twig', [
             'form' => $form,
         ]);
     }
