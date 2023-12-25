@@ -61,7 +61,12 @@
             {{ form_widget(form.save)}}
             {{ form_end(form)}}
         {% else %}
-            <p>editing id {{edit_id}} ......</p>
+            <p style="font-size:16px; text-align: center;">Editing the project of id {{edit_id}} ......</p>
+            <div>
+                <div class="loadingio-spinner-spinner-heeeokjy68"><div class="ldio-us710n499yn">
+                <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                </div></div>
+            </div>
         {% endif %}
     </div>
 </div>
@@ -69,7 +74,7 @@
 <h3>Existed Donation Project</h3>
 <hr style="width: 60%;"></hr>
 <div class="project_list">
-    <table>
+    <table cellspacing="10">
         <tr>
             <th>id</th>
             <th>Institution</th>
@@ -81,7 +86,7 @@
 
         {% for project in projects %}
             {% if project.id == edit_id %}
-                <tr>
+                <tr class="project_input">
                     <td>{{project.id}}</td>
                     {{ form_start(form)}}
                     {{ form_widget(form.department)}}
