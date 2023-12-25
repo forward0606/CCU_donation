@@ -4,7 +4,14 @@
 {% block body%}
 <script src="{{ asset('project_selection.js') }}" type="text/javascript"></script>
 
-{{ form_errors(form.name) }}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var errors = "{{ form_errors(form.name)|striptags|escape('js') }}";
+        if (errors) {
+            alert(errors);
+        }
+    });
+</script>
 
 <h3>Add New Donation Project</h3>
 <hr style="width: 60%;"></hr>
