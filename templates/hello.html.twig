@@ -357,16 +357,18 @@
 					<div class="form-group address" id="form-group address">
 						<script src="{{ asset('area.js') }}" type="text/javascript"></script>
 						<label for="address"><span style="color:red">*</span>收據寄送地址</label><br>
-						<input name="country" type="radio" value="1" onclick="showTW()" checked="checked">
+						{#<input name="country" id="country" type="radio" value="1" onclick="showTW()" checked="checked">
 						<label>臺灣</label>
-						<input name="country" type="radio" value="0" onclick="showTW()" disabled>
-						<label>其他海外地區</label><br>
+						<input name="country" id="country" type="radio" value="0" onclick="showTW()">
+						<label>其他海外地區</label><br>#}
 
-						<div class="form-group county" id="address-TW" >
-							{{ form_widget(form.city)}}
-							{{ form_widget(form.district)}}
-							<select id="area" name="area" style="display: none;" onchange="select_area();"></select>
-							{{ form_widget(form.zipcode) }}<br>
+						<div class="form-group county">
+							<span id="address-TW">
+								{{ form_widget(form.city)}}
+								{{ form_widget(form.district)}}
+								<select id="area" name="area" style="display: none;" onchange="select_area();"></select>
+								{{ form_widget(form.zipcode) }}<br>
+							</span>
 							<span class="form-group road">{{ form_widget(form.address) }}</span>
 						</div>
 					</div>

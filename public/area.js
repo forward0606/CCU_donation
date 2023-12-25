@@ -59,6 +59,7 @@ areaArr[19] = ["宜蘭市", "羅東鎮", "蘇澳鎮", "頭城鎮", "礁溪鄉", 
 areaArr[20] = ["馬公市", "湖西鄉", "白沙鄉", "西嶼鄉", "望安鄉", "七美鄉"];
 areaArr[21] = ["金城鎮", "金湖鎮", "金沙鎮", "金寧鄉", "烈嶼鄉", "烏坵鄉"];
 areaArr[22] = ["南竿鄉", "北竿鄉", "莒光鄉", "東引鄉"];
+areaArr[23] = ["無"];
 
 var dictionary = {};
 
@@ -84,6 +85,7 @@ dictionary["宜蘭縣"] = 19;
 dictionary["澎湖縣"] = 20;
 dictionary["金門縣"] = 21;
 dictionary["連江縣"] = 22;
+dictionary["無"] = 23;
 
 function select_city(){
     var areaSelect = document.getElementById('area');
