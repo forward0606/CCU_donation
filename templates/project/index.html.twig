@@ -6,12 +6,43 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        var Message = document.getElementById('message');
+        Message.innerHTML = '';
+        const title = document.createElement('h2');
+        title.textContent = "請留意";
+        Message.appendChild(title);
         var errors = "{{ form_errors(form.name)|striptags|escape('js') }}";
+
         if (errors) {
-            alert(errors);
+            const label = document.createElement('div');
+			label.textContent = "該捐款項目已經存在";
+			Message.appendChild(label);
+            showAlert();
+            //alert(errors);
         }
     });
+
+    function showAlert() {
+        var Alert = document.getElementById('alert_window');
+        var overlay = document.getElementById('overlay');
+        Alert.style.display = 'flex';
+        overlay.style.display = 'flex';
+    }
+
+    function closeAlert() {
+        var Alert = document.getElementById('alert_window');
+        var overlay = document.getElementById('overlay');
+        Alert.style.display = 'none';
+        overlay.style.display = 'none';
+    }
 </script>
+
+<div id="alert_window">
+    <div id="message"></div>
+    <span class="close" onclick="closeAlert()">&times;</span>
+    <button onclick="closeAlert()">OK</button>
+</div>
+<div id="overlay"></div>
 
 <h3>Add New Donation Project</h3>
 <hr style="width: 60%;"></hr>
