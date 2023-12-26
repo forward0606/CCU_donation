@@ -111,10 +111,16 @@
 							{{ form_widget(form.description,{'attr': {'class' : 'textarea'}}) }}
 						</div>
 					</div>
-
 					<div>
 						<input type="button" name="next" class="next action-button" value="下一步" onclick="plusPage_1();">
 					</div>
+					{% if submit_error %}
+						<script>
+							document.addEventListener('DOMContentLoaded', function() {
+							alert("表單填寫錯誤，請再試一次");
+						});
+						</script>
+					{% endif %}
 					<script>
 						var currentProgress = 0;
 						function validate_1() {

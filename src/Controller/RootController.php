@@ -11,6 +11,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\ProjectRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Form\FormInterface;
+
 
 class RootController extends AbstractController
 {
@@ -21,6 +23,24 @@ class RootController extends AbstractController
 
     //     return $this->render('hello.html.twig');
     // }
+    
+    private function getErrorsFromForm(FormInterface $form): array
+    {
+        $errors = array();
+    
+        foreach ($form->getErrors(true, true) as $error) {
+            $errors[] = $error->getMessage();
+        }
+    
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $errors[$child->getName()] = $this->getErrorsFromForm($child);
+            }
+        }
+    
+        return $errors;
+    }
+    
 
     #[Route('/')]
     public function hello(EntityManagerInterface $entityManager, Request $request): Response
@@ -48,7 +68,7 @@ class RootController extends AbstractController
 
         $form = $this->createForm(DonationType::class, $donation);
         $form->handleRequest($request);
-
+        $submitted = false;
         if ($form->isSubmitted() && $form->isValid()) {
             // tell Doctrine you want to (eventually) save the Donation (no queries yet)
             $entityManager->persist($donation);
@@ -56,9 +76,14 @@ class RootController extends AbstractController
             // actually executes the queries (i.e. the INSERT query)
             $entityManager->flush();
             return $this->render('thanks.html.twig');
+        }else if($form->isSubmitted()){
+            // Handle form validation errors
+            $errors = $this->getErrorsFromForm($form);
+            $submitted = true;
         }
         return $this->render('hello.html.twig', [
             'form' => $form,
+            'submit_error' => $submitted,
         ]);
     }
 
