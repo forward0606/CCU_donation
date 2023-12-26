@@ -13,11 +13,15 @@ function showTextbox(selectedValue) {
 function showTW() {
     var selectedValue = document.querySelector('input[name="country"]:checked').value;
     var box = document.getElementById("address-TW");
+    var city = document.getElementById('donation_city');
+	var district = document.getElementById('donation_district');
 
     if(selectedValue == "1") {
         box.style.display = "block";
     }else{
         box.style.display = "none";
+        city.value = '其他';
+        district.value = '-';
     }
 }
 

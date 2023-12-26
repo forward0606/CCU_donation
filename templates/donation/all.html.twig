@@ -37,7 +37,7 @@
                     </th>
                 </table>
             </th>
-            <th style="padding-left: 20px;">
+            <th style="padding-left: 30px;">
                 <table class="donation_list_table">
                     <th>name</th>
                     <th>
@@ -81,7 +81,18 @@
                     </th>
                 </table>
             </th>
-            <th style="padding-left: 25px;">
+             <th style="padding-left: 20px;">
+                <table class="donation_list_table">
+                    <th>receiptType</th>
+                    <th>
+                        <div class="triangle-container">
+                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'type'}) }}"></a>
+                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'type', 'orderBy': 'desc'}) }}"></a>
+                        </div>
+                    </th>
+                </table>
+            </th>
+            <th style="padding-left: 35px;">
                 <table class="donation_list_table">
                     <th>status</th>
                     <th>
@@ -92,7 +103,7 @@
                     </th>
                 </table>
             </th>
-            <th style="padding-left: 40px;">
+            <th style="padding-left: 45px;">
                 <table class="donation_list_table">
                     <th>date</th>
                     <th>
@@ -103,17 +114,17 @@
                     </th>
                 </table>
             </th>
-            <th>
+            <th style="padding-left: 20px;">
                 <table class="donation_list_table">
                     <th>paydate</th>
                     <th>
                         <div class="triangle-container">
-                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'paydate'}) }}"></a>
-                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'paydate', 'orderBy': 'desc'}) }}"></a>
+                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'pay_date'}) }}"></a>
+                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'pay_date', 'orderBy': 'desc'}) }}"></a>
                         </div>
                     </th>
                 </table>
-            </th style="padding-left: 20px;">
+            </th>
             <th>link</th>
             <th>status</th>
         </tr>
@@ -125,17 +136,28 @@
             <td>{{ donation.money }}</td>
             <td>{{ donation.personId }}</td>
             <td>{{ donation.pay }}</td>
-            <td>{{ donation.status }}</td>
+            <td>{{ donation.type }}</td>
+            <td>
+                {% if donation.type != "none" %}
+                    {{ donation.status }}
+                {% else %}
+                    no need
+                {% endif %}
+            </td>
             <td>{{ donation.date|date('Y-m-d') }}</td>
             <td>{{ donation.paydate is empty ? '' : donation.paydate|date('Y-m-d') }}</td>
             <td><a class="btn btn-outline-secondary" role="button"
                     href="{{ path('donation_show', {'did': donation.id}) }}">
                     link
                 </a></td>
-            <td><a class="btn btn-outline-secondary" role="button"
+            <td>
+                {% if donation.type != "none" %}
+                <a class="btn btn-outline-secondary" role="button"
                     href="{{ path('donation_status', {'did': donation.id}) }}">
                     change status
-                </a></td>
+                </a>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
         

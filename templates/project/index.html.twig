@@ -103,7 +103,12 @@
                     <td>{{ project.institution }}</td>
                     <td>{{ project.department }}</td>
                     <td>{{ project.name }}</td>
-                    <td>{{ project.available }}</td>
+                    <td>{% if project.available %}
+                            true
+                        {% else %}
+                            false
+                        {% endif %}
+                    </td>
                     <td><a href="{{ path('project_edit', {'did': project.id}) }}">Edit</a></td>
                 </tr>
             {% endif %}

@@ -45,17 +45,17 @@ class RootController extends AbstractController
     #[Route('/')]
     public function hello(EntityManagerInterface $entityManager, Request $request): Response
     {
-        // example
         $donation = new Donation();
-        $donation->setName('show');
-        $donation->setMoney(1999);
-        $donation->setPersonId('A123456789');
-        $donation->setEmail('test@test.com');
-        $donation->setPhone('0912345678');
-        $donation->setPay('VISA');
-        $donation->setDescription('first_test_case');
-        $donation->setAddress('test');
-	    $donation->setZipcode('12345');
+        // example
+        // $donation->setName('show');
+        // $donation->setMoney(1999);
+        // $donation->setPersonId('A123456789');
+        // $donation->setEmail('test@test.com');
+        // $donation->setPhone('0912345678');
+        // $donation->setPay('VISA');
+        // $donation->setDescription('first_test_case');
+        // $donation->setAddress('test');
+	    // $donation->setZipcode('12345');
 	    //$donation->settitle('Keyboard');
 
         // really needed

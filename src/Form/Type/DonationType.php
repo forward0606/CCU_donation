@@ -28,7 +28,8 @@ class DonationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 	if ($options['filter'] == false) {
-	    $builder
+	    
+        $builder
                 ->add('identity_type', ChoiceType::class, [
                     'choices'  => [
                         '一般民眾' => 'normal',
@@ -51,7 +52,7 @@ class DonationType extends AbstractType
                 ->add('person_id', TextType::class)
                 ->add('email', EmailType::class)
                 ->add('phone', TelType::class)
-	            ->add('description', TextType::class)
+	            ->add('description', TextType::class, ['required' => false,])
                 ->add('project_name', EntityType::class, [
                     'class' => Project::class, 
                     'choice_label' => 'id',
@@ -102,9 +103,13 @@ class DonationType extends AbstractType
                         '澎湖縣' => '澎湖縣',
                         '金門縣' => '金門縣',
                         '連江縣' => '連江縣',
+                        '其他' => '其他',
                     ],
                     'attr' => [
                         'onchange' => "select_city(); select_area();",
+                    ],
+                    'choice_attr' => [
+                        '其他' => ['hidden' => true],
                     ],
                 ])
                 ->add('district', TextType::class , [
@@ -135,7 +140,7 @@ class DonationType extends AbstractType
             ])
             ->add('identity_type', ChoiceType::class, [
                 'choices'  => [
-                    'ignored' => null,
+                    'ALL' => null,
                     '一般民眾' => 'normal',
                     '公司企業' => 'business',
                     '中正校友' => 'alumni',
@@ -144,7 +149,7 @@ class DonationType extends AbstractType
             ->add('name', TextType::class, ['required' => false,])
             ->add('anonymous', ChoiceType::class, [
                 'choices'  => [
-                    'ignored' => null,
+                    'ALL' => null,
                     '是' => 1,
                     '否' => 0,
                 ],
@@ -154,7 +159,12 @@ class DonationType extends AbstractType
             ->add('phone', TextType::class, ['required' => false,])
             ->add('project_name', EntityType::class, [ //if project's name is duplicate, they are distinct to one anoter.
                 'class' => Project::class,
-                'choice_label' => 'name',
+                'choice_label' => function($p){
+                    if($p->getDepartment() == "無"){
+                        return $p->getInstitution()." ".$p->getName();
+                    }
+                    return $p->getInstitution()." ".$p->getDepartment()." ".$p->getName();
+                },
                 'required' => false,
                 'empty_data' => null,
             ])
@@ -172,7 +182,7 @@ class DonationType extends AbstractType
             ])
             ->add('pay', ChoiceType::class, [
 		        'choices' => [
-			        'ignored' => null,
+			        'ALL' => null,
                     '信用卡線上捐款' => 'VISA',
                 ],
             ])
@@ -180,7 +190,7 @@ class DonationType extends AbstractType
             ->add('title', TextType::class, ['required' => false,])
             ->add('type',  ChoiceType::class, [
 		        'choices'  => [
-		            'ignored' => null,
+		            'ALL' => null,
                     '電子收據' => 'electronic',
                     '紙本收據' => 'paper',
                     '不需要收據' => 'none',
@@ -190,7 +200,7 @@ class DonationType extends AbstractType
             ->add('zipcode', TextType::class, ['required' => false,])
             ->add('city', ChoiceType::class, [
                 'choices' => [
-                    'ignored' => null,
+                    'ALL' => null,
                     '基隆市' => '基隆市',
                     '臺北市' => '臺北市',
                     '新北市' => '新北市',
@@ -226,7 +236,7 @@ class DonationType extends AbstractType
             ->add('pay_date', DateType::class, ['required' => false, 'mapped' => false,])
 		    ->add('status', ChoiceType::class, [
 		        'choices' => [
-			        'ignored' => null,
+			        'ALL' => null,
 		            'not yet' => 'not yet',
 		            'delivered' => 'delivered',
 		            'none' => 'none',

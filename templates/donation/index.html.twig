@@ -57,8 +57,14 @@
             <td>{{ donation.identityType }}</td>
         </tr>
         <tr>
-            <th>anonynous</th>
-            <td>{{ donation.anonymous }}</td>
+            <th>anonymous</th>
+            <td>{% if donation.anonymous %}
+                    true
+                {% else %}
+                    false
+                {% endif %}
+            </td>
+
         </tr>
         <tr>
             <th>title</th>
