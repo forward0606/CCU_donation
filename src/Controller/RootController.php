@@ -50,7 +50,7 @@ class RootController extends AbstractController
         $donation->setName('show');
         $donation->setMoney(1999);
         $donation->setPersonId('A123456789');
-        $donation->setEmail('test');
+        $donation->setEmail('test@test.com');
         $donation->setPhone('0912345678');
         $donation->setPay('VISA');
         $donation->setDescription('first_test_case');
@@ -73,9 +73,13 @@ class RootController extends AbstractController
             // tell Doctrine you want to (eventually) save the Donation (no queries yet)
             $entityManager->persist($donation);
 
-            // actually executes the queries (i.e. the INSERT query)
-            $entityManager->flush();
-            return $this->render('thanks.html.twig');
+            if($donation->getMoney() >= 150){
+                // actually executes the queries (i.e. the INSERT query)
+                $entityManager->flush();
+                return $this->render('thanks.html.twig');
+            }
+            $submitted = true;
+
         }else if($form->isSubmitted()){
             // Handle form validation errors
             $errors = $this->getErrorsFromForm($form);

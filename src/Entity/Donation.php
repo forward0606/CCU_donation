@@ -15,10 +15,11 @@ class Donation
     private ?int $id = null;
 
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column]
+    #[Assert\GreaterThan(150)]
     private ?int $money = null;
 
     #[ORM\Column(length: 16)]
