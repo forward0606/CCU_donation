@@ -94,6 +94,8 @@
             <th>paydate</th>
             <td>{{ donation.paydate is empty ? '' : donation.paydate|date('Y-m-d') }}</td>
         </tr>
-
+    </table>
+     <a href="{{ path('donation_all') }}">回到 Donation List</a>
 </div>
+
 {% endblock %}
