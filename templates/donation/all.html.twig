@@ -25,7 +25,14 @@
 <div class="donation_list">
     <table>
         <tr>
-            <th>id</th>
+            <th>id
+                <a href="{{ path('donation_sort', {'fields': 'id'}) }}">>
+                    <button></button>
+                </a>
+                <a href="{{ path('donation_sort', {'fields': 'id', 'orderBy': 'desc'}) }}">>
+                    <button></button>
+                </a>
+            </th>
             <th>name</th>
             <th>money</th>
             <th>person_id</th>
