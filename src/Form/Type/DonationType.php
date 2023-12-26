@@ -20,6 +20,8 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class DonationType extends AbstractType
 {
@@ -34,7 +36,11 @@ class DonationType extends AbstractType
                         '中正校友' => 'alumni',
                     ],
                 ])
-                ->add('name', TextType::class)
+                ->add('name', TextType::class, [
+                    'constraints' => [
+                        new NotBlank(),
+                    ],
+                ])
                 ->add('anonymous', ChoiceType::class, [
                     'choices'  => [
                         '是  ' => true,

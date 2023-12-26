@@ -32,43 +32,43 @@ class DonationController extends AbstractController
         ]);
     }
     
-    #[Route(path: '/add', name: 'donation_add')]
-    public function createAction(EntityManagerInterface $entityManager, Request $request): Response
-    {
-        $donation = new Donation();
-        $donation->setName('Keyboard');
-        $donation->setMoney(1999);
-        $donation->setPersonId('A123456789');
-        $donation->setAnonymous(true);
-        $donation->setIdentityType('normal');
-        $donation->setEmail('tester@ivalid.maybe');
-        $donation->setPhone('0912345678');
-        $donation->setPay('VISA');
-        $donation->setStatus('not yet');
-        $donation->setType('paper');
-        $donation->setDescription('first_test_case');
-        $donation->setDate(new \DateTime());
-        $donation->setAddress('test');
-        $donation->setZipcode('12345');
-        $donation->settitle('Keyboard');
+    // #[Route(path: '/add', name: 'donation_add')]
+    // public function createAction(EntityManagerInterface $entityManager, Request $request): Response
+    // {
+    //     $donation = new Donation();
+    //     $donation->setName('Keyboard');
+    //     $donation->setMoney(1999);
+    //     $donation->setPersonId('A123456789');
+    //     $donation->setAnonymous(true);
+    //     $donation->setIdentityType('normal');
+    //     $donation->setEmail('tester@ivalid.maybe');
+    //     $donation->setPhone('0912345678');
+    //     $donation->setPay('VISA');
+    //     $donation->setStatus('not yet');
+    //     $donation->setType('paper');
+    //     $donation->setDescription('first_test_case');
+    //     $donation->setDate(new \DateTime());
+    //     $donation->setAddress('test');
+    //     $donation->setZipcode('12345');
+    //     $donation->settitle('Keyboard');
 
 
 
-        $form = $this->createForm(DonationType::class, $donation);
-        $form->handleRequest($request);
+    //     $form = $this->createForm(DonationType::class, $donation);
+    //     $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            // tell Doctrine you want to (eventually) save the Donation (no queries yet)
-            $entityManager->persist($donation);
+    //     if ($form->isSubmitted() && $form->isValid()) {
+    //         // tell Doctrine you want to (eventually) save the Donation (no queries yet)
+    //         $entityManager->persist($donation);
 
-            // actually executes the queries (i.e. the INSERT query)
-            $entityManager->flush();
-            return $this->redirectToRoute('donation_all');
-        }
-        return $this->render('donation/add.html.twig', [
-            'form' => $form,
-        ]);
-    }
+    //         // actually executes the queries (i.e. the INSERT query)
+    //         $entityManager->flush();
+    //         return $this->redirectToRoute('donation_all');
+    //     }
+    //     return $this->render('donation/add.html.twig', [
+    //         'form' => $form,
+    //     ]);
+    // }
 
     #[Route(path: '/filter', name: 'donation_filter')]
     public function filterAction(EntityManagerInterface $entityManager, Request $request) :Response //
