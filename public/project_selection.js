@@ -118,17 +118,24 @@ function select_dept(){
 	    deptSelect.style.display = 'inline';
     }
 	deptSelect.options.length = 0;
-	for(var i=0; i<deptArr[index].length; i++){
-		deptSelect.options[i] = new Option(deptArr[index][i], i+1);
-	}
+	let flag = 0;
+    for(var i=0; i<deptArr[index].length; i++){
+		deptSelect.options[i] = new Option(deptArr[index][i], deptArr[index][i]);  
+        if(deptArr[index][i] == document.getElementById('project_department').value){
+            flag = 1;
+        }
+    }
+    if(flag){
+        deptSelect.value = document.getElementById('project_department').value;
+    }
 }
 
 function select_project() {
     var deptSelect = document.getElementById('dept_select');
-    var instSelect = document.getElementById('project_institution');
-    var project_institution_id = dictionary[instSelect.value];
+    // var instSelect = document.getElementById('project_institution');
+    // var project_institution_id = dictionary[instSelect.value];
 
-    document.getElementById('project_department').value = deptArr[project_institution_id][deptSelect.value-1];
+    document.getElementById('project_department').value = deptSelect.value;
 
     return;
 }
