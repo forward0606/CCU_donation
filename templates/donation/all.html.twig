@@ -14,32 +14,106 @@
                 href="{{ path('donation_filter') }}"> 
                 filter
             </a></li>
-            <li><a class="btn btn-outline-secondary" role="button"
+            {#<li><a class="btn btn-outline-secondary" role="button"
                 href="{{ path('donation_sort', {'fields': 'id', 'orderBy': 'desc'}) }}">
                 sort_testing
-            </a></li>
+            </a></li>#}
         </ul>
     </div>
 </div>
 <hr></hr>
+
 <div class="donation_list">
-    <table>
+    <table class="donation_table">
         <tr>
-            <th>id
-                <a href="{{ path('donation_sort', {'fields': 'id'}) }}">>
-                    <button></button>
-                </a>
-                <a href="{{ path('donation_sort', {'fields': 'id', 'orderBy': 'desc'}) }}">>
-                    <button></button>
-                </a>
+            <th style="padding-left: 20px;">
+                <table class="donation_list_table">
+                    <th>id</th>
+                    <th>
+                        <div class="triangle-container">
+                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'id'}) }}"></a>
+                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'id', 'orderBy': 'desc'}) }}"></a>
+                        </div>
+                    </th>
+                </table>
             </th>
-            <th>name</th>
-            <th>money</th>
-            <th>person_id</th>
-            <th>pay</th>
-            <th>status</th>
-            <th>date</th>
-            <th>paydate</th>
+            <th style="padding-left: 20px;">
+                <table class="donation_list_table">
+                    <th>name</th>
+                    <th>
+                        <div class="triangle-container">
+                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'name'}) }}"></a>
+                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'name', 'orderBy': 'desc'}) }}"></a>
+                        </div>
+                    </th>
+                </table>
+            </th>
+            <th style="padding-left: 20px;">
+                <table class="donation_list_table">
+                    <th>money</th>
+                    <th>
+                        <div class="triangle-container">
+                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'money'}) }}"></a>
+                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'money', 'orderBy': 'desc'}) }}"></a>
+                        </div>
+                    </th>
+                </table>
+            </th>
+            <th style="padding-left: 30px;">
+                <table class="donation_list_table">
+                    <th>person_id</th>
+                    <th>
+                        <div class="triangle-container">
+                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'person_id'}) }}"></a>
+                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'person_id', 'orderBy': 'desc'}) }}"></a>
+                        </div>
+                    </th>
+                </table>
+            </th>
+            <th>
+                <table class="donation_list_table">
+                    <th>pay</th>
+                    <th>
+                        <div class="triangle-container">
+                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'pay'}) }}"></a>
+                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'pay', 'orderBy': 'desc'}) }}"></a>
+                        </div>
+                    </th>
+                </table>
+            </th>
+            <th style="padding-left: 25px;">
+                <table class="donation_list_table">
+                    <th>status</th>
+                    <th>
+                        <div class="triangle-container">
+                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'status'}) }}"></a>
+                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'status', 'orderBy': 'desc'}) }}"></a>
+                        </div>
+                    </th>
+                </table>
+            </th>
+            <th style="padding-left: 40px;">
+                <table class="donation_list_table">
+                    <th>date</th>
+                    <th>
+                        <div class="triangle-container">
+                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'date'}) }}"></a>
+                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'date', 'orderBy': 'desc'}) }}"></a>
+                        </div>
+                    </th>
+                </table>
+            </th>
+            <th>
+                <table class="donation_list_table">
+                    <th>paydate</th>
+                    <th>
+                        <div class="triangle-container">
+                            <a class="triangle upward-triangle" href="{{ path('donation_sort', {'fields': 'paydate'}) }}"></a>
+                            <a class="triangle downward-triangle" href="{{ path('donation_sort', {'fields': 'paydate', 'orderBy': 'desc'}) }}"></a>
+                        </div>
+                    </th>
+                </table>
+            </th style="padding-left: 20px;">
             <th>link</th>
             <th>status</th>
         </tr>
