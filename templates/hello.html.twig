@@ -237,6 +237,7 @@
 
 					<div class="form-group money">
 						<label for="money"><span style="color:red">*</span>請輸入捐款金額</label><br>
+						<label style="color:red; font-size:15px;">限定新台幣150元(含)以上</label><br>
 						<select disabled style="padding: 10px;">
 							<option selected="selected">TWD</option>
 						</select>
@@ -283,6 +284,18 @@
 								Message.appendChild(label);
 								flag++;
 							}
+							if(!(isInteger(money))){
+								const label = document.createElement('div');
+								label.textContent = "捐款金額請輸入整數";
+								Message.appendChild(label);
+								flag++;
+							}
+							if(money < 150){
+								const label = document.createElement('div');
+								label.textContent = "捐款金額限定新台幣150元(含)以上";
+								Message.appendChild(label);
+								flag++;
+							}
 
 							// If all required fields are filled, return true
 							if(flag != 0){
@@ -291,6 +304,10 @@
 							}else{
 								return true;
 							}
+						}
+
+						function isInteger(value) {
+    						return /^(\d+|\d+\.\d*0+)$/.test(String(value));
 						}
 
 						function showAlert() {
