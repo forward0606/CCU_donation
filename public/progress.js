@@ -118,7 +118,7 @@ function minusPage(pageNum) {
         page3.style.display = "none";
         list[currentProgress].classList.remove('active');
         currentProgress = currentProgress - 1;
-        cover.style.width = '25%'; 
+        cover.style.width = '33%'; 
         scrollToTop();
     }
 }
